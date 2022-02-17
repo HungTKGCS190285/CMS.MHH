@@ -8,7 +8,9 @@ namespace CMS.MHH.Models
 {
     public class Idea
     {
-        public Idea() {
+
+        public Idea()
+        {
             this.Date = DateTime.Now;
             this.Comments = new HashSet<Comment>();
         }
@@ -16,6 +18,10 @@ namespace CMS.MHH.Models
         public int Id { get; set; }
 
         public int CateId { get; set; }
+
+        public string Title { get; set; }
+
+        public string Description { get; set; }
 
         public string CateName { get; set; }
 
@@ -28,6 +34,10 @@ namespace CMS.MHH.Models
 
         public virtual ApplicationUser Author { get; set; }
 
+        public int SubmissionId { get; set; }
+
+        public virtual Submission Submission { get; set; }
+
         [Display(Name = "Is Anonymous")]
         public bool IsAnonymous { get; set; }
 
@@ -36,7 +46,6 @@ namespace CMS.MHH.Models
 
         public DateTime Date { get; set; }
 
-        public byte[] Document { get; set; }
 
         [Display(Name = "Uploaded file")]
         public string DocumentName { get; set; }
@@ -48,8 +57,6 @@ namespace CMS.MHH.Models
         public int ThumbsDown { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
-        //public IEnumerable<CommentViewModel> Coms { get; set; }
-
 
     }
 }

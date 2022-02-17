@@ -19,7 +19,8 @@ namespace CMS.MHH.Models
             // Add custom user claims here
             return userIdentity;
         }
-        [Display(Name = "Department")]
-        public string Department { get; set; }
+        public int DepartmentId { get; set; }
+
+        public virtual Department Department { get; set; }
     }
 }

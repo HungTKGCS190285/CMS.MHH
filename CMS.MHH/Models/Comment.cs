@@ -27,7 +27,6 @@ namespace CMS.MHH.Models
 
         public virtual ApplicationUser Author { get; set; }
 
-
         public int IdeasId { get; set; }
         public virtual Idea Ideas { get; set; }
 
