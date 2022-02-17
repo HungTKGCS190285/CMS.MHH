@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace CMS.MHH.Controllers
 {
-    public class IdeaController : Controller
+    public class IdeasController : Controller
     {
         // GET: Idea
         public ActionResult Index()
