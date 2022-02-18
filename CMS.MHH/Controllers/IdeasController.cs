@@ -11,6 +11,7 @@ namespace CMS.MHH.Controllers
         // GET: Idea
         public ActionResult Index()
         {
+            return View();
         }
     }
 }
