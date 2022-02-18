@@ -64,6 +64,12 @@ namespace CMS.MHH.Models
 
     public class RegisterViewModel
     {
+        [DataType(DataType.PhoneNumber)]
+
+        public string Phonenumber { get; set; }
+        public string Name { get; set; }
+        public int DepartmentId { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
