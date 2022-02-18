@@ -32,7 +32,7 @@ namespace CMS.MHH.Migrations
                 CreateAdmin(context, adminEmail, adminUserName, adminPassword, adminRole, adminDepartment);
 
                 //QA Manager user
-                var QA_M_Email = "QA_Manager@fpt.com";
+                var QA_M_Email = "  ";
                 var QA_M_UserName = QA_M_Email;
                 var QA_M_Password = "1234";
                 string[] QA_M_Role = { "Staff", "QA Manager" };

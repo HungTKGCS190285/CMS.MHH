@@ -27,6 +27,4 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         return new ApplicationDbContext();
     }
-
-
 }
