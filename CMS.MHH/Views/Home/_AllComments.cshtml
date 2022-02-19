@@ -1,0 +1,21 @@
+﻿@model IEnumerable<CMS.MHH.Models.Comment>
+
+<div id="collapseExample">
+    <div>
+        Comments of this idea
+    </div>
+    <ul id="">
+        @foreach (var item in Model)
+        {
+            <li>
+                @item.Text ||
+                @item.AuthorName||
+                <span>@item.Date</span>
+            </li>
+        }
+    </ul>
+</div>
+
+
+
+

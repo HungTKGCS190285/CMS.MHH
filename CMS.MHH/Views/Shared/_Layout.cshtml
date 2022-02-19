@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My Team Application</title>
     @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -20,6 +23,20 @@
                 @Html.ActionLink("Team Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+
+                @if(User.IsInRole("Staff") || User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
+                {
+                    <div class="dropdown">
+                        <button class="dropbtn">Ideas</button>
+                        <div class="dropdown-content">
+                            @Html.ActionLink("List ideas", "Index", "Ideas")
+                            @Html.ActionLink("My idea", "MyIdeas", "Ideas")
+                            @Html.ActionLink("Create Idea", "List", "Submissions")
+                        </div>
+                    </div>
+                }
+
+                
                 @if ((User.IsInRole("Admin")))
                 {
                     <<div class="dropdown">
@@ -45,7 +62,28 @@
                             @Html.ActionLink("Create new department", "Create", "Departments")
                         </div>
                     </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn">Submissions</button>
+                        <div class="dropdown-content">
+                            @Html.ActionLink("Register new submission", "Create", "Submissions")
+                            @Html.ActionLink("List Submissions", "Index", "Submissions")
+                        </div>
+                    </div>
                 }
+
+                @if ((User.IsInRole("QA Manager")))
+                {
+                    <div class="dropdown">
+                        <button class="dropbtn">Categories</button>
+                        <div class="dropdown-content">
+                            @Html.ActionLink("Register new category", "Create", "Categories")
+                            @Html.ActionLink("List Categories", "Index", "Categories")
+                        </div>
+                    </div>
+                }
+
+
 
 
                 @Html.Partial("_LoginPartial")
