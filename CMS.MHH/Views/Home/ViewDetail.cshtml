@@ -1,0 +1,152 @@
+﻿@model CMS.MHH.ViewModel.IdeaVM
+@using Microsoft.AspNet.Identity;
+
+
+@{
+    ViewBag.Title = "View Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+@foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserlikedislike) // to get all user
+{
+    ViewBag.userid = user.AuthorId;
+    ViewBag.userlike = user.IsLike;
+}
+
+<h2>Detail of Idea</h2>
+<div>
+    Title: @Html.DisplayFor(m => m.Title)
+</div>
+<div>
+    Description: @Html.DisplayFor(m => m.Description)
+</div>
+<div>
+    Content: @Html.DisplayFor(m => m.Content)
+</div>
+
+<div>
+    Author:  @Html.DisplayFor(m => m.Author)
+</div>
+
+<div>
+    Category: @Html.DisplayFor(m => m.CategoryName)
+</div>
+
+<div>
+    Date created: @Html.DisplayFor(m => m.Date)
+</div>
+
+<div>
+    View: @Html.DisplayFor(m => m.View)
+</div>
+@if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == true)
+{
+    <button class="btn btn-info btn-xs like-button"
+            disabled data-status="1"
+            id="Like">
+        Like
+        <i class="fa fa-thumbs-o-up"></i>
+        <span id="likecount">@ViewBag.like</span>
+    </button>
+    <button class="btn btn-info btn-xs like-button"
+            data-status="2"
+            id="Dislike">
+        Dislike
+        <i class="fa fa-thumbs-o-down"></i>
+        <span id="dislikecount">@ViewBag.Dislike</span>
+    </button>
+}
+else if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == false)
+{
+    <button class="btn btn-info btn-xs like-button"
+            data-status="1"
+            id="Like">
+        Like
+        <i class="fa fa-thumbs-o-up"> </i>
+        <span id="likecount"> @ViewBag.like </span>
+    </button>
+    <button class="btn btn-info btn-xs like-button"
+            disabled data - status="2"
+            id="Dislike">
+        Dislike
+        <i class="fa fa-thumbs-o- down"> </i>
+        <span id="dislikecount">@ViewBag.Dislike</span>
+    </button>
+}
+else
+{
+    <button class="btn btn-info btn-xs like-button"
+            data-status="1"
+            id="Like">
+        Like
+        <i class="fa fa-thumbs-o-up"> </i>
+        <span id="likecount">@ViewBag.like</span>
+    </button>
+    <button class="btn btn-info btn-xs like-button"
+            data-status="2"
+            id="Dislike">
+        Dislike
+        <i class="fa fa-thumbs-o-down"> </i>
+        <span id="dislikecount">@ViewBag.Dislike</span>
+    </button>
+}
+<h2>Comments of the Post</h2>
+
+@foreach (var cm in Model.comments)
+{
+    <div>
+        @cm.Comment by
+    @if (cm.CommentAnony == true)
+    {
+        <span>Anonymous</span>
+    }
+    else
+    {
+        <b> <i>@cm.CommentAuthor</i></b>
+    }
+    at <p>@cm.CommentDate</p>
+</div>
+
+}
+<script>
+    $(document).ready(function ()
+    {
+        $(document).on("click", "#Like", function ()
+        {
+            var link = "/Home/Like/?id=" + @Model.Id + "&status=" + $(this).data("status");
+            $.ajax(
+                {
+                    type: "GET",
+                    url: link,
+                    success: function (data) {
+                        var counters = data.split('/');
+                        $("#likecount").text(counters[0]);
+                        $("#dislikecount").text(counters[1]);
+                        $("#Like").attr('disabled', 'disabled');
+                        $("#Dislike").attr('disabled', false);
+                    }
+                }
+            );
+        });
+
+        $(document).on("click", "#Dislike", function ()
+        {
+            var link = "/Home/Like/?id=" + @Model.Id + "&status=" + $(this).data("status");
+            $.ajax(
+                {
+                    type: "GET",
+                    url: link,
+                    success: function (data) {
+                        var counters = data.split('/');
+                        $("#likecount").text(counters[0]);
+                        $("#dislikecount").text(counters[1]);
+                        $("#Dislike").attr('disabled', 'disabled');
+                        $("#Like").attr('disabled', false);
+                    }
+                }
+            );
+        });
+    });
+</script>
+

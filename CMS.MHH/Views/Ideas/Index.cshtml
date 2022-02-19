@@ -1,0 +1,108 @@
+﻿@model  PagedList.IPagedList<CMS.MHH.Models.Idea>
+@using PagedList.Mvc
+@using PagedList
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Submission.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Cate.Category_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Author_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().IsAnonymous)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Content)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().DocumentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().View)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ThumbsUp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().ThumbsDown)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Submission.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cate.Category_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsAnonymous)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @if (item.DocumentName != null)
+                {
+                    @Html.ActionLink(item.DocumentName, "Download", "Ideas", new { id = item.Id }, null)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.View)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThumbsUp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThumbsDown)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }));
+
