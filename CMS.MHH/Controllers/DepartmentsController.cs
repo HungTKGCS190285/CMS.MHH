@@ -37,6 +37,16 @@ namespace CMS.MHH.Controllers
         {
             if (ModelState.IsValid)
             {
+                var dep = db.Departments.ToList();
+                foreach( var a in dep)
+                {
+                    if(department.Name == a.Name)
+                    {
+                        ModelState.AddModelError("", "the role has been exist in the system");
+                        return View();
+                    }                   
+                    
+                }
                 db.Departments.Add(department);
                 db.SaveChanges();
                 return RedirectToAction("Index");

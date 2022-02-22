@@ -24,7 +24,7 @@
             </div>
             <div class="navbar-collapse collapse">
 
-                @if(User.IsInRole("Staff") || User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
+                @if (User.IsInRole("Staff") || User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
                 {
                     <div class="dropdown">
                         <button class="dropbtn">Ideas</button>
@@ -36,10 +36,9 @@
                     </div>
                 }
 
-                
                 @if ((User.IsInRole("Admin")))
                 {
-                    <<div class="dropdown">
+                    <div class="dropdown">
                         <button class="dropbtn">User</button>
                         <div class="dropdown-content">
                             @Html.ActionLink("List user", "Index", "ApplicationUsers")
@@ -68,6 +67,13 @@
                         <div class="dropdown-content">
                             @Html.ActionLink("Register new submission", "Create", "Submissions")
                             @Html.ActionLink("List Submissions", "Index", "Submissions")
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="dropbtn">File & Data</button>
+                        <div class="dropdown-content">
+                            @Html.ActionLink("Files", "Index", "Files")
                         </div>
                     </div>
                 }
