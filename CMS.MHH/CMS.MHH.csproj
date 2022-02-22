@@ -205,6 +205,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CommentVM.cs" />
+    <Compile Include="ViewModel\Export_IdeaVM.cs" />
     <Compile Include="ViewModel\FileVM.cs" />
     <Compile Include="ViewModel\IdeaVM.cs" />
     <Compile Include="ViewModel\User_Role.cs" />
@@ -309,8 +310,9 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Ideas\MyIdeas.cshtml" />
-    <Content Include="Views\Files\Index.cshtml" />
+    <Content Include="Views\Files\Indexs.cshtml" />
     <Content Include="Views\Ideas\Term_Condition.cshtml" />
+    <Content Include="Views\Files\Export_Idea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
