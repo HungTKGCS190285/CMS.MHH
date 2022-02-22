@@ -13,7 +13,7 @@ namespace CMS.MHH.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Files
-        public ActionResult Index()
+        public ActionResult Indexs()
         {
             string[] filsewithPath = Directory.GetFiles(Server.MapPath("~/Files"));
             List<FileVM> files = new List<FileVM>();
@@ -27,6 +27,7 @@ namespace CMS.MHH.Controllers
             }
             return View(files.ToList());
         }
+        
         [HttpPost]
         public ActionResult CreateZipFile(List<FileVM> files)
         {
@@ -50,7 +51,23 @@ namespace CMS.MHH.Controllers
             }
         }
 
-        public void Export()
+        public ActionResult Export_Idea()
+        {
+            var submit = db.Submissions.ToList();
+            List<Export_IdeaVM> export_idea = new List<Export_IdeaVM>();
+            foreach (var idea in submit)
+            {
+                export_idea.Add(new Export_IdeaVM()
+                {
+                    SubmissionId = idea.Id,
+                    SubmissionName = idea.Name,
+                    Content = "The submission " + idea.Name + " is available to download!"
+                });
+            }
+            return View(export_idea.ToList());
+        }
+
+        public ActionResult Export(int id)
         {
             StringWriter sw = new StringWriter();
             sw.WriteLine("\"Id\",\"Title\",\"IsAnonymous\",\"SubmissionId\",\"Author\",\"Category Name\",\"Document Name\",\"Description\",\"Content\",\"Date\",\"View\",\"Thums Up\",\"Thumbs Down\"");
@@ -58,9 +75,11 @@ namespace CMS.MHH.Controllers
             Response.AddHeader("content-disposition",
                                 string.Format("attachment;filename=Export_Data_{0}.csv", DateTime.Now));
             Response.ContentType = "text/csv";
-            var list_ideas = db.Ideas.OrderBy(x => x.Id).ToList();
 
-            foreach (var idea in list_ideas)
+            var list = db.Ideas.Where(x => x.SubmissionId == id).ToList();
+
+            //var list_ideas = db.Ideas.OrderBy(x => x.Id).ToList();
+            foreach (var idea in list)
             {
                 sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\",\"{6}\",\"{7}\",\"{8}\",\"{9}\",\"{10}\",\"{11}\",\"{12}\"",
                                            idea.Id,
@@ -80,7 +99,7 @@ namespace CMS.MHH.Controllers
             }
             Response.Write(sw.ToString());
             Response.End();
-
+            return View("Export_Idea");
         }
 
 
