@@ -28,8 +28,6 @@ namespace CMS.MHH.Controllers
                 }
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
-
-
             }
             var li_idea = idea_anony.OrderByDescending(x => x.Date).ToPagedList(page, pageSize);
             return View(li_idea);
@@ -171,12 +169,12 @@ namespace CMS.MHH.Controllers
         [HttpGet]
         public ActionResult CommentDetail(int id)
         {
-            var com_anony = this.db.Comments.Where(x => x.Ideas.Id == id);
+            var com_anony = this.db.Comments.Include(x=>x.Author).Where(x => x.Ideas.Id == id);
             foreach (var a in com_anony)
             {
                 if (a.IsAnonymous == true)
                 {
-                    a.AuthorName = "Anonymous";
+                    a.Author.Email = "Anonymous";
                 }
             }
             return this.PartialView("_AllComments", com_anony);
