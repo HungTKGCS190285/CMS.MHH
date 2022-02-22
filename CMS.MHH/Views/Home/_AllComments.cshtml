@@ -8,9 +8,9 @@
         @foreach (var item in Model)
         {
             <li>
-                @item.Text ||
-                @item.Author.Email||
-                <span>@item.Date</span>
+                <b>@item.Author.Email</b>: @item.Text
+                <br />
+                <p style="font-size:10px">@item.Date</p>
             </li>
         }
     </ul>

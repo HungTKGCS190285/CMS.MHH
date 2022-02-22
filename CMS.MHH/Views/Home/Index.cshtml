@@ -7,43 +7,37 @@
     ViewBag.Title = "Home page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div>
+    <h2>Index</h2>
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <script src="~/Scripts/jquery-1.11.1.min.js"></script>
+</div>
 
 
 @foreach (var item in Model)
 {
-    <div class="container">
+    <div class="container" style="padding-bottom: 30px">
         <div class=”row”>
-            <div class="col-md-8 col-sm-4 col-xs-8" style="border-radius: 3px 2px; border: 5px solid black; margin: 5px;">
+            <div>
                 <div>
-                    <h1 style="color:blueviolet; text-align: center ">
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </h1>
-                    <div>
-                        @Html.DisplayFor(modelItem => item.CateName)
+                    <div style="text-align: left">
+                        <h3 style="color:darkblue">@Html.DisplayFor(modelItem => item.CateName): @Html.ActionLink(item.Title, "ViewDetail", "Home", new { id = item.Id }, null)</h3>
                     </div>
-                    <div>
+                    <div style="font-size:12px; margin-top:-5px; padding-bottom:10px">
+                        Posted at <b>@Html.DisplayFor(modelItem => item.Date)</b> by <b>@Html.DisplayFor(modelItem => item.Author_Email)</b>
+                    </div>
+                    <div style="padding: 10px 5px; margin-right: 55%; border: 0.5px solid LightGray">
                         @Html.DisplayFor(modelItem => item.Description)
                     </div>
-                    <div>
-                        Date: @Html.DisplayFor(modelItem => item.Date)
-                    </div>
-                    <div>
-                        <strong> Author: </strong>:@Html.DisplayFor(modelItem => item.Author_Email)
-                    </div>
 
-                    @Html.ActionLink("Detail", "ViewDetail", "Home", new { id = item.Id }, null)
-
+                    <div style="padding-top: 5px">
                     <button id='myBtn_@item.Id' class="btn btn-outline-primary">View all comments</button>
 
                     <button id='cmt_@item.Id' class="btn btn-outline-primary" ty>Comment</button>
-
+                    </div>
                     <script>
                 $(document).ready(function () {
                     $('#myBtn_@item.Id').click(function () {
@@ -107,7 +101,7 @@
         </div>
     </div>
             }
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }));
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 
             @section scripts {
                 @Scripts.Render("~/bundles/ajax")
