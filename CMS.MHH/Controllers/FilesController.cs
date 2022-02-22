@@ -99,7 +99,7 @@ namespace CMS.MHH.Controllers
             }
             Response.Write(sw.ToString());
             Response.End();
-            return View("Export_Idea");
+            return RedirectToAction("Export_Idea");
         }
 
 
