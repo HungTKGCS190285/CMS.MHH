@@ -12,7 +12,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:cornflowerblue">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Team Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Team Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "homebtn" })
             </div>
             <div class="navbar-collapse collapse">
 
@@ -111,12 +111,14 @@
     }
 
     .dropbtn {
-        background-color: black;
+        background-color: dodgerblue;
         color: white;
         padding: 16px;
         font-size: 16px;
-        border: none;
+        border: 0.5px solid black;
+        border-radius: 5px;
         cursor: pointer;
+        font-weight: bold;
     }
 
     .dropdown {
@@ -150,6 +152,15 @@
 
     .dropdown:hover .dropbtn {
         background-color: #3e8e41;
+    }
+
+    #homebtn{
+        font-weight:bold;
+        color:white;
+    }
+
+    #homebtn:hover{
+       text-decoration:none;
     }
 </style>
 
