@@ -98,10 +98,6 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer style="text-align:right">
-            <p>&copy; @DateTime.Now.Year - My Team Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -110,6 +106,10 @@
 </body>
 </html>
 <style>
+    body {
+        background-color: whitesmoke;
+    }
+
     .dropbtn {
         background-color: black;
         color: white;

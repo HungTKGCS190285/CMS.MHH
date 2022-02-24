@@ -21,7 +21,7 @@
 </div>
 
 <div style="display:table; width: 64%">
-    <h4 style="float:left; margin-left: 3%"><b>New Ideas</b></h4>
+    <h2 style="float:left; margin-left: 3%; color: steelblue"><b>New Ideas</b></h2>
     
     <div style="text-align:right; width: 97%; margin-bottom:5px">
         <button>
@@ -32,7 +32,7 @@
 
     @foreach (var item in Model)
     {
-        <div class="container" style="margin-bottom: 20px; width:95%; border: 0.5px solid black; border-radius:10px; background-color:whitesmoke; clear:both">
+        <div class="container" style="margin-bottom: 20px; width:95%; border: 0.5px solid white; border-radius:10px; background-color:white; box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2); clear:both">
             <div class=”row”>
                 <div>
                     <div>
@@ -47,9 +47,9 @@
                         </div>
 
                         <div style="padding: 5px 0; text-align:right">
-                            <button id='myBtn_@item.Id' class="btn btn-outline-primary" style="border: 0.5px solid gray; border-radius: 7px">View all comments</button>
+                            <button id='myBtn_@item.Id' class="btn btn-default" style="border: 0.5px solid gray; border-radius: 7px">View all comments</button>
 
-                            <button id='cmt_@item.Id' class="btn btn-outline-primary" style="border: 0.5px solid gray; border-radius: 7px">Comment</button>
+                            <button id='cmt_@item.Id' class="btn btn-primary" style="border: 0.5px solid gray; border-radius: 7px">Comment</button>
                         </div>
 
                         <script>

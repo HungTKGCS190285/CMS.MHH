@@ -3,37 +3,30 @@
 @using PagedList
 
 
-<h2>My idea</h2>
+<h2 style="color: steelblue">My idea</h2>
 
 <script src="~/Scripts/jquery-1.11.1.min.js"></script>
 
 @foreach (var item in Model)
 {
-    <div class="container">
+    <div class="container" style="width: 60%; border-radius: 10px; border: 0.5px solid white; background-color: white; box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2); clear: both;">
         <div class=”row”>
-            <div class="col-md-8 col-sm-4 col-xs-8" style="border-radius: 3px 2px; border: 5px solid black; margin: 5px;">
+            <div>
                 <div>
-                    <h1 style="color:blueviolet; text-align: center ">
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </h1>
-                    <div>
-                        @Html.DisplayFor(modelItem => item.CateName)
+                    <div style="text-align: left">
+                        <h3 style="color:darkblue">@Html.DisplayFor(modelItem => item.CateName): @Html.ActionLink(item.Title, "ViewDetail", "Home", new { id = item.Id }, null)</h3>
                     </div>
-                    <div>
+                    <div style="font-size:12px; margin-top:-5px; padding-bottom:10px">
+                        Posted at <b>@Html.DisplayFor(modelItem => item.Date)</b> by <b>@Html.DisplayFor(modelItem => item.Author_Email)</b>
+                    </div>
+                    <div style="padding: 10px 5px; border: 0.5px solid gray; border-radius: 7px; background-color:white">
                         @Html.DisplayFor(modelItem => item.Description)
                     </div>
-                    <div>
-                        Date: @Html.DisplayFor(modelItem => item.Date)
+                    <div style="padding: 5px 0; text-align:right">
+                        <button id='myBtn_@item.Id' class="btn btn-default" style="border: 0.5px solid gray; border-radius: 7px">View all comments</button>
+
+                        <button id='cmt_@item.Id' class="btn btn-primary" style="border: 0.5px solid gray; border-radius: 7px">Comment</button>
                     </div>
-                    <div>
-                        <strong> Author: </strong>:@Html.DisplayFor(modelItem => item.Author_Email)
-                    </div>
-
-                    @Html.ActionLink("Detail", "ViewDetail", "Home", new { id = item.Id }, null)
-
-                    <button id='myBtn_@item.Id' class="btn btn-outline-primary">View all comments</button>
-
-                    <button id='cmt_@item.Id' class="btn btn-outline-primary" ty>Comment</button>
 
                     <script>
                 $(document).ready(function () {
@@ -98,10 +91,11 @@
         </div>
     </div>
 }
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }));
+<div style="text-align: center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))  
 
-@section scripts {
+    @section scripts {
     @Scripts.Render("~/bundles/ajax")
-}
-
+    }
+</div>
 
