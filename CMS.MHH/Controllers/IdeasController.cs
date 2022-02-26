@@ -37,6 +37,11 @@ namespace CMS.MHH.Controllers
                 return View(myidea.OrderByDescending(x => x.Date).ToPagedList(page, pageSize)); 
         }
 
+        public ActionResult Term_Condition()
+        {
+            return View();
+        }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -105,11 +110,11 @@ namespace CMS.MHH.Controllers
                 MailMessage mail = new MailMessage();
 
                 SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
-                smtpServer.Credentials = new System.Net.NetworkCredential("leluongminhman2112@gmail.com", "0937757188");
+                smtpServer.Credentials = new System.Net.NetworkCredential("qamanager321@gmail.com", "<a3333333");
                 smtpServer.Port = 587;
                 smtpServer.EnableSsl = true;
 
-                mail.From = new MailAddress("leluongminhman2112@gmail.com");
+                mail.From = new MailAddress("qamanager321@gmail.com");
                 mail.To.Add("manllmgcs190101@fpt.edu.vn");
                 mail.Subject = "Notification about new submitted idea";
                 mail.Body = "A new idea has been posted in your department report";

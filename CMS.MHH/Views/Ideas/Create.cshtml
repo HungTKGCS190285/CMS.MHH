@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Create</h2>
 
 
@@ -72,24 +73,22 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" id="sub" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         {
             $('#sub').click(function () {
-                var checkbox = document.getElementById("term");
-                console.log(checkbox);
 
-                if (checkbox.Checked = 1) {
-                    alert("Please must agree term and condition before submit idea ");
-                    return false;
+                if ($('#term').is(':checked')) {
+                    return true;
                 }
                 else {
-                    return true;
+                    alert("Checkbox Is not checked");
+                    return false;
                 }
             });
 
