@@ -186,47 +186,6 @@ namespace CMS.MHH.Migrations
         }
 
 
-        private void CreateAdmin(ApplicationDbContext context, string adminEmail, string adminUserName, string adminPassword, string adminRole, int adminDepartment)
-        {
-
-            var adminUser = new ApplicationUser
-            {
-                UserName = adminUserName,
-                Email = adminEmail,
-                DepartmentId = adminDepartment
-            };
-            var userStore = new UserStore<ApplicationUser>(context);
-            var userManager = new UserManager<ApplicationUser>(userStore);
-            userManager.PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 4,
-                RequireNonLetterOrDigit = false,
-                RequireDigit = false,
-                RequireLowercase = false,
-                RequireUppercase = false,
-            };
-            var userCreateResult = userManager.Create(adminUser, adminPassword);
-            if (!userCreateResult.Succeeded)
-            {
-                throw new Exception(string.Join("; ", userCreateResult.Errors));
-            }
-
-
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var roleCreateResult = roleManager.Create(new IdentityRole(adminRole));
-            if (!roleCreateResult.Succeeded)
-            {
-                throw new Exception(string.Join("; ", roleCreateResult.Errors));
-            }
-
-            var addTrainingstaffRoleResult = userManager.AddToRole(adminUser.Id, adminRole);
-            if (!addTrainingstaffRoleResult.Succeeded)
-            {
-                throw new Exception(string.Join("; ", addTrainingstaffRoleResult.Errors));
-            }
-
-        }
-
         private void CreateQA_Manager(ApplicationDbContext context, string QA_M_Email, string QA_M_UserName, string QA_M_Password, string[] QA_M_Role, int QA_M_Department)
         {
             var adminUser = new ApplicationUser
@@ -276,6 +235,46 @@ namespace CMS.MHH.Migrations
 
         }
 
+        private void CreateAdmin(ApplicationDbContext context, string adminEmail, string adminUserName, string adminPassword, string adminRole, int adminDepartment)
+        {
+
+            var adminUser = new ApplicationUser
+            {
+                UserName = adminUserName,
+                Email = adminEmail,
+                DepartmentId = adminDepartment
+            };
+            var userStore = new UserStore<ApplicationUser>(context);
+            var userManager = new UserManager<ApplicationUser>(userStore);
+            userManager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 4,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
+            };
+            var userCreateResult = userManager.Create(adminUser, adminPassword);
+            if (!userCreateResult.Succeeded)
+            {
+                throw new Exception(string.Join("; ", userCreateResult.Errors));
+            }
+
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var roleCreateResult = roleManager.Create(new IdentityRole(adminRole));
+            if (!roleCreateResult.Succeeded)
+            {
+                throw new Exception(string.Join("; ", roleCreateResult.Errors));
+            }
+
+            var addTrainingstaffRoleResult = userManager.AddToRole(adminUser.Id, adminRole);
+            if (!addTrainingstaffRoleResult.Succeeded)
+            {
+                throw new Exception(string.Join("; ", addTrainingstaffRoleResult.Errors));
+            }
+
+        }
         private void CreateQA_IT(ApplicationDbContext context, string QA_M_Email, string QA_M_UserName, string QA_M_Password, string[] QA_M_Role, int QA_M_Department)
         {
             var adminUser = new ApplicationUser
