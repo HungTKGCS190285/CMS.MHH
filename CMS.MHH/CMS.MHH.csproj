@@ -186,6 +186,7 @@
     <Compile Include="Controllers\IdeasController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="CustomFilters\AuthLogAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,6 +208,7 @@
     <Compile Include="ViewModel\CommentVM.cs" />
     <Compile Include="ViewModel\FileVM.cs" />
     <Compile Include="ViewModel\IdeaVM.cs" />
+    <Compile Include="ViewModel\StatisticsVM.cs" />
     <Compile Include="ViewModel\User_Role.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +313,8 @@
     <Content Include="Views\Ideas\MyIdeas.cshtml" />
     <Content Include="Views\Files\Index.cshtml" />
     <Content Include="Views\Ideas\Term_Condition.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
+    <Content Include="Views\Statistics\Exception.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
