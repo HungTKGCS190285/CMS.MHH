@@ -247,5 +247,24 @@ namespace CMS.MHH.Controllers
                 throw raise;
             }
         }
+
+        public ActionResult mostViewedIdea(Idea mvi) //show most viewed Idea
+        {
+            int maxView = db.Ideas.Select(x => x.View).DefaultIfEmpty(0).Max();
+            mvi = (Idea)db.Ideas.Where(i => i.View == maxView);
+            var mostViewedIdea = new IdeaVM()
+            {
+                Id = mvi.Id,
+                Content = mvi.Content,
+                Author = mvi.Author_Email,
+                CategoryName = mvi.Cate.Category_Name,
+                Date = mvi.Date,
+                View = mvi.View,
+                Title = mvi.Title,
+                Description = mvi.Description,
+                AuthorId = mvi.AuthorId,                
+            };
+            return View(mvi);
+        }
     }
 }

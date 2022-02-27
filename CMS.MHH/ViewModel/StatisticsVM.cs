@@ -30,6 +30,5 @@ namespace CMS.MHH.ViewModel
         public int idea_anonymous { get; set; }
 
         public int comment_anonymous { get; set; }
-
     }
 }

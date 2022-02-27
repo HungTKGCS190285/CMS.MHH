@@ -10,11 +10,9 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery-1.11.1.min.js"></script>
-
-
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:cornflowerblue">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,22 +20,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Team Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Team Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "homebtn" })
             </div>
             <div class="navbar-collapse collapse">
 
                 @if (User.IsInRole("Staff") || User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
                 {
                     <div class="dropdown">
-                        <button class="dropbtn">Ideas</button>
-                        <div class="dropdown-content">
-                            @if (User.IsInRole("QA Manager"))
-                            {
-                                @Html.ActionLink("List ideas", "Index", "Ideas")
-                            }
-                            @Html.ActionLink("My idea", "MyIdeas", "Ideas")
-                            @Html.ActionLink("Create Idea", "List", "Submissions")
-                        </div>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                            Ideas
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List ideas", "Index", "Ideas")</li>
+                            <li>@Html.ActionLink("My idea", "MyIdeas", "Ideas")</li>
+                            <li>@Html.ActionLink("Create Idea", "List", "Submissions")</li>
+                        </ul>
+                        
                     </div>
                 }
 
@@ -45,55 +44,72 @@
                 @if ((User.IsInRole("Admin")))
                 {
                     <div class="dropdown">
-                        <button class="dropbtn">User</button>
-                        <div class="dropdown-content">
-                            @Html.ActionLink("List user", "Index", "ApplicationUsers")
-                            @Html.ActionLink("Register new user", "Create", "ApplicationUsers")
-                        </div>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                            User
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List user", "Index", "ApplicationUsers")</li>
+                            <li>@Html.ActionLink("Register new user", "Create", "ApplicationUsers")</li>
+                        </ul>
                     </div>
 
                     <div class="dropdown">
-                        <button class="dropbtn">Role</button>
-                        <div class="dropdown-content">
-                            @Html.ActionLink("List Roles", "Index", "Roles")
-                            @Html.ActionLink("Create new Roles", "Create", "Roles")
-                        </div>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                            Role
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List Roles", "Index", "Roles")</li>
+                            <li>@Html.ActionLink("Create new Roles", "Create", "Roles")</li>
+                        </ul>
                     </div>
 
                     <div class="dropdown">
-                        <button class="dropbtn">Department</button>
-                        <div class="dropdown-content">
-                            @Html.ActionLink("List Department", "Index", "Departments")
-                            @Html.ActionLink("Create new department", "Create", "Departments")
-                        </div>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                            Department
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List Department", "Index", "Departments")</li>
+                            <li>@Html.ActionLink("Create new department", "Create", "Departments")</li>
+                        </ul>
                     </div>
 
                     <div class="dropdown">
-                        <button class="dropbtn">Submissions</button>
-                        <div class="dropdown-content">
-                            @Html.ActionLink("Register new submission", "Create", "Submissions")
-                            @Html.ActionLink("List Submissions", "Index", "Submissions")
-                        </div>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                            Submission
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Register new submission", "Create", "Submissions")</li>
+                            <li>@Html.ActionLink("List Submissions", "Index", "Submissions")</li>
+                        </ul>
                     </div>
 
                     <div class="dropdown">
-                        <button class="dropbtn">File & Data</button>
-                        <div class="dropdown-content">
-                            @Html.ActionLink("Files", "Indexs", "Files")
-                            @Html.ActionLink("Data", "Export_Idea", "Files")
-
-                        </div>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                            Files & Data
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Files", "Index", "Files")</li>
+                        </ul>
+                     
                     </div>
                 }
 
                 @if ((User.IsInRole("QA Manager")))
                 {
                     <div class="dropdown">
-                        <button class="dropbtn">Categories</button>
-                        <div class="dropdown-content">
-                            @Html.ActionLink("Register new category", "Create", "Categories")
-                            @Html.ActionLink("List Categories", "Index", "Categories")
-                        </div>
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                            Categories
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Register new category", "Create", "Categories")</li>
+                            <li>@Html.ActionLink("List Categories", "Index", "Categories")</li>
+                        </ul>
                     </div>
                 }
                 <div class="dropdown">
@@ -104,19 +120,22 @@
                     </div>
                 </div>
 
-
-
-
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                        Statistics
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
+                        <li>@Html.ActionLink("Exceptions", "Exceptions", "Statistics")</li>
+                    </ul>
+                </div>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My Team Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -125,13 +144,23 @@
 </body>
 </html>
 <style>
-    .dropbtn {
-        background-color: black;
+    body {
+        background-color: whitesmoke;
+    }
+
+    #dropdownbtn {
+        background-color: cornflowerblue;
         color: white;
         padding: 16px;
         font-size: 16px;
-        border: none;
+        border: none; 
         cursor: pointer;
+        font-weight: bold;
+        height: 30px;
+        margin-top: 10px;
+        padding-top: 4px;
+        margin-left: 10px;
+        width: 130px;
     }
 
     .dropdown {
@@ -139,32 +168,14 @@
         display: inline-block;
     }
 
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
+
+    #homebtn{
+        font-weight:bold;
+        color:white;
     }
 
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-            .dropdown-content a:hover {
-                background-color: #f1f1f1
-            }
-
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    .dropdown:hover .dropbtn {
-        background-color: #3e8e41;
+    #homebtn:hover{
+       text-decoration:none;
     }
 </style>
 
