@@ -28,7 +28,7 @@
     @{int i = 0;}
     @foreach (var item in Model)
     {
-        if (i == 0)
+        if (i == 0) //"i == 0" means this is the first and also the latest idea
         {
             <div class="container" style="margin-bottom: 20px; width:95%; border: 0.5px solid white; border-radius:10px; background-color:white; box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2); clear:both">
                 <div class=”row”>
@@ -95,59 +95,59 @@
             </div>
         }
         <script>
-                                $(document).ready(function () {
-                                    $('#myBtn_@item.Id').click(function () {
-                                    var $myPartialView = $('#comment-details-@item.Id');
-                                    if ($myPartialView.is(':empty')) {
-                                        $.ajax({
-                                            url: '/Home/CommentDetail/',
-                                            data: { id: @item.Id},
-                                            datatype: "html",
-                                            type: "GET",
-                                            cache: false,
-                                            success: function (result) {
-                                                $myPartialView.html(result);
-                                            },
-                                            error: function (xhr, status, error) {
-                                                var errorMessage = xhr.status + ': ' + xhr.statusText;
-                                                alert('error - ' + errorMessage);
-                                            }
-                                        });
-                                    }
-                                    else {
-                                        $myPartialView.empty();
-                                    }
-                                        return false;
-                                    });
+            $(document).ready(function () {
+                $('#myBtn_@item.Id').click(function () {
+                var $myPartialView = $('#comment-details-@item.Id');
+                if ($myPartialView.is(':empty')) {
+                    $.ajax({
+                        url: '/Home/CommentDetail/',
+                        data: { id: @item.Id},
+                        datatype: "html",
+                        type: "GET",
+                        cache: false,
+                        success: function (result) {
+                            $myPartialView.html(result);
+                        },
+                        error: function (xhr, status, error) {
+                            var errorMessage = xhr.status + ': ' + xhr.statusText;
+                            alert('error - ' + errorMessage);
+                        }
+                    });
+                }
+                else {
+                    $myPartialView.empty();
+                }
+                    return false;
+                });
 
-                                    $('#cmt_@item.Id').click(function () {
-                                    var $myPartialView = $('#write-comment-@item.Id');
-                                    if ($myPartialView.is(':empty')) {
-                                        $.ajax({
-                                            url: '/Home/Comments/',
-                                            data: { id: @item.Id},
-                                            datatype: "html",
-                                            type: "GET",
-                                            cache: false,
-                                            success: function (result) {
-                                                $myPartialView.html(result);
-                                            },
-                                            error: function (xhr, status, error) {
-                                                var errorMessage = xhr.status + ': ' + xhr.statusText;
-                                                alert('error - ' + errorMessage);
-                                            }
-                                        });
-                                    }
-                                    else {
-                                        $myPartialView.empty();
-                                    }
-                                        return false;
-                                    });
-                                });
+                $('#cmt_@item.Id').click(function () {
+                var $myPartialView = $('#write-comment-@item.Id');
+                if ($myPartialView.is(':empty')) {
+                    $.ajax({
+                        url: '/Home/Comments/',
+                        data: { id: @item.Id},
+                        datatype: "html",
+                        type: "GET",
+                        cache: false,
+                        success: function (result) {
+                            $myPartialView.html(result);
+                        },
+                        error: function (xhr, status, error) {
+                            var errorMessage = xhr.status + ': ' + xhr.statusText;
+                            alert('error - ' + errorMessage);
+                        }
+                    });
+                }
+                else {
+                    $myPartialView.empty();
+                }
+                    return false;
+                });
+            });
 
         </script>
         i++;
-    }
+     }
 </div>
 
 <div style="text-align:center; clear:both">
