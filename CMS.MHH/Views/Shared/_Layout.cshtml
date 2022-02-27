@@ -25,17 +25,17 @@
 
                 @if (User.IsInRole("Staff") || User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
                 {
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
-                        Ideas
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("List ideas", "Index", "Ideas")</li>
-                        <li>@Html.ActionLink("My idea", "MyIdeas", "Ideas")</li>
-                        <li>@Html.ActionLink("Create Idea", "List", "Submissions")</li>
-                    </ul>
-                </div>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                            Ideas
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List ideas", "Index", "Ideas")</li>
+                            <li>@Html.ActionLink("My idea", "MyIdeas", "Ideas")</li>
+                            <li>@Html.ActionLink("Create Idea", "List", "Submissions")</li>
+                        </ul>
+                    </div>
                 }
 
                 @if ((User.IsInRole("Admin")))
@@ -108,6 +108,17 @@
                         </ul>
                     </div>
                 }
+
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                        Statistics
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
+                        <li>@Html.ActionLink("Exceptions", "Exceptions", "Statistics")</li>
+                    </ul>
+                </div>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

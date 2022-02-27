@@ -314,7 +314,7 @@
     <Content Include="Views\Files\Index.cshtml" />
     <Content Include="Views\Ideas\Term_Condition.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
-    <Content Include="Views\Statistics\Exception.cshtml" />
+    <Content Include="Views\Statistics\Exceptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
