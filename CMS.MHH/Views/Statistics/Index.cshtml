@@ -1,0 +1,32 @@
+﻿@model CMS.MHH.ViewModel.StatisticsVM
+@{
+    ViewBag.Title = "Statistic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table">
+    <tr>
+        <th>Statistic</th>
+        <th>IT</th>
+        <th>HR</th>
+        <th>QA</th>
+    </tr>
+    <tr>
+        <td>o   Number of ideas made by each Department</td>
+        <td>@Html.DisplayFor(m => m.num_idea_IT)</td>
+        <td>@Html.DisplayFor(m => m.num_idea_HR)</td>
+        <td>@Html.DisplayFor(m => m.num_idea_QA)</td>
+
+    </tr>
+    <tr>
+        <td>o   Percentage of ideas made by each Department</td>
+        <td>@Html.DisplayFor(m => m.per_idea_IT)%</td>
+        <td>@Html.DisplayFor(m => m.per_idea_HR)%</td>
+        <td>@Html.DisplayFor(m => m.per_idea_QA)%</td>
+    </tr>
+    <tr>
+        <td> 	Number of contributors within each Department.</td>
+        <td>@Html.DisplayFor(m => m.num_contri_IT)</td>
+        <td>@Html.DisplayFor(m => m.num_contri_HR)</td>
+        <td>@Html.DisplayFor(m => m.num_contri_QA)</td>
+    </tr>
+</table>
