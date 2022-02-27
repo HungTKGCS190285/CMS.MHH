@@ -169,12 +169,16 @@ namespace CMS.MHH.Controllers
         [HttpGet]
         public ActionResult CommentDetail(int id)
         {
-            var com_anony = this.db.Comments.Include(x=>x.Author).Where(x => x.Ideas.Id == id);
+            var com_anony = this.db.Comments.Include(x => x.Author).Where(x => x.Ideas.Id == id);
             foreach (var a in com_anony)
             {
                 if (a.IsAnonymous == true)
                 {
-                    a.Author.Email = "Anonymous";
+                    a.AuthorName = "Anonymous";
+                }
+                else
+                {
+                    a.AuthorName = a.Author.Email;
                 }
             }
             return this.PartialView("_AllComments", com_anony);
