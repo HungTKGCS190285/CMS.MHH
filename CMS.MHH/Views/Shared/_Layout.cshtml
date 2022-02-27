@@ -31,12 +31,16 @@
                     <div class="dropdown">
                         <button class="dropbtn">Ideas</button>
                         <div class="dropdown-content">
-                            @Html.ActionLink("List ideas", "Index", "Ideas")
+                            @if (User.IsInRole("QA Manager"))
+                            {
+                                @Html.ActionLink("List ideas", "Index", "Ideas")
+                            }
                             @Html.ActionLink("My idea", "MyIdeas", "Ideas")
                             @Html.ActionLink("Create Idea", "List", "Submissions")
                         </div>
                     </div>
                 }
+
 
                 @if ((User.IsInRole("Admin")))
                 {
@@ -92,6 +96,13 @@
                         </div>
                     </div>
                 }
+                <div class="dropdown">
+                    <button class="dropbtn">Statistics</button>
+                    <div class="dropdown-content">
+                        @Html.ActionLink("Statistics", "Index", "Statistics")
+                        @Html.ActionLink("Exceptions", "Exceptions", "Statistics")
+                    </div>
+                </div>
 
 
 
