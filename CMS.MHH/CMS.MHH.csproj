@@ -317,6 +317,8 @@
     <Content Include="Views\Files\Export_Idea.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Statistics\Exceptions.cshtml" />
+    <Content Include="Views\Home\MostViewed.cshtml" />
+    <Content Include="Views\Home\MostPopular.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
