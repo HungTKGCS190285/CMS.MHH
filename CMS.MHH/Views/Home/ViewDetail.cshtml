@@ -42,17 +42,16 @@
 </div>
 @if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == true)
 {
-<button class="btn btn-info btn-xs like-button"
-        disabled data-status="1"
-        id="Like">
-    <i class="bi bi-hand-thumbs-up-fill"></i> Like
-    <span id="likecount">@ViewBag.like</span>
-</button>
+    <button class="btn btn-info btn-xs like-button"
+            disabled data-status="1"
+            id="Like">
+        <i class="bi bi-hand-thumbs-up-fill"></i> Like
+        <span id="likecount">@ViewBag.like</span>
+    </button>
     <button class="btn btn-info btn-xs like-button"
             data-status="2"
             id="Dislike">
-        Dislike
-        <i class="fa fa-thumbs-o-down"></i>
+        <i class="bi bi-hand-thumbs-down-fill"></i>Dislike
         <span id="dislikecount">@ViewBag.Dislike</span>
     </button>
 }
@@ -61,30 +60,28 @@ else if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == fal
     <button class="btn btn-info btn-xs like-button"
             data-status="1"
             id="Like">
-        <i class="bi bi-hand-thumbs-up-fill"></i> Like  
+        <i class="bi bi-hand-thumbs-up-fill"></i> Like
         <span id="likecount"> @ViewBag.like </span>
     </button>
     <button class="btn btn-info btn-xs like-button"
             disabled data - status="2"
             id="Dislike">
-        Dislike
-        <i class="fa fa-thumbs-o- down"></i>
+        <i class="bi bi-hand-thumbs-down-fill"></i>Dislike
         <span id="dislikecount">@ViewBag.Dislike</span>
     </button>
 }
 else
 {
-<button class="btn btn-info btn-xs like-button"
-        data-status="1"
-        id="Like">
-    <i class="bi bi-hand-thumbs-up-fill"></i> Like
-    <span id="likecount">@ViewBag.like</span>
-</button>
+    <button class="btn btn-info btn-xs like-button"
+            data-status="1"
+            id="Like">
+        <i class="bi bi-hand-thumbs-up-fill"></i> Like
+        <span id="likecount">@ViewBag.like</span>
+    </button>
     <button class="btn btn-info btn-xs like-button"
             data-status="2"
             id="Dislike">
-        Dislike
-        <i class="fa fa-thumbs-o-down"> </i>
+        <i class="bi bi-hand-thumbs-down-fill"></i>Disliken
         <span id="dislikecount">@ViewBag.Dislike</span>
     </button>
 }
@@ -94,18 +91,19 @@ else
 {
     <div>
         @cm.Comment by
-    @if (cm.CommentAnony == true)
-    {
-        <span>Anonymous</span>
-    }
-    else
-    {
-        <b> <i>@cm.CommentAuthor</i></b>
-    }
-    at <p>@cm.CommentDate</p>
-</div>
+        @if (cm.CommentAnony == true)
+        {
+            <span>Anonymous</span>
+        }
+        else
+        {
+            <b> <i>@cm.CommentAuthor</i></b>
+        }
+        at <p>@cm.CommentDate</p>
+    </div>
 
 }
+@Scripts.Render("~/bundles/bootstrap")
 <script>
     $(document).ready(function ()
     {

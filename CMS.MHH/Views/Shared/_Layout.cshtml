@@ -8,7 +8,6 @@
     @RenderSection("styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery-1.11.1.min.js"></script>
 </head>
 <body>
@@ -27,7 +26,7 @@
                 @if (User.IsInRole("Staff") || User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
                 {
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn1">
                             Ideas
                             <span class="caret"></span>
                         </button>
@@ -40,11 +39,10 @@
                     </div>
                 }
 
-
                 @if ((User.IsInRole("Admin")))
                 {
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn1">
                             User
                             <span class="caret"></span>
                         </button>
@@ -55,7 +53,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn1">
                             Role
                             <span class="caret"></span>
                         </button>
@@ -66,7 +64,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
                             Department
                             <span class="caret"></span>
                         </button>
@@ -77,7 +75,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
                             Submission
                             <span class="caret"></span>
                         </button>
@@ -88,7 +86,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
                             Files & Data
                             <span class="caret"></span>
                         </button>
@@ -102,7 +100,7 @@
                 @if ((User.IsInRole("QA Manager")))
                 {
                     <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
                             Categories
                             <span class="caret"></span>
                         </button>
@@ -115,7 +113,7 @@
                 
 
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
                         Statistics
                         <span class="caret"></span>
                     </button>
@@ -142,7 +140,22 @@
         background-color: whitesmoke;
     }
 
-    #dropdownbtn {
+    #dropdownbtn1 {
+        background-color: cornflowerblue;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        height: 30px;
+        margin-top: 10px;
+        padding-top: 4px;
+        margin-left: 10px;
+        width: 80px;
+    }
+
+    #dropdownbtn2 {
         background-color: cornflowerblue;
         color: white;
         padding: 16px;
@@ -157,6 +170,11 @@
         width: 130px;
     }
 
+    #dropdownbtn1:focus, #dropdownbtn2:focus{
+        outline: none;
+        box-shadow: none;
+    }
+    
     .dropdown {
         position: relative;
         display: inline-block;
