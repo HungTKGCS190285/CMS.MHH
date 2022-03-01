@@ -312,7 +312,7 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Ideas\MyIdeas.cshtml" />
-    <Content Include="Views\Files\Index.cshtml" />
+    <Content Include="Views\Files\Indexs.cshtml" />
     <Content Include="Views\Ideas\Term_Condition.cshtml" />
     <Content Include="Views\Files\Export_Idea.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
