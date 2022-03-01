@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -130,13 +131,39 @@ namespace CMS.MHH.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,DepartmentId,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public async Task<ActionResult> Edit(ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                applicationUser.UserName = applicationUser.Email;
-                db.Entry(applicationUser).State = EntityState.Modified;
-                db.SaveChanges();
+                try
+                {
+                    applicationUser.UserName = applicationUser.Email;
+                    
+                    var user = db.Users.Find(applicationUser.Id);
+
+                    applicationUser.PasswordHash = user.PasswordHash;
+                    applicationUser.SecurityStamp = user.SecurityStamp;
+
+                    var roles = await UserManager.GetRolesAsync(user.Id);
+
+                    await UserManager.RemoveFromRolesAsync(user.Id, roles.ToArray());
+
+                    await UserManager.AddToRoleAsync(applicationUser.Id, applicationUser.Name);
+
+
+                    db.Entry(user).CurrentValues.SetValues(applicationUser);
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            System.Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
+                }
                 return RedirectToAction("Index");
             }
             ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name", applicationUser.DepartmentId);
