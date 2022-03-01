@@ -33,6 +33,38 @@ namespace CMS.MHH.Controllers
             return View(li_idea);
         }
 
+        public ActionResult MostViewed(int page = 1, int pageSize = 5)
+        {
+            var idea_most_viewed = db.Ideas.ToList();
+            foreach (var a in idea_most_viewed)
+            {
+                if (a.IsAnonymous == true)
+                {
+                    a.Author_Email = "Anonymous";
+                }
+                var cate = db.Categories.Find(a.CateId);
+                a.CateName = cate.Category_Name;
+            }
+            var li_idea_most_viewed = idea_most_viewed.OrderByDescending(x => x.View).Take(3).ToPagedList(page, pageSize);
+            return View(li_idea_most_viewed);
+        }
+
+        public ActionResult MostPopular(int page = 1, int pageSize = 5)
+        {
+            var idea_most_popular = db.Ideas.ToList();
+            foreach (var a in idea_most_popular)
+            {
+                if (a.IsAnonymous == true)
+                {
+                    a.Author_Email = "Anonymous";
+                }
+                var cate = db.Categories.Find(a.CateId);
+                a.CateName = cate.Category_Name;
+            }
+            var li_idea_most_popular = idea_most_popular.OrderByDescending(x => x.ThumbsUp).Take(3).ToPagedList(page, pageSize);
+            return View(li_idea_most_popular);
+        }
+
         public ActionResult ViewDetail(int id)
         {
             Idea idea = db.Ideas.Find(id);
@@ -246,25 +278,6 @@ namespace CMS.MHH.Controllers
                 }
                 throw raise;
             }
-        }
-
-        public ActionResult mostViewedIdea(Idea mvi) //show most viewed Idea
-        {
-            int maxView = db.Ideas.Select(x => x.View).DefaultIfEmpty(0).Max();
-            mvi = (Idea)db.Ideas.Where(i => i.View == maxView);
-            var mostViewedIdea = new IdeaVM()
-            {
-                Id = mvi.Id,
-                Content = mvi.Content,
-                Author = mvi.Author_Email,
-                CategoryName = mvi.Cate.Category_Name,
-                Date = mvi.Date,
-                View = mvi.View,
-                Title = mvi.Title,
-                Description = mvi.Description,
-                AuthorId = mvi.AuthorId,                
-            };
-            return View(mvi);
         }
     }
 }
