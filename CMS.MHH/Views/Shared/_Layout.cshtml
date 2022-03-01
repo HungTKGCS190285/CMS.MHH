@@ -109,19 +109,20 @@
                             <li>@Html.ActionLink("List Categories", "Index", "Categories")</li>
                         </ul>
                     </div>
+
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
+                            Statistics
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
+                            <li>@Html.ActionLink("Exceptions", "Exceptions", "Statistics")</li>
+                        </ul>
+                    </div>
                 }
 
-
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
-                        Statistics
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
-                        <li>@Html.ActionLink("Exceptions", "Exceptions", "Statistics")</li>
-                    </ul>
-                </div>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
