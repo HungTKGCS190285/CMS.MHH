@@ -37,7 +37,7 @@ namespace CMS.MHH.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "the role has been exist in the system");
+                ModelState.AddModelError("", "The role has been exist in the system");
                 return View(Role);
             }
             return RedirectToAction("Index");
