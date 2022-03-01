@@ -122,7 +122,7 @@ namespace CMS.MHH.Controllers
                 }
                 else if (user.Department.Name == "IT")
                 {
-                    mail.To.Add("qait321@gamil.com");
+                    mail.To.Add("qait321@gmail.com");
                 }
                 else if (user.Department.Name == "QA")
                 {

@@ -257,7 +257,12 @@ namespace CMS.MHH.Controllers
                 smtpServer.EnableSsl = true;
 
                 mail.From = new MailAddress("donotreply458@gmail.com");
-                mail.To.Add("manllmgcs190101@fpt.edu.vn");
+
+                var ideaID = comment.IdeasId;
+                var emailIdea = db.Ideas.Where(x => x.Id == ideaID).FirstOrDefault();
+                var email = emailIdea.Author.Email;
+
+                mail.To.Add(email);
                 mail.Subject = "Notification about new comment";
                 mail.Body = "A new comment has been post in your idea report";
 
