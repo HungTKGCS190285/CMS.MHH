@@ -36,6 +36,12 @@
 <div>
     Date created: @Html.DisplayFor(m => m.Date)
 </div>
+<div>
+    Document:  @if (Model.DocumentName != null)
+    {
+        @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
+    }
+</div>
 
 <div>
     View: @Html.DisplayFor(m => m.View)

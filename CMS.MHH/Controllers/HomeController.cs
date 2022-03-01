@@ -94,6 +94,7 @@ namespace CMS.MHH.Controllers
                 Title = idea.Title,
                 Description = idea.Description,
                 AuthorId = idea.AuthorId,
+                DocumentName = idea.DocumentName,
 
                 comments = idea.Comments.Select(r => new CommentVM()
                 { 
