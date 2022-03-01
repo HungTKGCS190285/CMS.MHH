@@ -13,7 +13,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Category_Name)
+            <h4><strong>@Html.DisplayNameFor(model => model.Category_Name)</strong> </h4>
         </th>
         <th></th>
     </tr>
@@ -24,15 +24,13 @@
             <td id="categoryname">
                 @Html.DisplayFor(modelItem => item.Category_Name)
             </td>
-            <td id="edit">
-                <i class="glyphicon glyphicon-pencil">@Html.ActionLink("Edit", "Edit", new { id = item.Id })</i> |
-                <i class="glyphicon glyphicon-paperclip">@Html.ActionLink("Details", "Details", new { id = item.Id })</i> |
-                <i class="glyphicon glyphicon-trash">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</i>
+            <td id="action">
+                <a class="glyphicon glyphicon-pencil" href="/Categories/Edit/?id=@item.Id" id="edit"></a> 
+                <a class="glyphicon glyphicon-list" href="/Categories/Details/?id=@item.Id" id="details"></a>
+                <a class="glyphicon glyphicon-trash"href="/Categories/Delete/?id=@item.Id" id="delete"></a>
             </td>
         </tr>
     }
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
 </table>
 
 <style>
@@ -40,8 +38,40 @@
         overflow: hidden;
         border-collapse: collapse;
         border-radius: 10px;
-        width: 50%;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
     }
+
+    #edit, #details, #delete {
+        font-size:18px;
+        margin: 5px;
+    }
+        
+        #edit:link, #edit:visited {
+            text-decoration: none;
+        }
+
+        #edit:hover, #edit:active {
+            text-decoration: none;
+        }
+
+        #details:link, #details:visited {
+            text-decoration: none;
+        }
+
+        #details:hover, #details:active {
+            text-decoration: none;
+        }
+
+        #delete:link, #delete:visited {
+            text-decoration: none;
+        }
+
+        #delete:hover, #delete:active {
+            text-decoration: none;
+        }
 
     th {
         color: white;
@@ -50,11 +80,25 @@
 
     td {
         background-color: white;
+        font-size: 15px;
+    }
+
+    #action {
+        text-align: right;
     }
 
     #edit {
-        text-align: right;
+        color: orange;
     }
+
+    #details {
+        color: #12F906;
+    }
+
+    #delete {
+        color:red;
+    }
+
 </style>
 
 

@@ -94,6 +94,7 @@ namespace CMS.MHH.Controllers
                 Title = idea.Title,
                 Description = idea.Description,
                 AuthorId = idea.AuthorId,
+                DocumentName = idea.DocumentName,
 
                 comments = idea.Comments.Select(r => new CommentVM()
                 { 
@@ -251,12 +252,17 @@ namespace CMS.MHH.Controllers
                 MailMessage mail = new MailMessage();
 
                 SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
-                smtpServer.Credentials = new System.Net.NetworkCredential("leluongminhman2112@gmail.com", "0937757188");
+                smtpServer.Credentials = new System.Net.NetworkCredential("donotreply458@gmail.com", "<3333333");
                 smtpServer.Port = 587;
                 smtpServer.EnableSsl = true;
 
-                mail.From = new MailAddress("leluongminhman2112@gmail.com");
-                mail.To.Add("manllmgcs190101@fpt.edu.vn");
+                mail.From = new MailAddress("donotreply458@gmail.com");
+
+                var ideaID = comment.IdeasId;
+                var emailIdea = db.Ideas.Where(x => x.Id == ideaID).FirstOrDefault();
+                var email = emailIdea.Author.Email;
+
+                mail.To.Add(email);
                 mail.Subject = "Notification about new comment";
                 mail.Body = "A new comment has been post in your idea report";
 

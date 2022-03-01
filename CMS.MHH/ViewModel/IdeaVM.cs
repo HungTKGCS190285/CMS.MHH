@@ -18,9 +18,12 @@ namespace CMS.MHH.ViewModel
         public DateTime Date { get; set; }
 
         public string AuthorId { get; set; }
+
         public string Author { get; set; }
 
         public int View { get; set; }
+        
+        public string DocumentName { get; set; }
         public IEnumerable<CommentVM> comments { get; set; }
     }
 }
