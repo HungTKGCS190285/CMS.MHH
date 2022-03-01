@@ -94,7 +94,7 @@ namespace CMS.MHH.Controllers
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
                 idea.AuthorId = user.Id;
                 idea.Author_Email = user.Email;
-                
+
                 if (Request.Files != null && Request.Files.Count == 1)
                 {
                     var file = Request.Files[0];
@@ -110,14 +110,26 @@ namespace CMS.MHH.Controllers
                 MailMessage mail = new MailMessage();
 
                 SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
-                smtpServer.Credentials = new System.Net.NetworkCredential("qamanager321@gmail.com", "<a3333333");
+                smtpServer.Credentials = new System.Net.NetworkCredential("donotreply458@gmail.com", "<3333333");
                 smtpServer.Port = 587;
                 smtpServer.EnableSsl = true;
 
-                mail.From = new MailAddress("qamanager321@gmail.com");
-                mail.To.Add("manllmgcs190101@fpt.edu.vn");
+
+                mail.From = new MailAddress("donotreply458@gmail.com");
+                if (user.Department.Name == "HR")
+                {
+                    mail.To.Add("qahr789@gmail.com");
+                }
+                else if (user.Department.Name == "IT")
+                {
+                    mail.To.Add("qait321@gamil.com");
+                }
+                else if (user.Department.Name == "QA")
+                {
+                    mail.To.Add("qamanager321@gmail.com");
+                }
                 mail.Subject = "Notification about new submitted idea";
-                mail.Body = "A new idea has been posted in your department report";
+                mail.Body = "A new idea has been posted in your department";
 
                 smtpServer.Send(mail);
 
