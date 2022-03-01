@@ -251,11 +251,11 @@ namespace CMS.MHH.Controllers
                 MailMessage mail = new MailMessage();
 
                 SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
-                smtpServer.Credentials = new System.Net.NetworkCredential("leluongminhman2112@gmail.com", "0937757188");
+                smtpServer.Credentials = new System.Net.NetworkCredential("donotreply458@gmail.com", "<3333333");
                 smtpServer.Port = 587;
                 smtpServer.EnableSsl = true;
 
-                mail.From = new MailAddress("leluongminhman2112@gmail.com");
+                mail.From = new MailAddress("donotreply458@gmail.com");
                 mail.To.Add("manllmgcs190101@fpt.edu.vn");
                 mail.Subject = "Notification about new comment";
                 mail.Body = "A new comment has been post in your idea report";
