@@ -18,17 +18,43 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category_Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td id="categoryname">
+                @Html.DisplayFor(modelItem => item.Category_Name)
+            </td>
+            <td id="edit">
+                <i class="glyphicon glyphicon-pencil">@Html.ActionLink("Edit", "Edit", new { id = item.Id })</i> |
+                <i class="glyphicon glyphicon-paperclip">@Html.ActionLink("Details", "Details", new { id = item.Id })</i> |
+                <i class="glyphicon glyphicon-trash">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</i>
+            </td>
+        </tr>
+    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 </table>
+
+<style>
+    .table {
+        overflow: hidden;
+        border-collapse: collapse;
+        border-radius: 10px;
+        width: 50%;
+    }
+
+    th {
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+    }
+
+    #edit {
+        text-align: right;
+    }
+</style>
+
+
