@@ -24,22 +24,13 @@
             Title
         </th>
         <th>
-            Description
-        </th>
-        <th>
             Author Email
         </th>
         <th>
             Anonymous
         </th>
         <th>
-            Content
-        </th>
-        <th>
             Date
-        </th>
-        <th>
-            Document Name
         </th>
         <th>
             View
@@ -66,25 +57,13 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Author_Email)
             </td>
             <td id="checkbox">
                 @Html.DisplayFor(modelItem => item.IsAnonymous)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @if (item.DocumentName != null)
-                {
-                    @Html.ActionLink(item.DocumentName, "Download", "Ideas", new { id = item.Id }, null)
-                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.View)
@@ -96,9 +75,9 @@
                 @Html.DisplayFor(modelItem => item.ThumbsDown)
             </td>
             <td>
-                <a class="glyphicon glyphicon-pencil" href="/Categories/Edit/?id=@item.Id" id="edit"></a>
-                <a class="glyphicon glyphicon-list" href="/Categories/Details/?id=@item.Id" id="details"></a>
-                <a class="glyphicon glyphicon-trash" href="/Categories/Delete/?id=@item.Id" id="delete"></a>
+                <a class="glyphicon glyphicon-pencil" href="/Ideas/Edit/?id=@item.Id" id="edit"></a>
+                <a class="glyphicon glyphicon-list" href="/Ideas/Details/?id=@item.Id" id="details"></a>
+                <a class="glyphicon glyphicon-trash" href="/Ideas/Delete/?id=@item.Id" id="delete"></a>
             </td>
         </tr>
     }

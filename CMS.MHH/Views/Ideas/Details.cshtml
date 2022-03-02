@@ -96,7 +96,10 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DocumentName)
+            @if (Model.DocumentName != null)
+            {
+                @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
+            }
         </dd>
 
         <dt>
