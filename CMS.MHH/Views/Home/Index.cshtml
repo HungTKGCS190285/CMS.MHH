@@ -29,7 +29,7 @@ border-radius: 10px; padding:initial ; background-color:white; box-shadow: 0 0 3
     @{int i = 0;}
     @foreach (var item in Model)
     {
-        if (i == 0) //"i == 0" means this is the first and also the latest idea
+        if (i == 0 && @Model.PageNumber == 1) //"i == 0" means this is the first and also the latest idea
         {
             <div class="container" style="margin-bottom: 20px; width:95%; border: 0.5px solid white; border-radius:10px; background-color:white; box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2); clear:both">
                 <div class=”row”>
