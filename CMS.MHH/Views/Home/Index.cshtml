@@ -10,7 +10,7 @@
 }
 
 
-    <div style="float:left; margin: 30px 0 0 0; width: 20%">
+    <div class="visible-md visible-lg" style="float:left; margin: 30px 0 0 0; width: 20%">
         <div class="leftcol">
             <h4>Most Viewed Idea</h4>
             <iframe src="Home/_MostViewed" scrolling="no"></iframe>
@@ -36,7 +36,7 @@
         @{int i = 0;}
         @foreach (var item in Model)
         {
-            if (i == 0 && @Model.PageNumber == 1) //"i == 0" means this is the first and also the latest idea
+            if (i == 0 && @Model.PageNumber == 1) //"i == 0" means this is the first and also the latest idea, only show latest text when it is in first page
             {
                 <div class="container" style="margin-bottom: 20px; width:95%; border: 0.5px solid white; border-radius:10px; background-color:white; box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2); clear:both">
                     <div class=”row”>
