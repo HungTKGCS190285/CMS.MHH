@@ -49,6 +49,22 @@ namespace CMS.MHH.Controllers
             return View(li_idea_most_viewed);
         }
 
+        public ActionResult _MostViewed(int page = 1, int pageSize = 1)
+        {
+            var idea_most_viewed = db.Ideas.ToList();
+            foreach (var a in idea_most_viewed)
+            {
+                if (a.IsAnonymous == true)
+                {
+                    a.Author_Email = "Anonymous";
+                }
+                var cate = db.Categories.Find(a.CateId);
+                a.CateName = cate.Category_Name;
+            }
+            var li_idea_most_viewed = idea_most_viewed.OrderByDescending(x => x.View).Take(1).ToPagedList(page, pageSize);
+            return View(li_idea_most_viewed);
+        }
+
         public ActionResult MostPopular(int page = 1, int pageSize = 5)
         {
             var idea_most_popular = db.Ideas.ToList();
@@ -62,6 +78,22 @@ namespace CMS.MHH.Controllers
                 a.CateName = cate.Category_Name;
             }
             var li_idea_most_popular = idea_most_popular.OrderByDescending(x => x.ThumbsUp).Take(3).ToPagedList(page, pageSize);
+            return View(li_idea_most_popular);
+        }
+
+        public ActionResult _MostPopular(int page = 1, int pageSize = 1)
+        {
+            var idea_most_popular = db.Ideas.ToList();
+            foreach (var a in idea_most_popular)
+            {
+                if (a.IsAnonymous == true)
+                {
+                    a.Author_Email = "Anonymous";
+                }
+                var cate = db.Categories.Find(a.CateId);
+                a.CateName = cate.Category_Name;
+            }
+            var li_idea_most_popular = idea_most_popular.OrderByDescending(x => x.ThumbsUp).Take(1).ToPagedList(page, pageSize);
             return View(li_idea_most_popular);
         }
 

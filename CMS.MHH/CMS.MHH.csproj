@@ -319,6 +319,8 @@
     <Content Include="Views\Statistics\Exceptions.cshtml" />
     <Content Include="Views\Home\MostViewed.cshtml" />
     <Content Include="Views\Home\MostPopular.cshtml" />
+    <Content Include="Views\Home\_MostViewed.cshtml" />
+    <Content Include="Views\Home\_MostPopular.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
