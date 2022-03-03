@@ -13,102 +13,103 @@
     ViewBag.userid = user.AuthorId;
     ViewBag.userlike = user.IsLike;
 }
-
-<h2>Detail of Idea</h2>
 <div>
-    Title: @Html.DisplayFor(m => m.Title)
-</div>
-<div>
-    Description: @Html.DisplayFor(m => m.Description)
-</div>
-<div>
-    Content: @Html.DisplayFor(m => m.Content)
-</div>
-
-<div>
-    Author:  @Html.DisplayFor(m => m.Author)
-</div>
-
-<div>
-    Category: @Html.DisplayFor(m => m.CategoryName)
-</div>
-
-<div>
-    Date created: @Html.DisplayFor(m => m.Date)
-</div>
-<div>
-    Document:  @if (Model.DocumentName != null)
-    {
-        @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
-    }
-</div>
-
-<div>
-    View: @Html.DisplayFor(m => m.View)
-</div>
-@if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == true)
-{
-    <button class="btn btn-info btn-xs like-button"
-            disabled data-status="1"
-            id="Like">
-        <i class="bi bi-hand-thumbs-up-fill"></i> Like
-        <span id="likecount">@ViewBag.like</span>
-    </button>
-    <button class="btn btn-info btn-xs like-button"
-            data-status="2"
-            id="Dislike">
-        <i class="bi bi-hand-thumbs-down-fill"></i>Dislike
-        <span id="dislikecount">@ViewBag.Dislike</span>
-    </button>
-}
-else if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == false)
-{
-    <button class="btn btn-info btn-xs like-button"
-            data-status="1"
-            id="Like">
-        <i class="bi bi-hand-thumbs-up-fill"></i> Like
-        <span id="likecount"> @ViewBag.like </span>
-    </button>
-    <button class="btn btn-info btn-xs like-button"
-            disabled data - status="2"
-            id="Dislike">
-        <i class="bi bi-hand-thumbs-down-fill"></i>Dislike
-        <span id="dislikecount">@ViewBag.Dislike</span>
-    </button>
-}
-else
-{
-    <button class="btn btn-info btn-xs like-button"
-            data-status="1"
-            id="Like">
-        <i class="bi bi-hand-thumbs-up-fill"></i> Like
-        <span id="likecount">@ViewBag.like</span>
-    </button>
-    <button class="btn btn-info btn-xs like-button"
-            data-status="2"
-            id="Dislike">
-        <i class="bi bi-hand-thumbs-down-fill"></i>Disliken
-        <span id="dislikecount">@ViewBag.Dislike</span>
-    </button>
-}
-<h2>Comments of the Post</h2>
-
-@foreach (var cm in Model.comments)
-{
+    <h2>Detail of Idea</h2>
     <div>
-        @cm.Comment by
-        @if (cm.CommentAnony == true)
-        {
-            <span>Anonymous</span>
-        }
-        else
-        {
-            <b> <i>@cm.CommentAuthor</i></b>
-        }
-        at <p>@cm.CommentDate</p>
+        Title: @Html.DisplayFor(m => m.Title)
+    </div>
+    <div>
+        Description: @Html.DisplayFor(m => m.Description)
+    </div>
+    <div>
+        Content: @Html.DisplayFor(m => m.Content)
     </div>
 
-}
+    <div>
+        Author:  @Html.DisplayFor(m => m.Author)
+    </div>
+
+    <div>
+        Category: @Html.DisplayFor(m => m.CategoryName)
+    </div>
+
+    <div>
+        Date created: @Html.DisplayFor(m => m.Date)
+    </div>
+    <div>
+        Document:  @if (Model.DocumentName != null)
+        {
+            @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
+        }
+    </div>
+
+    <div>
+        View: @Html.DisplayFor(m => m.View)
+    </div>
+    @if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == true)
+    {
+        <button class="btn btn-info btn-xs like-button"
+                disabled data-status="1"
+                id="Like">
+            <i class="bi bi-hand-thumbs-up-fill"></i> <span class="glyphicon glyphicon-thumbs-up"></span>
+            <span id="likecount">@ViewBag.like</span>
+        </button>
+        <button class="btn btn-info btn-xs like-button"
+                data-status="2"
+                id="Dislike">
+            <i class="bi bi-hand-thumbs-down-fill"></i><span class="glyphicon glyphicon-thumbs-down"></span>
+            <span id="dislikecount">@ViewBag.Dislike</span>
+        </button>
+    }
+    else if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == false)
+    {
+        <button class="btn btn-info btn-xs like-button"
+                data-status="1"
+                id="Like">
+            <i class="bi bi-hand-thumbs-up-fill"></i> <span class="glyphicon glyphicon-thumbs-up"></span>
+            <span id="likecount"> @ViewBag.like </span>
+        </button>
+        <button class="btn btn-info btn-xs like-button"
+                disabled data - status="2"
+                id="Dislike">
+            <i class="bi bi-hand-thumbs-down-fill"></i><span class="glyphicon glyphicon-thumbs-down"></span>
+            <span id="dislikecount">@ViewBag.Dislike</span>
+        </button>
+    }
+    else
+    {
+        <button class="btn btn-info btn-xs like-button"
+                data-status="1"
+                id="Like">
+            <i class="bi bi-hand-thumbs-up-fill"></i> <span class="glyphicon glyphicon-thumbs-up"></span>
+            <span id="likecount">@ViewBag.like</span>
+        </button>
+        <button class="btn btn-info btn-xs like-button"
+                data-status="2"
+                id="Dislike">
+            <i class="bi bi-hand-thumbs-down-fill"></i><span class="glyphicon glyphicon-thumbs-down"></span>
+            <span id="dislikecount">@ViewBag.Dislike</span>
+        </button>
+    }
+    <h2>Comments of the Post</h2>
+
+    @foreach (var cm in Model.comments)
+    {
+        <div>
+            @cm.Comment by
+            @if (cm.CommentAnony == true)
+            {
+                <span>Anonymous</span>
+            }
+            else
+            {
+                <b> <i>@cm.CommentAuthor</i></b>
+            }
+            at <p>@cm.CommentDate</p>
+        </div>
+
+    }
+</div>
 @Scripts.Render("~/bundles/bootstrap")
 <script>
     $(document).ready(function ()
@@ -151,3 +152,10 @@ else
     });
 </script>
 
+<style>
+    .like-button{
+        width:50px;
+        height: 30px;
+        font-size: 18px;
+    }
+</style>
