@@ -26,9 +26,9 @@
                 @Html.DisplayFor(modelItem => item.Category_Name)
             </td>
             <td id="action">
-                <a class="glyphicon glyphicon-pencil" href="/Categories/Edit/?id=@item.Id" id="edit"></a> <br/>
-                <a class="glyphicon glyphicon-list" href="/Categories/Details/?id=@item.Id" id="details"></a> <br/>
-                <a class="glyphicon glyphicon-trash"href="/Categories/Delete/?id=@item.Id" id="delete"></a> <br/>
+                <a class="bi bi-pencil-fill" href="/Categories/Edit/?id=@item.Id" id="edit"></a>
+                <a class="bi bi-clipboard-fill" href="/Categories/Details/?id=@item.Id" id="details"></a>
+                <a class="bi bi-trash-fill"href="/Categories/Delete/?id=@item.Id" id="delete"></a>
             </td>
         </tr>
     }

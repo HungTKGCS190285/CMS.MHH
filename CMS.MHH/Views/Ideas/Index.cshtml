@@ -65,23 +65,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
-            <td>
+            <td id="view">
                 @Html.DisplayFor(modelItem => item.View)
             </td>
-            <td>
+            <td id="like">
                 @Html.DisplayFor(modelItem => item.ThumbsUp)
             </td>
-            <td>
+            <td id="dislike">
                 @Html.DisplayFor(modelItem => item.ThumbsDown)
             </td>
-            <td>
-                <a class="glyphicon glyphicon-pencil" href="/Ideas/Edit/?id=@item.Id" id="edit"></a>
-                <a class="glyphicon glyphicon-list" href="/Ideas/Details/?id=@item.Id" id="details"></a>
-                <a class="glyphicon glyphicon-trash" href="/Ideas/Delete/?id=@item.Id" id="delete"></a>
+            <td id="action">
+                <a class="bi bi-pencil-fill" href="/Ideas/Edit/?id=@item.Id" id="edit"></a>
+                <a class="bi bi-clipboard-fill" href="/Ideas/Details/?id=@item.Id" id="details"></a>
+                <a class="bi bi-trash-fill" href="/Ideas/Delete/?id=@item.Id" id="delete"></a>
             </td>
         </tr>
     }
-
 </table>
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 <style>
@@ -106,11 +105,15 @@
 
     td {
         background-color: white;
-        font-size: 15px;
+        font-size: 14px;
     }
 
-    #checkbox {
+    #checkbox, #view, #like, #dislike {
         text-align: center; 
+    }
+
+    #action {
+        text-align: right;
     }
 
     #edit, #details, #delete {
@@ -141,5 +144,16 @@
         #delete:hover, #delete:active {
             text-decoration: none;
         }
+    #edit {
+        color: orange;
+    }
+
+    #details {
+        color: #12F906;
+    }
+
+    #delete {
+        color: red;
+    }
 </style>
 
