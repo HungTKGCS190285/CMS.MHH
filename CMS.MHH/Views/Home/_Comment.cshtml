@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IsAnonymous, htmlAttributes: new { @class = "control-label col-md-2" })
+            <b class="control-label col-md-2">Anonymous</b>
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.CheckBoxFor(model => model.IsAnonymous)
@@ -35,7 +35,11 @@
     </div>
 }
 
-
+<style>
+    .checkbox{
+        margin-left: 3%;
+    }
+</style>
 @section scripts {
     @Scripts.Render("~/bundles/ajax")
 }

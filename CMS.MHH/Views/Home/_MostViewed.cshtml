@@ -11,10 +11,13 @@
 <div>
     @foreach (var item in Model)
     {
-        <div style="text-align: left">
+        <div style="color:black; width: 98%">
             <h4 style="color:darkblue">@Html.DisplayFor(modelItem => item.CateName): @Html.ActionLink(item.Title, "ViewDetail", "Home", new { id = item.Id }, null)</h4>
-            Posted at <b>@Html.DisplayFor(modelItem => item.Date)</b> by <b>@Html.DisplayFor(modelItem => item.Author_Email)</b>
-            <div style="font-size:25px; text-align:right">👁 @Html.DisplayFor(modelItem => item.View)</div>
+            <p style="color:black">
+                Posted at <b>@Html.DisplayFor(modelItem => item.Date)</b> <br />
+                by <b>@Html.DisplayFor(modelItem => item.Author_Email)</b>
+                <div style="font-size:25px; text-align:right">👁 @Html.DisplayFor(modelItem => item.View)</div>
+            </p>
         </div>
         break;
     }
