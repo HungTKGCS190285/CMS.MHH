@@ -13,7 +13,7 @@ namespace CMS.MHH.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Files
-        public ActionResult Index()
+        public ActionResult Indexs()
         {
             string[] filsewithPath = Directory.GetFiles(Server.MapPath("~/Files"));
             List<FileVM> files = new List<FileVM>();
