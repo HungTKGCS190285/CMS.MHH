@@ -172,7 +172,7 @@ namespace CMS.MHH.Migrations
                 Description = "This is a hot topic",
                 Content = "2nd Idea",
                 CateId = 2,
-                Date = DateTime.Now.AddDays(2).AddHours(10).AddMinutes(30),
+                Date = DateTime.Now.AddYears(-1),
                 IsAnonymous = true,
                 Author = context.Users.First(),
                 SubmissionId = 2,
