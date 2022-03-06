@@ -13,10 +13,10 @@ using System.Web.Mvc;
 
 namespace CMS.MHH.Controllers
 {
-    [Authorize(Roles = "Staff, QA Manager, QA_C")]
     public class HomeController : Controller
     {
         protected ApplicationDbContext db = new ApplicationDbContext();
+        [Authorize(Roles = "Staff, QA Manager, QA_C, Admin")]
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
             var idea_anony = db.Ideas.ToList();
@@ -97,6 +97,7 @@ namespace CMS.MHH.Controllers
             return View(li_idea_most_popular);
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public ActionResult ViewDetail(int id)
         {
             Idea idea = db.Ideas.Find(id);
@@ -140,12 +141,14 @@ namespace CMS.MHH.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public ActionResult Likes(int id, int status)
         {
             var result = Like(id, status);
             return Content(result);
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public string Like(int id, int status)
         {
             var idea = db.Ideas.FirstOrDefault(x => x.Id == id);
@@ -231,6 +234,7 @@ namespace CMS.MHH.Controllers
 
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         [HttpGet]
         public ActionResult CommentDetail(int id)
         {
@@ -249,6 +253,7 @@ namespace CMS.MHH.Controllers
             return this.PartialView("_AllComments", com_anony);
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         [HttpGet]
         public ActionResult Comments(int id)
         {
@@ -262,12 +267,14 @@ namespace CMS.MHH.Controllers
             return this.PartialView("_Comment", new CMS.MHH.Models.Comment { IdeasId = id });
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public ActionResult Fail()
         {
             TempData["message"] = "The comment is out of final closure date, please check again";
             return View();
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Comments(Comment comment)
