@@ -163,8 +163,7 @@ namespace CMS.MHH.Controllers
             }
             ViewBag.CateId = new SelectList(db.Categories, "Id", "Category_Name", idea.CateId);
             return View(idea);
-        }
-
+        }   
       
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -209,7 +208,7 @@ namespace CMS.MHH.Controllers
                 
                 db.Entry(existingEntity).CurrentValues.SetValues(idea);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.CateId = new SelectList(db.Categories, "Id", "Category_Name", idea.CateId);
             return View(idea);
