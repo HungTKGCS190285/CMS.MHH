@@ -82,7 +82,9 @@
         </tr>
     }
 </table>
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+<div style="text-align:center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
 <style>
     h2 {
         color: cornflowerblue;
