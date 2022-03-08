@@ -60,11 +60,15 @@
                             <div style="padding: 10px 5px; border: 0.5px solid gray; border-radius: 7px; background-color: #f0f0f0 ">
                                 @Html.DisplayFor(modelItem => item.Description)
                             </div>
-                            @if (item.AuthorId == User.Identity.GetUserId())
-                            {
-                                @Html.ActionLink("Edit", "Edit", "Ideas", new { id = item.Id }, null)
-                            }
+                            
                             <div style="padding: 5px 0; text-align:right">
+                                <button class="btn btn-default" style="border: 0.5px solid gray; border-radius: 7px">
+                                        @if (item.AuthorId == User.Identity.GetUserId())
+                                         {
+                                            @Html.ActionLink("Edit", "Edit", "Ideas", new { id = item.Id }, null)
+                                         }
+                                </button>
+
                                 <button id='myBtn_@item.Id' class="btn btn-default" style="border: 0.5px solid gray; border-radius: 7px">View all comments</button>
 
                                 <button id='cmt_@item.Id' class="btn btn-primary" style="border: 0.5px solid gray; border-radius: 7px">Comment</button>
@@ -96,12 +100,15 @@
                             <div style="padding: 10px 5px; border: 0.5px solid gray; border-radius: 7px; background-color: #f0f0f0 ">
                                 @Html.DisplayFor(modelItem => item.Description)
                             </div>
-                            @if (item.AuthorId == User.Identity.GetUserId())
-                            {
-                                @Html.ActionLink("Edit", "Edit", "Ideas", new { id = item.Id }, null)
-                            }
 
                             <div style="padding: 5px 0; text-align:right">
+                                <button class="btn btn-default" style="border: 0.5px solid gray; border-radius: 7px">
+                                    @if (item.AuthorId == User.Identity.GetUserId())
+                                    {
+                                        @Html.ActionLink("Edit", "Edit", "Ideas", new { id = item.Id }, null)
+                                    }
+                                </button>
+
                                 <button id='myBtn_@item.Id' class="btn btn-default" style="border: 0.5px solid gray; border-radius: 7px">View all comments</button>
 
                                 <button id='cmt_@item.Id' class="btn btn-primary" style="border: 0.5px solid gray; border-radius: 7px">Comment</button>
@@ -185,6 +192,10 @@
 
     a {
         color: steelblue;
+    }
+    
+    button a{
+        color:black;
     }
 
     .leftcol {
