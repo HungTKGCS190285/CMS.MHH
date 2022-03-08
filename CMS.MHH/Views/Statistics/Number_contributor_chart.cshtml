@@ -1,0 +1,17 @@
+﻿@model CMS.MHH.ViewModel.StatisticsVM
+@{
+    ViewBag.Title = "Statistic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var myChart = new Chart(width: 600, height: 400)
+     .AddTitle("Number of contributors per department")
+     .AddSeries("Default",
+        xValue: new[] { "IT", "HR", "QA" },
+        yValues: new[] { Model.num_contri_IT, Model.num_contri_HR, Model.num_contri_QA })
+     .Write();
+}
+
+
+

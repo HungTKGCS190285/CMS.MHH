@@ -135,7 +135,7 @@ namespace CMS.MHH.Controllers
 
                 db.Ideas.Add(idea);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             ViewBag.CateId = new SelectList(db.Categories, "Id", "Category_Name", idea.CateId);

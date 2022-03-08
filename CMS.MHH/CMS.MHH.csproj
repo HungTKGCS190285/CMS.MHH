@@ -321,6 +321,9 @@
     <Content Include="Views\Home\_MostViewed.cshtml" />
     <Content Include="Views\Home\_MostPopular.cshtml" />
     <Content Include="Views\Files\Indexs.cshtml" />
+    <Content Include="Views\Statistics\Pie_Chart_idea.cshtml" />
+    <Content Include="Views\Statistics\Number_idea_chart.cshtml" />
+    <Content Include="Views\Statistics\Number_contributor_chart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

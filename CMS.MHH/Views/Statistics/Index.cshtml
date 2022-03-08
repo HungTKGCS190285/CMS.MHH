@@ -12,25 +12,34 @@
         <th>IT</th>
         <th>HR</th>
         <th>QA</th>
+        <th></th>
     </tr>
     <tr>
         <td>Number of ideas made by each Department</td>
         <td>@Html.DisplayFor(m => m.num_idea_IT)</td>
         <td>@Html.DisplayFor(m => m.num_idea_HR)</td>
         <td>@Html.DisplayFor(m => m.num_idea_QA)</td>
-
+        <td>
+            @Html.ActionLink("View chart", "Number_idea_chart", "Statistics")
+        </td>
     </tr>
     <tr>
         <td>Percentage of ideas made by each Department</td>
         <td>@Html.DisplayFor(m => m.per_idea_IT)%</td>
         <td>@Html.DisplayFor(m => m.per_idea_HR)%</td>
         <td>@Html.DisplayFor(m => m.per_idea_QA)%</td>
+        <td>
+            @Html.ActionLink("View chart", "Pie_Chart_idea", "Statistics")
+        </td>
     </tr>
     <tr>
         <td> 	Number of contributors within each Department.</td>
         <td>@Html.DisplayFor(m => m.num_contri_IT)</td>
         <td>@Html.DisplayFor(m => m.num_contri_HR)</td>
         <td>@Html.DisplayFor(m => m.num_contri_QA)</td>
+        <td>
+            @Html.ActionLink("View chart", "Number_contributor_chart", "Statistics")
+        </td>
     </tr>
 </table>
 <style>

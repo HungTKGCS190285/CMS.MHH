@@ -1,0 +1,16 @@
+﻿@model CMS.MHH.ViewModel.StatisticsVM
+@{
+    ViewBag.Title = "Statistic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var myChart = new Chart(width: 700, height: 400)
+     .AddTitle("Pie chart number of ideas")
+     .AddSeries("Default",
+        chartType: "Pie",
+        xValue: new[] { "IT", "HR", "QA" },
+        yValues: new[] { Model.per_idea_IT, Model.per_idea_HR, Model.per_idea_QA })
+     .Write();
+}
+
