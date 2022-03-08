@@ -162,6 +162,7 @@ namespace CMS.MHH.Migrations
                 Content = "1st Idea",
                 CateId = 1,
                 Date = DateTime.Now.AddDays(5).AddHours(21).AddMinutes(30),
+                LastModify = DateTime.Now.AddDays(5).AddHours(21).AddMinutes(30),
                 Author = context.Users.First(),
                 SubmissionId = 1,
                 Author_Email = context.Users.First().Email
@@ -173,6 +174,7 @@ namespace CMS.MHH.Migrations
                 Content = "2nd Idea",
                 CateId = 2,
                 Date = DateTime.Now.AddYears(-1),
+                LastModify = DateTime.Now.AddYears(-1),
                 IsAnonymous = true,
                 Author = context.Users.First(),
                 SubmissionId = 2,

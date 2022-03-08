@@ -94,6 +94,8 @@ namespace CMS.MHH.Controllers
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
                 idea.AuthorId = user.Id;
                 idea.Author_Email = user.Email;
+                idea.Date = DateTime.Now;
+                idea.LastModify = DateTime.Now;
 
                 if (Request.Files != null && Request.Files.Count == 1)
                 {
@@ -149,6 +151,12 @@ namespace CMS.MHH.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Idea idea = db.Ideas.Find(id);
+            var date_check = db.Submissions.Find(idea.SubmissionId);
+            if(DateTime.Now > date_check.Closure_date)
+            {
+                TempData["message"] = "Can not edit the post because it is out of date";
+                return RedirectToAction("Index", "Home");
+            }
             if (idea == null)
             {
                 return HttpNotFound();
@@ -160,11 +168,46 @@ namespace CMS.MHH.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CateId,Title,Description,CateName,AuthorId,Author_Email,SubmissionId,IsAnonymous,Content,Date,DocumentName,View,ThumbsUp,ThumbsDown")] Idea idea)
+        public ActionResult Edit(Idea idea)
         {
-            if (ModelState.IsValid)
+             if (ModelState.IsValid)
             {
-                db.Entry(idea).State = EntityState.Modified;
+                
+                if (Request.Files != null && Request.Files.Count == 1)
+                {
+                    var file = Request.Files[0];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var filePath = Path.Combine(Server.MapPath("~/Files"), fileName);
+
+                        var idea1 = db.Ideas.FirstOrDefault(x => x.Id == idea.Id);
+                        if(idea1.DocumentName == null)
+                        {
+                            file.SaveAs(filePath);
+                        }
+                        else
+                        {
+                            var fi = idea1.DocumentName;
+                            var fiPath = Path.Combine(Server.MapPath("~/Files"), fi);
+                            fi.Replace(fiPath, filePath);
+                        }                        
+                        idea.DocumentName = fileName;
+                    }
+                }
+
+                var existingEntity = db.Ideas.Find(idea.Id);
+                {
+                    idea.Date = existingEntity.Date;
+                    idea.Comments = existingEntity.Comments;
+                    idea.ThumbsDown = existingEntity.ThumbsDown;
+                    idea.ThumbsUp = existingEntity.ThumbsUp;
+                    idea.LastModify = DateTime.Now;
+                    idea.View = existingEntity.View;
+                    idea.AuthorId = existingEntity.AuthorId;
+                }               
+                
+                db.Entry(existingEntity).CurrentValues.SetValues(idea);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

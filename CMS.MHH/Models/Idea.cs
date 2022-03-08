@@ -11,7 +11,6 @@ namespace CMS.MHH.Models
 
         public Idea()
         {
-            this.Date = DateTime.Now;
             this.Comments = new HashSet<Comment>();
         }
 
@@ -45,7 +44,7 @@ namespace CMS.MHH.Models
         public string Content { get; set; }
 
         public DateTime Date { get; set; }
-
+        public DateTime LastModify { get; set; }
 
         [Display(Name = "Uploaded file")]
         public string DocumentName { get; set; }
