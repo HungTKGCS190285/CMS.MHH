@@ -128,11 +128,12 @@ namespace CMS.MHH.Controllers
                 Description = idea.Description,
                 AuthorId = idea.AuthorId,
                 DocumentName = idea.DocumentName,
+                LastModify = idea.LastModify,
 
                 comments = idea.Comments.Select(r => new CommentVM()
                 { 
                     Comment = r.Text,
-                    CommentAuthor = r.AuthorName,
+                    CommentAuthor = r.Author.Email,
                     CommentAnony = r.IsAnonymous,
                     CommentDate = r.Date
                 }),              
