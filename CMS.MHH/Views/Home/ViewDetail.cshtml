@@ -14,8 +14,11 @@
     ViewBag.userlike = user.IsLike;
 }
 <div>
-    <div class="card" id="alldetail">
-        <div id="detail">
+    <div class="container" id="alldetail">
+        <div class="panel-heading" id="title">
+            <h3>Detail of idea</h3>
+        </div>
+        <div class="panel-body" id="detail">
             <div>
                 Title: @Html.DisplayFor(m => m.Title)
             </div>
@@ -92,7 +95,8 @@
                 </button>
             }
         </div>
-        <div id="commentdetail">
+        <div class="panel-footer" id="commentdetail">
+            <p>Comments</p>
             @foreach (var cm in Model.comments)
             {
 
@@ -164,13 +168,9 @@
         font-size: 10px;
     }
 
-    #title {
-        background-color: cornflowerblue;
-    }
-
     #alldetail {
         width: 40%;
-        border: 0.5px solid white;
+        border: 0.5px ;
         border-radius: 10px;
         background-color: white;
         box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
@@ -182,8 +182,17 @@
         margin-top: 70px;
     }
 
-    #detail {
-        margin-bottom: 10px;    
+    #title {
+        border: 0.5px;
+        border-radius: 10px 10px 0 0;
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+    #commentdetail {
+        border: 0.5px;
+        border-radius: 0 0 10px 10px;
+       background-color: white;
     }
 
     .like-button {
