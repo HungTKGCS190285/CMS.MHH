@@ -8,7 +8,7 @@
 }
 <script src="~/Scripts/jquery-1.11.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-@foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserlikedislike) // to get all user
+@foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserlikedislike) // fetch all users who reacted to this idea.
 {
     ViewBag.userid = user.AuthorId;
     ViewBag.userlike = user.IsLike;
@@ -46,7 +46,8 @@
     <div>
         View: @Html.DisplayFor(m => m.View)
     </div>
-    @if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == true)
+   
+    @if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == true) //check current user has liked this idea or not. if yes, they only dislike
     {
         <button class="btn btn-info btn-xs like-button"
                 disabled data-status="1"
