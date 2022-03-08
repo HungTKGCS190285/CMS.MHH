@@ -35,6 +35,8 @@
                             <li>@Html.ActionLink("List ideas", "Index", "Ideas")</li>
                             <li>@Html.ActionLink("My idea", "MyIdeas", "Ideas")</li>
                             <li>@Html.ActionLink("Create Idea", "List", "Submissions")</li>
+                            <li>@Html.ActionLink("Top 3 most viewed", "MostViewed", "Home")</li>
+                            <li>@Html.ActionLink("Top 3 most popular", "MostPopular", "Home")</li>
                         </ul>
 
                     </div>
@@ -173,10 +175,10 @@
         width: 120px;
     }
 
-        #dropdownbtn1:focus, #dropdownbtn2:focus {
-            outline: none;
-            box-shadow: none;
-        }
+    #dropdownbtn1:focus, #dropdownbtn2:focus {
+        outline: none;
+        box-shadow: none;
+    }
 
     .dropdown {
         position: relative;
@@ -189,7 +191,14 @@
         color: white;
     }
 
-        #homebtn:hover {
-            text-decoration: none;
-        }
+    #homebtn:hover {
+        text-decoration: none;
+    }
+
+    body {
+        background-image: url(../../Image/background.jpg);
+        margin: 0;
+        background-size: cover;
+    }
+
 </style>

@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<div style="width:80%; float:left; margin-top:30px">
+<div class="centerMobileOnly">
     <h2 style="float: left; margin-left: 3%; color: steelblue; margin-top: 5px"><b>New Ideas</b></h2>
 
     <div style="text-align:right; width: 97%; margin:10px 0px">
@@ -70,7 +70,7 @@
                                     </button>
                                  }
 
-                                    <button id='myBtn_@item.Id' class="btn btn-default" style="border: 0.5px solid gray; border-radius: 7px">View all comments</button>
+                                    <button id='myBtn_@item.Id' class="btn btn-default" style="border: 0.5px solid gray; border-radius: 7px" >View all comments</button>
 
                                     <button id='cmt_@item.Id' class="btn btn-primary" style="border: 0.5px solid gray; border-radius: 7px">Comment</button>
                                 </div>
@@ -231,6 +231,24 @@
         width: 75%;
         margin-top: 5px;
     }
+
+    .centerMobileOnly {
+        width: 80%;
+        float: left;
+        margin-top: 30px;
+    }
+
+    @@media (max-device-width: 800px) {
+        .centerMobileOnly {
+            margin-left: auto;
+            width: 100%;
+        }
+
+        .container {
+            width:100%;
+        }
+    }
+
 </style>
 
 <div style="text-align:center; clear:both">

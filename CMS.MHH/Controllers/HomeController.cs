@@ -110,11 +110,17 @@ namespace CMS.MHH.Controllers
                 idea.Author_Email = "Anonymous";
             }
 
-
+            //count thumbs up in idea
             ViewBag.like = idea.ThumbsUp;
+
+            //count thumbs up in idea
             ViewBag.Dislike = idea.ThumbsDown;
+
+            //Get all users who react to this idea
             ViewBag.AllUserlikedislike = db.Reactions.Where(x => x.PostId == id ).ToList();
 
+
+            var cmts = this.db.Comments.Include(x => x.Author).Where(x => x.Ideas.Id == id);
 
             var model = new IdeaVM()
             {
