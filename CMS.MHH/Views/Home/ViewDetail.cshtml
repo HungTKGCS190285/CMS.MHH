@@ -12,12 +12,9 @@
 
 <div class="container" id="alldetail">
     <div class="panel-heading" id="title">
-        <h3>Detail of idea</h3>
+        <h3>@Html.DisplayFor(m => m.Title)</h3>
     </div>
     <div class="panel-body" id="detail">
-        <div>
-            Title: @Html.DisplayFor(m => m.Title)
-        </div>
         <div>
             Description: @Html.DisplayFor(m => m.Description)
         </div>
