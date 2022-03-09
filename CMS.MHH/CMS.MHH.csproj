@@ -192,7 +192,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\DbMigrationsConfig.cs" />
+    <Compile Include="Migrations\DBMigrationsConfig.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -312,13 +312,18 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Ideas\MyIdeas.cshtml" />
-    <Content Include="Views\Files\Indexs.cshtml" />
     <Content Include="Views\Ideas\Term_Condition.cshtml" />
     <Content Include="Views\Files\Export_Idea.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
     <Content Include="Views\Statistics\Exceptions.cshtml" />
     <Content Include="Views\Home\MostViewed.cshtml" />
     <Content Include="Views\Home\MostPopular.cshtml" />
+    <Content Include="Views\Home\_MostViewed.cshtml" />
+    <Content Include="Views\Home\_MostPopular.cshtml" />
+    <Content Include="Views\Files\Indexs.cshtml" />
+    <Content Include="Views\Statistics\Pie_Chart_idea.cshtml" />
+    <Content Include="Views\Statistics\Number_idea_chart.cshtml" />
+    <Content Include="Views\Statistics\Number_contributor_chart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,10 +13,10 @@ using System.Web.Mvc;
 
 namespace CMS.MHH.Controllers
 {
-    [Authorize(Roles = "Staff, QA Manager, QA_C")]
     public class HomeController : Controller
     {
         protected ApplicationDbContext db = new ApplicationDbContext();
+        [Authorize(Roles = "Staff, QA Manager, QA_C, Admin")]
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
             var idea_anony = db.Ideas.ToList();
@@ -25,6 +25,10 @@ namespace CMS.MHH.Controllers
                 if (a.IsAnonymous == true)
                 {
                     a.Author_Email = "Anonymous";
+                }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
                 }
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
@@ -42,10 +46,34 @@ namespace CMS.MHH.Controllers
                 {
                     a.Author_Email = "Anonymous";
                 }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
+                }
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
             }
             var li_idea_most_viewed = idea_most_viewed.OrderByDescending(x => x.View).Take(3).ToPagedList(page, pageSize);
+            return View(li_idea_most_viewed);
+        }
+
+        public ActionResult _MostViewed(int page = 1, int pageSize = 1)
+        {
+            var idea_most_viewed = db.Ideas.ToList();
+            foreach (var a in idea_most_viewed)
+            {
+                if (a.IsAnonymous == true)
+                {
+                    a.Author_Email = "Anonymous";
+                }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
+                }
+                var cate = db.Categories.Find(a.CateId);
+                a.CateName = cate.Category_Name;
+            }
+            var li_idea_most_viewed = idea_most_viewed.OrderByDescending(x => x.View).Take(1).ToPagedList(page, pageSize);
             return View(li_idea_most_viewed);
         }
 
@@ -58,6 +86,10 @@ namespace CMS.MHH.Controllers
                 {
                     a.Author_Email = "Anonymous";
                 }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
+                }
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
             }
@@ -65,6 +97,27 @@ namespace CMS.MHH.Controllers
             return View(li_idea_most_popular);
         }
 
+        public ActionResult _MostPopular(int page = 1, int pageSize = 1)
+        {
+            var idea_most_popular = db.Ideas.ToList();
+            foreach (var a in idea_most_popular)
+            {
+                if (a.IsAnonymous == true)
+                {
+                    a.Author_Email = "Anonymous";
+                }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
+                }
+                var cate = db.Categories.Find(a.CateId);
+                a.CateName = cate.Category_Name;
+            }
+            var li_idea_most_popular = idea_most_popular.OrderByDescending(x => x.ThumbsUp).Take(1).ToPagedList(page, pageSize);
+            return View(li_idea_most_popular);
+        }
+
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public ActionResult ViewDetail(int id)
         {
             Idea idea = db.Ideas.Find(id);
@@ -76,12 +129,22 @@ namespace CMS.MHH.Controllers
             {
                 idea.Author_Email = "Anonymous";
             }
+            else
+            {
+                idea.Author_Email = idea.Author.Email;
+            }
 
-
+            //count thumbs up in idea
             ViewBag.like = idea.ThumbsUp;
-            ViewBag.Dislike = idea.ThumbsDown;
-            ViewBag.AllUserlikedislike = db.Reactions.Where(x => x.PostId == id ).ToList();
 
+            //count thumbs up in idea
+            ViewBag.Dislike = idea.ThumbsDown;
+
+            //Get all users who react to this idea
+            ViewBag.AllUserReacted = db.Reactions.Where(x => x.PostId == id ).ToList();
+
+
+            var cmts = this.db.Comments.Include(x => x.Author).Where(x => x.Ideas.Id == id);
 
             var model = new IdeaVM()
             {
@@ -95,11 +158,12 @@ namespace CMS.MHH.Controllers
                 Description = idea.Description,
                 AuthorId = idea.AuthorId,
                 DocumentName = idea.DocumentName,
+                LastModify = idea.LastModify,
 
                 comments = idea.Comments.Select(r => new CommentVM()
                 { 
                     Comment = r.Text,
-                    CommentAuthor = r.AuthorName,
+                    CommentAuthor = r.Author.Email,
                     CommentAnony = r.IsAnonymous,
                     CommentDate = r.Date
                 }),              
@@ -108,20 +172,21 @@ namespace CMS.MHH.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public ActionResult Likes(int id, int status)
         {
             var result = Like(id, status);
             return Content(result);
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public string Like(int id, int status)
         {
             var idea = db.Ideas.FirstOrDefault(x => x.Id == id);
-            var toggle = false;
             bool statu;
             if (status == 1)
             {
-                statu = true;
+                statu = true; // int 1 is like-true, 2 is dislike-false
             }
             else
                 statu = false;
@@ -162,10 +227,6 @@ namespace CMS.MHH.Controllers
             }
             else
             {
-                toggle = true;
-            }
-            if (toggle)
-            {
                 react.AuthorId = user.Id;
                 react.IsLike = statu;
                 react.PostId = id;
@@ -199,6 +260,7 @@ namespace CMS.MHH.Controllers
 
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         [HttpGet]
         public ActionResult CommentDetail(int id)
         {
@@ -217,6 +279,7 @@ namespace CMS.MHH.Controllers
             return this.PartialView("_AllComments", com_anony);
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         [HttpGet]
         public ActionResult Comments(int id)
         {
@@ -230,12 +293,14 @@ namespace CMS.MHH.Controllers
             return this.PartialView("_Comment", new CMS.MHH.Models.Comment { IdeasId = id });
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public ActionResult Fail()
         {
             TempData["message"] = "The comment is out of final closure date, please check again";
             return View();
         }
 
+        [Authorize(Roles = "Staff, QA Manager, QA_C")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Comments(Comment comment)

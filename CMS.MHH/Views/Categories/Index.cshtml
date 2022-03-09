@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2><strong>Index</strong></h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -13,9 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            <h4><strong>@Html.DisplayNameFor(model => model.Category_Name)</strong> </h4>
+            <h4><strong>@Html.DisplayNameFor(model => model.Category_Name)</strong></h4>
         </th>
-        <th></th>
+        <th>
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -25,15 +26,19 @@
                 @Html.DisplayFor(modelItem => item.Category_Name)
             </td>
             <td id="action">
-                <a class="glyphicon glyphicon-pencil" href="/Categories/Edit/?id=@item.Id" id="edit"></a> 
-                <a class="glyphicon glyphicon-list" href="/Categories/Details/?id=@item.Id" id="details"></a>
-                <a class="glyphicon glyphicon-trash"href="/Categories/Delete/?id=@item.Id" id="delete"></a>
+                <a class="bi bi-pencil-fill" href="/Categories/Edit/?id=@item.Id" id="edit"></a>
+                <a class="bi bi-clipboard-fill" href="/Categories/Details/?id=@item.Id" id="details"></a>
+                <a class="bi bi-trash-fill"href="/Categories/Delete/?id=@item.Id" id="delete"></a>
             </td>
         </tr>
     }
-</table>
 
+</table>
 <style>
+    h2 {
+        color: cornflowerblue;
+    }
+
     .table {
         overflow: hidden;
         border-collapse: collapse;
@@ -42,6 +47,16 @@
         margin-left: auto;
         margin-right: auto;
         box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+        font-size: 15px;
     }
 
     #edit, #details, #delete {
@@ -73,14 +88,8 @@
             text-decoration: none;
         }
 
-    th {
-        color: white;
-        background-color: cornflowerblue;
-    }
-
-    td {
-        background-color: white;
-        font-size: 15px;
+    #categoryname {
+        color: darkblue;
     }
 
     #action {

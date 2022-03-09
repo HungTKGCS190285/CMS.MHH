@@ -13,9 +13,6 @@
 <table class="table">
     <tr>
         <th>
-            ID
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.UserEmail)
         </th>
         <th>
@@ -33,18 +30,82 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td></td>
-            <td>@item.UserEmail</td>
-            <td>@item.UserRole</td>
-            <td>@item.Phonenumber</td>
-            <td>@item.Department</td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+            <td>@Html.DisplayFor(modelItem => item.UserEmail) </td>
+            <td>@Html.DisplayFor(modelItem =>item.UserRole)</td>
+            <td>@Html.DisplayFor(modelItem => item.Phonenumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.Department)</td>
+            <td id="action">
+                <a class="bi bi-pencil-fill" href="/ApplicationUsers/Edit/?id=@item.UserId" id="edit"></a>
+                <a class="bi bi-clipboard-fill" href="/ApplicationUsers/Details/?id=@item.UserId" id="details"></a>
+                <a class="bi bi-trash-fill" href="/ApplicationUsers/Delete/?id=@item.UserId" id="delete"></a>
             </td>
-
         </tr>
     }
-
 </table>
+<style>
+    h2 {
+        color: cornflowerblue;
+    }
+
+    .table {
+        overflow: hidden;
+        border-collapse: collapse;
+        border-radius: 10px;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+        text-align: center;
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+        font-size: 13px;
+    }
+
+    #edit, #details, #delete {
+        font-size: 18px;
+        margin: 5px;
+    }
+
+        #edit:link, #edit:visited {
+            text-decoration: none;
+        }
+
+        #edit:hover, #edit:active {
+            text-decoration: none;
+        }
+
+        #details:link, #details:visited {
+            text-decoration: none;
+        }
+
+        #details:hover, #details:active {
+            text-decoration: none;
+        }
+
+        #delete:link, #delete:visited {
+            text-decoration: none;
+        }
+
+        #delete:hover, #delete:active {
+            text-decoration: none;
+        }
+
+    #edit {
+        color: orange;
+    }
+
+    #details {
+        color: #12F906;
+    }
+
+    #delete {
+        color: red;
+    }
+</style>

@@ -4,24 +4,78 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Available roles for system</h2>
+<p>
 @Html.ActionLink("Create new Role", "Create")
+</p>
 
 <table class="table">
     <tr>
-        <th class="c">
+        <th>
             Role Name
         </th>
+        <th></th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
-            <td class="c">
+            <td id="role">
                 @item.Name
             </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new { id = @item.Id })
+            <td id="action">
+                <a class="bi bi-trash-fill" href="/Roles/Delete/?id=@item.Id" id="delete"></a>
             </td>
         </tr>
     }
 </table>
+<style>
+    h2 {
+        color: cornflowerblue;
+    }
+
+    .table {
+        width: 50%;
+        overflow: hidden;
+        border-collapse: collapse;
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+        text-align: center;
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+        font-size: 14px;
+    }
+
+    #role {
+        padding-left: 20px; 
+    }
+
+    #action {
+        text-align: right;
+    }
+
+    #delete {
+        font-size: 18px;
+        margin: 5px;
+    }
+
+        #delete:link, #delete:visited {
+            text-decoration: none;
+        }
+
+        #delete:hover, #delete:active {
+            text-decoration: none;
+        }
+
+    #delete {
+        color: red;
+    }
+</style>
 

@@ -8,108 +8,122 @@
 }
 <script src="~/Scripts/jquery-1.11.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-@foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserlikedislike) // to get all user
-{
-    ViewBag.userid = user.AuthorId;
-    ViewBag.userlike = user.IsLike;
-}
 
-<h2>Detail of Idea</h2>
-<div>
-    Title: @Html.DisplayFor(m => m.Title)
-</div>
-<div>
-    Description: @Html.DisplayFor(m => m.Description)
-</div>
-<div>
-    Content: @Html.DisplayFor(m => m.Content)
-</div>
 
-<div>
-    Author:  @Html.DisplayFor(m => m.Author)
-</div>
+<div class="container" id="alldetail">
+    <div class="panel-heading" id="title">
+        <h3>Detail of idea</h3>
+    </div>
+    <div class="panel-body" id="detail">
+        <div>
+            Title: @Html.DisplayFor(m => m.Title)
+        </div>
+        <div>
+            Description: @Html.DisplayFor(m => m.Description)
+        </div>
+        <div>
+            Content: @Html.DisplayFor(m => m.Content)
+        </div>
+        <div>
+            Author:  @Html.DisplayFor(m => m.Author)
+        </div>
+        <div>
+            Category: @Html.DisplayFor(m => m.CategoryName)
+        </div>
+        <div>
+            Date created: @Html.DisplayFor(m => m.Date)
+        </div>
+        <div>
+            Last modified: @Html.DisplayFor(m => m.LastModify)
+        </div>
+        <div>
+            Document:  @if (Model.DocumentName != null)
+            {
+                @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
+            }
+        </div>
+        <div>
+            View: @Html.DisplayFor(m => m.View)
+        </div>
 
-<div>
-    Category: @Html.DisplayFor(m => m.CategoryName)
-</div>
-
-<div>
-    Date created: @Html.DisplayFor(m => m.Date)
-</div>
-<div>
-    Document:  @if (Model.DocumentName != null)
-    {
-        @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
-    }
-</div>
-
-<div>
-    View: @Html.DisplayFor(m => m.View)
-</div>
-@if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == true)
-{
-    <button class="btn btn-info btn-xs like-button"
-            disabled data-status="1"
-            id="Like">
-        <i class="bi bi-hand-thumbs-up-fill"></i> Like
-        <span id="likecount">@ViewBag.like</span>
-    </button>
-    <button class="btn btn-info btn-xs like-button"
-            data-status="2"
-            id="Dislike">
-        <i class="bi bi-hand-thumbs-down-fill"></i>Dislike
-        <span id="dislikecount">@ViewBag.Dislike</span>
-    </button>
-}
-else if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == false)
-{
-    <button class="btn btn-info btn-xs like-button"
-            data-status="1"
-            id="Like">
-        <i class="bi bi-hand-thumbs-up-fill"></i> Like
-        <span id="likecount"> @ViewBag.like </span>
-    </button>
-    <button class="btn btn-info btn-xs like-button"
-            disabled data - status="2"
-            id="Dislike">
-        <i class="bi bi-hand-thumbs-down-fill"></i>Dislike
-        <span id="dislikecount">@ViewBag.Dislike</span>
-    </button>
-}
-else
-{
-    <button class="btn btn-info btn-xs like-button"
-            data-status="1"
-            id="Like">
-        <i class="bi bi-hand-thumbs-up-fill"></i> Like
-        <span id="likecount">@ViewBag.like</span>
-    </button>
-    <button class="btn btn-info btn-xs like-button"
-            data-status="2"
-            id="Dislike">
-        <i class="bi bi-hand-thumbs-down-fill"></i>Disliken
-        <span id="dislikecount">@ViewBag.Dislike</span>
-    </button>
-}
-<h2>Comments of the Post</h2>
-
-@foreach (var cm in Model.comments)
-{
-    <div>
-        @cm.Comment by
-        @if (cm.CommentAnony == true)
+        @{int i = 0;}
+        @foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserReacted) // fetch all users who reacted this idea.
         {
-            <span>Anonymous</span>
+            if (user.AuthorId == User.Identity.GetUserId())
+            {
+                i++;
+                ViewBag.userid = user.AuthorId;
+                ViewBag.userlike = user.IsLike;
+            }
+        }
+
+        @if (i == 1 && ViewBag.userlike == true)
+        {
+            <button class="btn btn-info btn-xs like-button"
+                    disabled data-status="1"
+                    id="Like">
+                <i class="bi bi-hand-thumbs-up-fill"></i>
+                <span id="likecount">@ViewBag.like</span>
+            </button>
+            <button class="btn btn-info btn-xs like-button"
+                    data-status="2"
+                    id="Dislike">
+                <i class="bi bi-hand-thumbs-down-fill"></i>
+                <span id="dislikecount">@ViewBag.Dislike</span>
+            </button>
+        }
+        else if (i == 1 && ViewBag.userlike == false)
+        {
+            <button class="btn btn-info btn-xs like-button"
+                    data-status="1"
+                    id="Like">
+                <span class="bi bi-hand-thumbs-up-fill"></span>
+                <span id="likecount"> @ViewBag.like </span>
+            </button>
+            <button class="btn btn-info btn-xs like-button"
+                    disabled data - status="2"
+                    id="Dislike">
+                <span class="bi bi-hand-thumbs-down-fill"></span>
+                <span id="dislikecount">@ViewBag.Dislike</span>
+            </button>
         }
         else
         {
-            <b> <i>@cm.CommentAuthor</i></b>
+            <button class="btn btn-default btn-xs like-button"
+                    data-status="1"
+                    id="Like">
+                <span class="bi bi-hand-thumbs-up-fill"></span>
+                <span id="likecount">@ViewBag.like</span>
+            </button>
+            <button class="btn btn-default btn-xs like-button"
+                    data-status="2"
+                    id="Dislike">
+                <span class="bi bi-hand-thumbs-down-fill"></span>
+                <span id="dislikecount">@ViewBag.Dislike</span>
+            </button>
         }
-        at <p>@cm.CommentDate</p>
     </div>
+    <div class="panel-footer" id="commentdetail">
+        <p>Comments</p>
+        @foreach (var cm in Model.comments)
+        {
 
-}
-@Scripts.Render("~/bundles/bootstrap")
+            <ul>
+                <li>
+                    @if (cm.CommentAnony == true)
+                    {
+                        <span>Anonymous</span> <p>@cm.Comment at @cm.CommentDate</p>
+                    }
+                    else
+                    {
+                        <p>@cm.CommentAuthor: @cm.Comment</p>
+                        <i> @cm.CommentDate</i>
+                    }
+                </li>
+            </ul>
+        }
+    </div>
+</div>
 <script>
     $(document).ready(function ()
     {
@@ -151,3 +165,56 @@ else
     });
 </script>
 
+<style>
+    ul {
+        border: 1px solid grey; 
+        border-radius:10px;
+    }
+
+    i {
+        font-size: 10px;
+    }
+
+    #alldetail {
+        width: 40%;
+        border: 0.5px ;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        padding-top: 20px;
+        padding-right: 20px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        margin: auto;
+        margin-top: 70px;
+    }
+
+    #title {
+        border: 0.5px;
+        border-radius: 10px 10px 0 0;
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+    #commentdetail {
+        border: 0.5px;
+        border-radius: 0 0 10px 10px;
+       background-color: white;
+    }
+
+    .like-button {
+        width: 50px;
+        height: 30px;
+        font-size: 15px;
+        background-color: cornflowerblue;
+        color: white;
+        transition: background-color 0.4s, top 0.4s, box-shadow 0.4s;
+    }
+        #Like:hover, #Dislike:hover {
+            color: cornflowerblue;
+            background-color: white;
+        }
+        #Like:focus, #Dislike:focus {
+            outline: none;
+        }
+</style>

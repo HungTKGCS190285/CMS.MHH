@@ -15,7 +15,10 @@ namespace CMS.MHH.ViewModel
         public string Description { get; set; }
 
         public string CategoryName { get; set; }
+
         public DateTime Date { get; set; }
+
+        public DateTime LastModify { get; set; }
 
         public string AuthorId { get; set; }
 

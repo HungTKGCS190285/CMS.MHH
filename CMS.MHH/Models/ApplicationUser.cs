@@ -20,7 +20,7 @@ namespace CMS.MHH.Models
             return userIdentity;
         }
         public int DepartmentId { get; set; }
-
+        public string Name { get; set; }
         public virtual Department Department { get; set; }
     }
 }

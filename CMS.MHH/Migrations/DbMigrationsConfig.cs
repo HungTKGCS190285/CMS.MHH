@@ -32,7 +32,7 @@ namespace CMS.MHH.Migrations
                 CreateAdmin(context, adminEmail, adminUserName, adminPassword, adminRole, adminDepartment);
 
                 //QA Manager user
-                var QA_M_Email = "QA_Manager@fpt.com";
+                var QA_M_Email = "qamanager321@gmail.com";
                 var QA_M_UserName = QA_M_Email;
                 var QA_M_Password = "1234";
                 string[] QA_M_Role = { "Staff", "QA Manager" };
@@ -40,7 +40,7 @@ namespace CMS.MHH.Migrations
                 CreateQA_Manager(context, QA_M_Email, QA_M_UserName, QA_M_Password, QA_M_Role, QA_M_Department);
 
                 ////QA Coordinator IT user
-                var QA_IT_Email = "QA_IT@fpt.com";
+                var QA_IT_Email = "qait321@gmail.com";
                 var QA_IT_UserName = QA_IT_Email;
                 var QA_IT_Password = "1234";
                 string[] QA_IT_Role = { "Staff", "QA_C" };
@@ -48,7 +48,7 @@ namespace CMS.MHH.Migrations
                 CreateQA_IT(context, QA_IT_Email, QA_IT_UserName, QA_IT_Password, QA_IT_Role, QA_IT_Department);
 
                 //QA Coordinator HR user
-                var QA_HR_Email = "QA_HR@fpt.com";
+                var QA_HR_Email = "qahr789@gmail.com";
                 var QA_HR_UserName = QA_HR_Email;
                 var QA_HR_Password = "1234";
                 string[] QA_HR_Role = { "Staff", "QA_C" };
@@ -161,7 +161,8 @@ namespace CMS.MHH.Migrations
                 Description = "This is a hot topic",
                 Content = "1st Idea",
                 CateId = 1,
-                Date = DateTime.Now.AddDays(5).AddHours(21).AddMinutes(30),
+                Date = DateTime.Now,
+                LastModify = DateTime.Now,
                 Author = context.Users.First(),
                 SubmissionId = 1,
                 Author_Email = context.Users.First().Email
@@ -172,7 +173,8 @@ namespace CMS.MHH.Migrations
                 Description = "This is a hot topic",
                 Content = "2nd Idea",
                 CateId = 2,
-                Date = DateTime.Now.AddDays(2).AddHours(10).AddMinutes(30),
+                Date = DateTime.Now.AddYears(-1),
+                LastModify = DateTime.Now.AddYears(-1),
                 IsAnonymous = true,
                 Author = context.Users.First(),
                 SubmissionId = 2,
@@ -184,7 +186,6 @@ namespace CMS.MHH.Migrations
                 }
             });
         }
-
 
         private void CreateQA_Manager(ApplicationDbContext context, string QA_M_Email, string QA_M_UserName, string QA_M_Password, string[] QA_M_Role, int QA_M_Department)
         {
