@@ -158,6 +158,7 @@ namespace CMS.MHH.Controllers
                 Description = idea.Description,
                 AuthorId = idea.AuthorId,
                 DocumentName = idea.DocumentName,
+                LastModify = idea.LastModify,
 
                 comments = idea.Comments.Select(r => new CommentVM()
                 { 

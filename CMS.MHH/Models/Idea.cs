@@ -51,8 +51,10 @@ namespace CMS.MHH.Models
 
         public int View { get; set; }
 
+        [Display(Name = "Like")]
         public int ThumbsUp { get; set; }
 
+        [Display(Name = "Dislike")]
         public int ThumbsDown { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
