@@ -26,6 +26,10 @@ namespace CMS.MHH.Controllers
                 {
                     a.Author_Email = "Anonymous";
                 }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
+                }
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
             }
@@ -41,6 +45,10 @@ namespace CMS.MHH.Controllers
                 if (a.IsAnonymous == true)
                 {
                     a.Author_Email = "Anonymous";
+                }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
                 }
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
@@ -58,6 +66,10 @@ namespace CMS.MHH.Controllers
                 {
                     a.Author_Email = "Anonymous";
                 }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
+                }
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
             }
@@ -74,6 +86,10 @@ namespace CMS.MHH.Controllers
                 {
                     a.Author_Email = "Anonymous";
                 }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
+                }
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
             }
@@ -89,6 +105,10 @@ namespace CMS.MHH.Controllers
                 if (a.IsAnonymous == true)
                 {
                     a.Author_Email = "Anonymous";
+                }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
                 }
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
@@ -109,6 +129,10 @@ namespace CMS.MHH.Controllers
             {
                 idea.Author_Email = "Anonymous";
             }
+            else
+            {
+                idea.Author_Email = idea.Author.Email;
+            }
 
             //count thumbs up in idea
             ViewBag.like = idea.ThumbsUp;
@@ -117,7 +141,7 @@ namespace CMS.MHH.Controllers
             ViewBag.Dislike = idea.ThumbsDown;
 
             //Get all users who react to this idea
-            ViewBag.AllUserlikedislike = db.Reactions.Where(x => x.PostId == id ).ToList();
+            ViewBag.AllUserReacted = db.Reactions.Where(x => x.PostId == id ).ToList();
 
 
             var cmts = this.db.Comments.Include(x => x.Author).Where(x => x.Ideas.Id == id);
@@ -158,11 +182,10 @@ namespace CMS.MHH.Controllers
         public string Like(int id, int status)
         {
             var idea = db.Ideas.FirstOrDefault(x => x.Id == id);
-            var toggle = false;
             bool statu;
             if (status == 1)
             {
-                statu = true;
+                statu = true; // int 1 is like-true, 2 is dislike-false
             }
             else
                 statu = false;
@@ -202,10 +225,6 @@ namespace CMS.MHH.Controllers
                 db.Reactions.Add(react);
             }
             else
-            {
-                toggle = true;
-            }
-            if (toggle)
             {
                 react.AuthorId = user.Id;
                 react.IsLike = statu;

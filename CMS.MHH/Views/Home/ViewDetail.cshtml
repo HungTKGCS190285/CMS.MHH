@@ -8,11 +8,7 @@
 }
 <script src="~/Scripts/jquery-1.11.1.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-@foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserlikedislike) // fetch all users who reacted to this idea.
-{
-    ViewBag.userid = user.AuthorId;
-    ViewBag.userlike = user.IsLike;
-}
+
 <div>
     <h2>Detail of Idea</h2>
     <div>
@@ -36,6 +32,7 @@
     <div>
         Date created: @Html.DisplayFor(m => m.Date)
     </div>
+
     <div>
         Document:  @if (Model.DocumentName != null)
         {
@@ -46,52 +43,64 @@
     <div>
         View: @Html.DisplayFor(m => m.View)
     </div>
-   
-    @if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == true) //check current user has liked this idea or not. if yes, they only dislike
+
+    @{int i = 0;} 
+    @foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserReacted) // fetch all users who reacted this idea.
     {
-        <button class="btn btn-info btn-xs like-button"
-                disabled data-status="1"
-                id="Like">
-            <i class="bi bi-hand-thumbs-up-fill"></i> 
-            <span id="likecount">@ViewBag.like</span>
-        </button>
-        <button class="btn btn-info btn-xs like-button"
-                data-status="2"
-                id="Dislike">
-            <i class="bi bi-hand-thumbs-down-fill"></i>
-            <span id="dislikecount">@ViewBag.Dislike</span>
-        </button>
+        if(user.AuthorId == User.Identity.GetUserId())
+        {
+            i++;
+            ViewBag.userid = user.AuthorId;
+            ViewBag.userlike = user.IsLike;
+        }
+    }    
+
+    @if(i == 1 && ViewBag.userlike == true) //check current user has liked this idea or not. if yes, they only dislike
+    {
+    <button class="btn btn-info btn-xs like-button"
+            disabled data-status="1"
+            id="Like">
+        <i class="bi bi-hand-thumbs-up-fill"></i>
+        <span id="likecount">@ViewBag.like</span>
+    </button>
+    <button class="btn btn-info btn-xs like-button"
+            data-status="2"
+            id="Dislike">
+        <i class="bi bi-hand-thumbs-down-fill"></i>
+        <span id="dislikecount">@ViewBag.Dislike</span>
+    </button>
     }
-    else if (@ViewBag.userid == User.Identity.GetUserId() && ViewBag.userlike == false)
+    else if (i == 1 && ViewBag.userlike == false)
     {
-        <button class="btn btn-info btn-xs like-button"
-                data-status="1"
-                id="Like">
-            <i class="bi bi-hand-thumbs-up-fill"></i> 
-            <span id="likecount"> @ViewBag.like </span>
-        </button>
-        <button class="btn btn-info btn-xs like-button"
-                disabled data - status="2"
-                id="Dislike">
-            <i class="bi bi-hand-thumbs-down-fill"></i>
-            <span id="dislikecount">@ViewBag.Dislike</span>
-        </button>
+    <button class="btn btn-info btn-xs like-button"
+            data-status="1"
+            id="Like">
+        <i class="bi bi-hand-thumbs-up-fill"></i>
+        <span id="likecount"> @ViewBag.like </span>
+    </button>
+    <button class="btn btn-info btn-xs like-button"
+            disabled data - status="2"
+            id="Dislike">
+        <i class="bi bi-hand-thumbs-down-fill"></i>
+        <span id="dislikecount">@ViewBag.Dislike</span>
+    </button>
     }
     else
     {
-        <button class="btn btn-info btn-xs like-button"
-                data-status="1"
-                id="Like">
-            <i class="bi bi-hand-thumbs-up-fill"></i> 
-            <span id="likecount">@ViewBag.like</span>
-        </button>
-        <button class="btn btn-info btn-xs like-button"
-                data-status="2"
-                id="Dislike">
-            <i class="bi bi-hand-thumbs-down-fill"></i>
-            <span id="dislikecount">@ViewBag.Dislike</span>
-        </button>
+    <button class="btn btn-info btn-xs like-button"
+            data-status="1"
+            id="Like">
+        <i class="bi bi-hand-thumbs-up-fill"></i>
+        <span id="likecount">@ViewBag.like</span>
+    </button>
+    <button class="btn btn-info btn-xs like-button"
+            data-status="2"
+            id="Dislike">
+        <i class="bi bi-hand-thumbs-down-fill"></i>
+        <span id="dislikecount">@ViewBag.Dislike</span>
+    </button>
     }
+
     <h2>Comments of the Post</h2>
 
     @foreach (var cm in Model.comments)
