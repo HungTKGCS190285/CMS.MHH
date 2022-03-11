@@ -15,8 +15,10 @@ namespace CMS.MHH.Models
 
         public string Description { get; set; }
 
+        [Display(Name = "Closure Date")]
         public DateTime Closure_date { get; set; }
 
+        [Display(Name = "Final Closure Date")]
         public DateTime Final_closure_date { get; set; }
     }
 }
