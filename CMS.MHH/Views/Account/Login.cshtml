@@ -11,7 +11,7 @@
             {
                 @Html.AntiForgeryToken()
                 <div id="title">
-                    <span class="bi bi-person-circle" id="icon"></span>
+                    <span class="glyphicon glyphicon-user" id="icon"></span>
                     <h4>@ViewBag.Title</h4>
                 </div><br/>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })

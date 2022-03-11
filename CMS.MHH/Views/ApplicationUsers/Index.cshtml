@@ -10,37 +10,42 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserEmail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserRole)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phonenumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Department)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table table-hover">
+    <thead>
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.UserEmail) </td>
-            <td>@Html.DisplayFor(modelItem =>item.UserRole)</td>
-            <td>@Html.DisplayFor(modelItem => item.Phonenumber)</td>
-            <td>@Html.DisplayFor(modelItem => item.Department)</td>
-            <td id="action">
-                <a class="bi bi-pencil-fill" href="/ApplicationUsers/Edit/?id=@item.UserId" id="edit"></a>
-                <a class="bi bi-clipboard-fill" href="/ApplicationUsers/Details/?id=@item.UserId" id="details"></a>
-                <a class="bi bi-trash-fill" href="/ApplicationUsers/Delete/?id=@item.UserId" id="delete"></a>
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.UserEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserRole)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phonenumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.UserEmail) </td>
+                <td>@Html.DisplayFor(modelItem => item.UserRole)</td>
+                <td>@Html.DisplayFor(modelItem => item.Phonenumber)</td>
+                <td>@Html.DisplayFor(modelItem => item.Department)</td>
+                <td id="action">
+                    <a class="glyphicon glyphicon-pencil" href="/ApplicationUsers/Edit/?id=@item.UserId" id="edit"></a>
+                    <a class="glyphicon glyphicon-th-list" href="/ApplicationUsers/Details/?id=@item.UserId" id="details"></a>
+                    <a class="glyphicon glyphicon-trash" href="/ApplicationUsers/Delete/?id=@item.UserId" id="delete"></a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
 </table>
 <style>
     h2 {
@@ -107,5 +112,10 @@
 
     #delete {
         color: red;
+    }
+
+    #action {
+        text-align: right;  
+        margin-right: 20px;
     }
 </style>
