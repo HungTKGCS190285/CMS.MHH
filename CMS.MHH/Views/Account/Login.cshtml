@@ -11,6 +11,7 @@
             {
                 @Html.AntiForgeryToken()
                 <div id="title">
+                    <span class="fa fa-user-circle" id="icon"></span>
                     <h4>@ViewBag.Title</h4>
                 </div><br/>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -70,9 +71,10 @@
         transition: background-color 0.4s, border-color 0.4s, top 0.4s, box-shadow 0.4s;        
     }*/
 
-    svg {
-       
-        color: cornflowerblue;  
+    #icon {
+       font-size: 70px;
+       color: cornflowerblue;  
+       margin-left: -5px;
     }
 
     #loginbtn {
