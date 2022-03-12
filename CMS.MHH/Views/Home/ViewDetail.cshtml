@@ -12,12 +12,9 @@
 
 <div class="container" id="alldetail">
     <div class="panel-heading" id="title">
-        <h3>Detail of idea</h3>
+        <h3>@Html.DisplayFor(m => m.Title)</h3>
     </div>
     <div class="panel-body" id="detail">
-        <div>
-            Title: @Html.DisplayFor(m => m.Title)
-        </div>
         <div>
             Description: @Html.DisplayFor(m => m.Description)
         </div>
@@ -181,10 +178,7 @@
         border-radius: 10px;
         background-color: white;
         box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
-        padding-top: 20px;
-        padding-right: 20px;
-        padding-bottom: 20px;
-        padding-left: 20px;
+        padding: 20px 20px 20px 20px;
         margin: auto;
         margin-top: 70px;
     }

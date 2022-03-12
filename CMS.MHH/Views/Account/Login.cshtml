@@ -1,62 +1,108 @@
 ﻿@using CMS.MHH.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Sign in";
 }
 
-<h2>@ViewBag.Title.</h2>
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
+                <div id="title">
+                    <span class="fa fa-user-circle" id="icon"></span>
+                    <h4>@ViewBag.Title</h4>
+                </div><br/>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-6">
                         <div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
                             @Html.LabelFor(m => m.RememberMe)
                         </div>
+                    </div>  
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-default" id="loginbtn">
+                            Sign in
+                        </button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
+
+                // Register an account
+                /*
+                <hr/>
+                <button class="btn btn-success" id="registerbtn">
+                    <b>@Html.ActionLink("Register as a new user", "Register")</b>
+                </button>
+                */
             }
         </section>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
 </div>
+<style>
+    #loginForm {
+        width: 50%; 
+        border: 0.5px; 
+        border-radius: 10px; 
+        background-color: white; 
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2); 
+        margin: 60px auto auto 340px; 
+        padding: 20px 20px 20px 47px;
+    }
+
+    #title {
+       padding-left: 110px;
+    }
+
+    /*#registerbtn {
+        transition: background-color 0.4s, border-color 0.4s, top 0.4s, box-shadow 0.4s;        
+    }*/
+
+    #icon {
+       font-size: 70px;
+       color: cornflowerblue;  
+       margin-left: -5px;
+    }
+
+    #loginbtn {
+        background-color: cornflowerblue;
+        color: white;
+        outline: none;
+        margin-left: 43px;
+      }
+
+    #Email {
+        width: 500px;
+    }
+
+    #Password {
+        width: 500px;
+    }
+
+    .checkbox {
+        margin-left: 20px;
+        color: cornflowerblue;
+    }
+
+    label {
+        margin-left: -20px;
+        white-space: nowrap;
+    } 
+    
+</style>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
