@@ -19,8 +19,7 @@ namespace CMS.MHH.Models
             // Add custom user claims here
             return userIdentity;
         }
-        [Display(Name = "Name")]
-        public string UserName { get; set; }
+
 
         [Display(Name = "Phone Number")]
         public string Phonenumber { get; set; } 

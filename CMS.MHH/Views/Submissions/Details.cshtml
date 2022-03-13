@@ -5,47 +5,78 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Submission</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div class="container" id="alldetail">
+        <div class="panel-heading" id="title">
+            <h4>Submission Detail</h4>
+        </div>
+        <div class="panel-body" id="detail">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Closure_date)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Closure_date):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Closure_date)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Closure_date)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Final_closure_date)
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Final_closure_date):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Final_closure_date)
-        </dd>
-
-    </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.Final_closure_date)
+                </dd>
+            </dl>
+        </div>
+        <div class="panel-footer" id="back">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<style>
+    #alldetail {
+        width: 40%;
+        border: 0.5px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 20px 20px 20px 20px;
+        margin: auto;
+        margin-top: 70px;
+    }
+
+    #title {
+        border: 0.5px;
+        border-radius: 10px 10px 0 0;
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+    #back {
+        border: 0.5px;
+        border-radius: 0 0 10px 10px;
+        background-color: white;
+    }
+
+    #detail {
+        padding-left: 10px;
+    }
+</style>
