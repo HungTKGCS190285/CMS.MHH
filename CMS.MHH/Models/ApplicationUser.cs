@@ -23,7 +23,7 @@ namespace CMS.MHH.Models
         public override string UserName { get; set; }
 
         [Display(Name = "Phone Number")]
-        public string Phonenumber { get; set; } 
+        public string PhoneNumber { get; set; } 
         public int DepartmentId { get; set; }
         public string Name { get; set; }
         public virtual Department Department { get; set; }
