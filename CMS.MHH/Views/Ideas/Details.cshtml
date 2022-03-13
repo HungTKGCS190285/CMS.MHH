@@ -4,126 +4,130 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Details</h2>
-<i class="bi"></i>
 <div>
-    <h4>Idea</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author.Email):
-        </dt>
+    <div class="container" id="detail">
+        <div class="panel-heading" id="title">
+            <h3>@Html.DisplayFor(model => model.Title)</h3>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Author.Email):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Author.Email)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Author.Email)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Cate.Category_Name):
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Cate.Category_Name):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cate.Category_Name)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Cate.Category_Name)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Submission.Name):
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Submission.Name):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Submission.Name)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Submission.Name)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title):
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description):
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsAnonymous):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.IsAnonymous)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAnonymous):
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsAnonymous)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Content)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Content):
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Date):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.Date)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date):
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DocumentName):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
+                <dd>
+                    @if (Model.DocumentName != null)
+                    {
+                        @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
+                    }
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DocumentName):
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.View):
+                </dt>
 
-        <dd>
-            @if (Model.DocumentName != null)
-            {
-                @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
-            }
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.View)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.View):
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ThumbsUp):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.View)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ThumbsUp)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ThumbsUp): 
-        </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ThumbsDown):
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ThumbsUp)
-        </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ThumbsDown)
+                </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ThumbsDown):
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ThumbsDown)
-        </dd>
-
-    </dl>
+            </dl>
+        </div>
+        <div class="panel-footer" id="back">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 <style>
-    dl {
+   #detail {
         width: 40%;
         border: 0.5px solid white;
         border-radius: 10px;
         background-color: white;
         box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
         padding: 20px 20px 20px 20px;
-        margin: auto;
+        margin: 40px auto auto auto;
     }
+
+    #title {
+        border-radius: 10px 10px 0 0;
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+   #back {
+       background-color: white;
+   }
 </style>
