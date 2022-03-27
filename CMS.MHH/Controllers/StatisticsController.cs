@@ -15,15 +15,16 @@ namespace CMS.MHH.Controllers
         {
             var total_ideas = db.Ideas.Count();
 
-            decimal num_idea_QA = 0;
-            decimal num_idea_IT = 0;
-            decimal num_idea_HR = 0;
+            decimal num_idea_QA = 0; //number idea in QA depart
+            decimal num_idea_IT = 0; //number idea in IT depart
+            decimal num_idea_HR = 0; //number idea in HR depart
 
-            int con_IT = 0;
-            int con_QA = 0;
-            int con_HR = 0;
+            int con_IT = 0; //contributor of IT
+            int con_QA = 0; //contributor of QA
+            int con_HR = 0; //contributor of HR
 
-
+            
+            // Count number of idea in department
             var ideas = db.Ideas.ToList();
             foreach (var idea in ideas)
             {
@@ -41,28 +42,35 @@ namespace CMS.MHH.Controllers
                     num_idea_HR++;
                 }
             }
-            List<ApplicationUser> users = new List<ApplicationUser>();
+
+
+            //Count number of contributors in all Department
+            
+            List<ApplicationUser> users = new List<ApplicationUser>(); // Create new empty list which contain User 
 
             int i = 0;
-            foreach (var idea in ideas)
-            {
+            foreach (var idea in ideas) //fetch and read each idea in the list of ideas
+            {                
                 var user_idea = db.Users.Where(x => x.Id == idea.AuthorId).FirstOrDefault();
-                if (i == 0)
+                
+                if (i == 0) //Allow the system add the first user from first idea to the "users" list
                 {
                     users.Add(user_idea);
                     i++;
                 }
                 else
                 {
-                    int j = 0;
+                    // from the second ideae, execute check the author of idea is exist in the "users"
+                    
+                    int j = 0; //count the time of author exist 
                     foreach (var user in users)
                     {
-                        if (user.Id == user_idea.Id)
+                        if (user.Id  == user_idea.Id)
                         {
                             j++;
                         }
                     }
-                    if (j == 0)
+                    if (j == 0) // if they dont exist, add them to the "users"
                     {
                         users.Add(user_idea);
                     }
@@ -70,6 +78,7 @@ namespace CMS.MHH.Controllers
 
             }
 
+            //Count contributor in each department
             foreach (var user in users)
             {
                 if (user.Department.Name == "QA")
@@ -106,8 +115,9 @@ namespace CMS.MHH.Controllers
             return View(statistic);
         }
 
-        public ActionResult Exceptions()
+        public ActionResult Exceptions() //Count number of anonymous ideas, comments, and no comments
         {
+
             var ideas = db.Ideas.ToList();
             List<Idea> ideas1 = new List<Idea>();
             int idea_anony = 0;

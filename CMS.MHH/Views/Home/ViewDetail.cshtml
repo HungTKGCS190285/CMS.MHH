@@ -46,6 +46,7 @@
         @{int i = 0;}
         @foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserReacted) // fetch all users who reacted this idea.
         {
+            // check the current user had reacted to this Idea
             if (user.AuthorId == User.Identity.GetUserId())
             {
                 i++;
@@ -54,8 +55,9 @@
             }
         }
 
-        @if (i == 1 && ViewBag.userlike == true)
-        {
+        @if (i == 1 && ViewBag.userlike == true) //if user had reacted and they liked
+        { 
+            //disable like button
             <button class="btn btn-info btn-xs like-button"
                     disabled data-status="1"
                     id="Like">
@@ -69,7 +71,7 @@
                 <span id="dislikecount">@ViewBag.Dislike</span>
             </button>
         }
-        else if (i == 1 && ViewBag.userlike == false)
+        else if (i == 1 && ViewBag.userlike == false) //if user disliked
         {
             <button class="btn btn-info btn-xs like-button"
                     data-status="1"
@@ -77,6 +79,7 @@
                 <span class="fa fa-thumbs-up"></span>
                 <span id="likecount"> @ViewBag.like </span>
             </button>
+            //disble dislike button
             <button class="btn btn-info btn-xs like-button"
                     disabled data - status="2"
                     id="Dislike">
@@ -84,7 +87,7 @@
                 <span id="dislikecount">@ViewBag.Dislike</span>
             </button>
         }
-        else
+        else //they hadn't reacted, like and dislike are enabled
         {
             <button class="btn btn-default btn-xs like-button"
                     data-status="1"
@@ -124,19 +127,20 @@
 <script>
     $(document).ready(function ()
     {
+        //Execute like activity using ajax
         $(document).on("click", "#Like", function ()
         {
-            var link = "/Home/Like/?id=" + @Model.Id + "&status=" + $(this).data("status");
+            var link = "/Home/Like/?id=" + @Model.Id + "&status=" + $(this).data("status"); //create the link to transfer data
             $.ajax(
                 {
                     type: "GET",
                     url: link,
-                    success: function (data) {
-                        var counters = data.split('/');
-                        $("#likecount").text(counters[0]);
-                        $("#dislikecount").text(counters[1]);
-                        $("#Like").attr('disabled', 'disabled');
-                        $("#Dislike").attr('disabled', false);
+                    success: function (data) { //if execute success, recieve new data
+                        var counters = data.split('/'); // split the array when face with "/" character because the Like function return string value like as (idea.ThumbsUp + "/" + idea.ThumbsDown)
+                        $("#likecount").text(counters[0]); // use idea.ThumbsUp value(first array)
+                        $("#dislikecount").text(counters[1]); // use idea.ThumbsDown value(second array)
+                        $("#Like").attr('disabled', 'disabled'); //disable like button
+                        $("#Dislike").attr('disabled', false); //enable dislike button
                     }
                 }
             );

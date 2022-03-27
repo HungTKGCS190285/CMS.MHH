@@ -175,64 +175,64 @@ namespace CMS.MHH.Controllers
         [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public ActionResult Likes(int id, int status)
         {
+           //execute the data and move to the view
             var result = Like(id, status);
             return Content(result);
         }
 
+        // Create the function which execute the thumbs up and thumbs down action
         [Authorize(Roles = "Staff, QA Manager, QA_C")]
         public string Like(int id, int status)
         {
             var idea = db.Ideas.FirstOrDefault(x => x.Id == id);
             bool statu;
+            // status = 1 - like; status = 2 - dislike
             if (status == 1)
             {
-                statu = true; // int 1 is like-true, 2 is dislike-false
+                statu = true;
             }
             else
+            {
                 statu = false;
+            }
+
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            // Check the user reacted or not
             Reaction react = db.Reactions.FirstOrDefault(x => x.PostId == id && x.AuthorId == user.Id);
+            
             if (react == null)
             {
+                // if not, create a new react and add necessary information
                 react = new Reaction();
                 react.AuthorId = user.Id;
 
+                //statu is bool (equal with IsLike)
                 react.IsLike = statu;
                 react.PostId = id;
-                if (statu)
+
+                // used to add the number of react in the idea
+                if (statu) // if status = true(like) 
                 {
-                    if (idea.ThumbsUp == null)
-                    {
-                        idea.ThumbsUp = 1;
-                        idea.ThumbsDown = 0;
-                    }
-                    else
-                    {
-                        idea.ThumbsUp = idea.ThumbsUp + 1;
-                    }
+                    idea.ThumbsUp = idea.ThumbsUp + 1;
                 }
                 else
                 {
-                    if (idea.ThumbsDown == null)
-                    {
-                        idea.ThumbsDown = 1;
-                        idea.ThumbsUp = 0;
-                    }
-                    else
-                    {
-                        idea.ThumbsDown = idea.ThumbsDown + 1;
-                    }
+                    idea.ThumbsDown = idea.ThumbsDown + 1;
                 }
                 db.Reactions.Add(react);
             }
-            else
+            else // they reacted in the past
             {
                 react.AuthorId = user.Id;
                 react.IsLike = statu;
                 react.PostId = id;
-                if (statu)
+
+                if (statu)// if user like
                 {
                     idea.ThumbsUp = idea.ThumbsUp + 1;
+
+                    //check if the thumbs down is reacted by nobody
                     if (idea.ThumbsDown == 0 || idea.ThumbsDown < 0)
                     {
                         idea.ThumbsDown = 0;
@@ -245,6 +245,7 @@ namespace CMS.MHH.Controllers
                 else
                 {
                     idea.ThumbsDown++;
+                    //check if the thumbs up is reacted by nobody
                     if (idea.ThumbsUp == 0 || idea.ThumbsUp < 0)
                     {
                         idea.ThumbsUp = 0;

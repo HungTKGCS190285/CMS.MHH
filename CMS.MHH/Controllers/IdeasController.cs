@@ -59,6 +59,8 @@ namespace CMS.MHH.Controllers
         [HttpGet]
         public ActionResult Create(int id)
         {
+            //Check the available to submit idea( base on the submission configuration
+
             var submit = db.Submissions.Find(id);
             if (DateTime.Now > submit.Closure_date)
             {
@@ -76,11 +78,16 @@ namespace CMS.MHH.Controllers
         [HttpGet]
         public ActionResult Download(int id)
         {
+            // int id is for each idea.
             var ideas = this.db.Ideas.Where(x => x.Id == id).FirstOrDefault();
+
+            //check the ideas has file or not
             string fullPath = Path.Combine(Server.MapPath("~/Files"), ideas.DocumentName);
+
+            //open the file, read the content and export to byte format
             byte[] fileBytes = System.IO.File.ReadAllBytes(fullPath);
 
-
+            //export the read file with the configuration format and this name 
             return File(fileBytes, "application/pdf", ideas.DocumentName);
         }
 
@@ -97,26 +104,37 @@ namespace CMS.MHH.Controllers
                 idea.Date = DateTime.Now;
                 idea.LastModify = DateTime.Now;
 
+                //check the idea contain file or not, in this case, just allow one document file for each idea.
                 if (Request.Files != null && Request.Files.Count == 1)
                 {
+                    //Get the first submitted file
                     var file = Request.Files[0];
+
+                    //check the valid file
                     if (file != null && file.ContentLength > 0)
                     {
                         var fileName = Path.GetFileName(file.FileName);
+
+                        //prepare the storage where the file in with its name
                         var filePath = Path.Combine(Server.MapPath("~/Files"), fileName);
                         file.SaveAs(filePath);
                         idea.DocumentName = fileName;
                     }
                 }
 
+                //using available Mail in the system which have the information in the basic mail format 
                 MailMessage mail = new MailMessage();
 
+                // prepare the protocol for mail service, connect to the available mail,
+                // in this case, using stmp of Google provider
+                // set the config for transfer mail
                 SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
                 smtpServer.Credentials = new System.Net.NetworkCredential("donotreply458@gmail.com", "<3333333");
                 smtpServer.Port = 587;
                 smtpServer.EnableSsl = true;
 
 
+                //Config information for the mail service
                 mail.From = new MailAddress("donotreply458@gmail.com");
                 if (user.Department.Name == "HR")
                 {
@@ -133,6 +151,7 @@ namespace CMS.MHH.Controllers
                 mail.Subject = "Notification about new submitted idea";
                 mail.Body = "A new idea has been posted in your department";
 
+                //send the mail in smtp protocol
                 smtpServer.Send(mail);
 
                 db.Ideas.Add(idea);
