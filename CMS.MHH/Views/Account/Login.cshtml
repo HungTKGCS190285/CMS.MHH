@@ -5,8 +5,8 @@
 }
 
 <div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
+    <div class="col-md-8 centerfix">
+        <section id="loginForm" style="text-align:center">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
@@ -16,18 +16,18 @@
                 </div><br/>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
-                    <div class="col-md-10">
+                    <div class="logininfo">
                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
                         @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-10">
+                    <div class="logininfo">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="padding-bottom: 10px">
                     <div class="col-md-6">
                         <div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
@@ -40,31 +40,34 @@
                         </button>
                     </div>
                 </div>
-
-                // Register an account
-                /*
-                <hr/>
-                <button class="btn btn-success" id="registerbtn">
-                    <b>@Html.ActionLink("Register as a new user", "Register")</b>
-                </button>
-                */
             }
         </section>
     </div>
 </div>
 <style>
     #loginForm {
-        width: 50%; 
         border: 0.5px; 
         border-radius: 10px; 
         background-color: white; 
-        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2); 
-        margin: 60px auto auto 340px; 
-        padding: 20px 20px 20px 47px;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        margin: 100px 15%;
+        text-align: center
+    }
+    
+    .centerfix{
+        text-align: center;
+        width: 60%;
+        margin: auto 20%;
+    }
+
+    .logininfo{
+        width: 60%;
+        margin: 5px 20% 0 20%;
     }
 
     #title {
-       padding-left: 110px;
+        text-align:center;
+        padding-top: 20px;
     }
 
     /*#registerbtn {
@@ -74,33 +77,18 @@
     #icon {
        font-size: 70px;
        color: cornflowerblue;  
-       margin-left: -5px;
     }
 
     #loginbtn {
         background-color: cornflowerblue;
         color: white;
         outline: none;
-        margin-left: 43px;
       }
 
-    #Email {
-        width: 500px;
-    }
-
-    #Password {
-        width: 500px;
-    }
-
     .checkbox {
-        margin-left: 20px;
         color: cornflowerblue;
+        margin-left: 20%;
     }
-
-    label {
-        margin-left: -20px;
-        white-space: nowrap;
-    } 
     
 </style>
 
