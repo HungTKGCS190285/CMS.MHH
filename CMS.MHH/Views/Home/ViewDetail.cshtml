@@ -56,7 +56,7 @@
         }
 
         @if (i == 1 && ViewBag.userlike == true) //if user had reacted and they liked
-        { 
+        {
             //disable like button
             <button class="btn btn-info btn-xs like-button"
                     disabled data-status="1"
@@ -102,7 +102,12 @@
                 <span id="dislikecount">@ViewBag.Dislike</span>
             </button>
         }
+
+        <button id='cmt_@Model.Id' class="btn btn-primary" style="border: 0.5px solid gray; border-radius: 7px; transition: background-color 0.4s, border-color 0.4s, top 0.4s, box-shadow 0.4s">
+            Comment
+        </button>
     </div>
+        
     <div class="panel-footer" id="commentdetail">
         <p>Comments</p>
         @foreach (var cm in Model.comments)
@@ -164,6 +169,33 @@
             );
         });
     });
+
+     $(document).ready(function () {
+        $('#cmt_@Model.Id').click(function () {
+        var $myPartialView = $('#write-comment-@Model.Id');
+        if ($myPartialView.is(':empty')) {
+            $.ajax({
+                url: '/Home/Comments/',
+                data: { id: @Model.Id},
+                datatype: "html",
+                type: "GET",
+                cache: false,
+                success: function (result) {
+                    $myPartialView.html(result);
+                },s
+                error: function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText;
+                    alert('error - ' + errorMessage);
+                }
+            });
+        }
+        else {
+            $myPartialView.empty();
+        }
+            return false;
+        });
+    });
+
 </script>
 
 <style>
@@ -177,7 +209,7 @@
     }
 
     #alldetail {
-        width: 40%;
+        width: 70%;
         border: 0.5px ;
         border-radius: 10px;
         background-color: white;
