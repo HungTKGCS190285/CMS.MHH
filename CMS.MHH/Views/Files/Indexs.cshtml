@@ -11,32 +11,26 @@
     @using (Html.BeginForm("CreateZipFile", "Files", new { FormMethod.Post }))
     {
         @Html.AntiForgeryToken()
-        <table class="table">
-            <tr>
-                <th>File Name</th>
-            </tr>
+    <div class="container" id="files">
+        <h3>File Name</h3> <br/>
 
-            @for (int i = 0; i < Model.Count(); i++)
-            {
-                <tr>
-                    <td>
-                        @Html.CheckBoxFor(m => m[i].IsChosen)
-                        @Html.HiddenFor(m => m[i].FileName)
-                        @Html.HiddenFor(m => m[i].FilePath)
-                        @Html.DisplayFor(m => m[i].FileName)
-                    </td>
-                </tr>
-            }
-        </table>
-        <br />
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+
+            @Html.CheckBoxFor(m => m[i].IsChosen)
+            @Html.HiddenFor(m => m[i].FileName)
+            @Html.HiddenFor(m => m[i].FilePath)
+            @Html.DisplayFor(m => m[i].FileName)
+            <hr />
+        }
         <label>Check All</label>
-        <input type="checkbox" id="checkAll" value="Check All" />
-        <hr />
+        <input type="checkbox" id="checkAll" value="CheckAll"/>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <button class="btn btn-default" type="submit" id="downloadbutton">Download</button>
             </div>
         </div>
+    </div>
     }
 </body>
 <style>
@@ -44,29 +38,24 @@
         color: cornflowerblue;
     }
 
-    .table {
+    h3 {
+        color: cornflowerblue;
+    }
+
+    #files {
         width: 70%;
-        overflow: hidden;
-        border-collapse: collapse;
+        border: 0.5px;
         border-radius: 10px;
-        margin-left: auto;
-        margin-right: auto;
-        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
-    }
-
-    th {
-        margin: 0, 10px, 0, 5px;
-        color: white;
-        background-color: cornflowerblue;
-    }
-
-    td {
         background-color: white;
-        font-size: 14px;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 20px 20px 20px 20px;
+        margin: auto;
+        margin-top: 70px;
+        padding: 2% 7%
     }
 
-    label {
-        margin-left: 180px;
+    input {
+        margin-right: 100px;
     }
 
     button {
