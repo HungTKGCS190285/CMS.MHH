@@ -107,7 +107,9 @@
             Comment
         </button>
     </div>
-        
+    <div id="write-comment-@Model.Id">
+    </div>
+
     <div class="panel-footer" id="commentdetail">
         <p>Comments</p>
         @foreach (var cm in Model.comments)
@@ -128,6 +130,7 @@
             </ul>
         }
     </div>
+
 </div>
 <script>
     $(document).ready(function ()
@@ -168,9 +171,7 @@
                 }
             );
         });
-    });
 
-     $(document).ready(function () {
         $('#cmt_@Model.Id').click(function () {
         var $myPartialView = $('#write-comment-@Model.Id');
         if ($myPartialView.is(':empty')) {
@@ -182,7 +183,7 @@
                 cache: false,
                 success: function (result) {
                     $myPartialView.html(result);
-                },s
+                },
                 error: function (xhr, status, error) {
                     var errorMessage = xhr.status + ': ' + xhr.statusText;
                     alert('error - ' + errorMessage);
@@ -194,7 +195,34 @@
         }
             return false;
         });
+
     });
+
+     @*$(document).ready(function () {
+        $('#cmt_@Model.Id').click(function () {
+        var $myPartialView = $('#write-comment-@Model.Id');
+        if ($myPartialView.is(':empty')) {
+            $.ajax({
+                url: '/Home/Comments/',
+                data: { id: @Model.Id},
+                datatype: "html",
+                type: "GET",
+                cache: false,
+                success: function (result) {
+                    $myPartialView.html(result);
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText;
+                    alert('error - ' + errorMessage);
+                }
+            });
+        }
+        else {
+            $myPartialView.empty();
+        }
+            return false;
+        });
+    });*@
 
 </script>
 
