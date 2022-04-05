@@ -57,7 +57,7 @@ namespace CMS.MHH.Controllers
             return View(li_idea_most_viewed);
         }
 
-        public ActionResult _MostViewed(int page = 1, int pageSize = 1)
+        public ActionResult _MostViewed()
         {
             var idea_most_viewed = db.Ideas.ToList();
             foreach (var a in idea_most_viewed)
@@ -73,8 +73,8 @@ namespace CMS.MHH.Controllers
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
             }
-            var li_idea_most_viewed = idea_most_viewed.OrderByDescending(x => x.View).Take(1).ToPagedList(page, pageSize);
-            return View(li_idea_most_viewed);
+            var li_idea_most_viewed = idea_most_viewed.OrderByDescending(x => x.View).Take(1);
+            return PartialView(li_idea_most_viewed);
         }
 
         public ActionResult MostPopular(int page = 1, int pageSize = 5)
@@ -97,7 +97,7 @@ namespace CMS.MHH.Controllers
             return View(li_idea_most_popular);
         }
 
-        public ActionResult _MostPopular(int page = 1, int pageSize = 1)
+        public ActionResult _MostPopular()
         {
             var idea_most_popular = db.Ideas.ToList();
             foreach (var a in idea_most_popular)
@@ -113,8 +113,8 @@ namespace CMS.MHH.Controllers
                 var cate = db.Categories.Find(a.CateId);
                 a.CateName = cate.Category_Name;
             }
-            var li_idea_most_popular = idea_most_popular.OrderByDescending(x => x.ThumbsUp).Take(1).ToPagedList(page, pageSize);
-            return View(li_idea_most_popular);
+            var li_idea_most_popular = idea_most_popular.OrderByDescending(x => x.ThumbsUp).Take(1);
+            return PartialView(li_idea_most_popular);
         }
 
         [Authorize(Roles = "Staff, QA Manager, QA_C")]
