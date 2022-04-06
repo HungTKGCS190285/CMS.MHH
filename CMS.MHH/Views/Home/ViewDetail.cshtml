@@ -107,6 +107,7 @@
             Comment
         </button>
     </div>
+
     <div id="write-comment-@Model.Id">
     </div>
 
@@ -123,13 +124,14 @@
                     }
                     else
                     {
-                        <p>@cm.CommentAuthor: @cm.Comment</p>
+                        <p><strong>@cm.CommentAuthor </strong>: @cm.Comment</p>
                         <i> @cm.CommentDate</i>
                     }
                 </li>
             </ul>
         }
     </div>
+
 
 </div>
 <script>

@@ -162,7 +162,7 @@
                 var $myPartialView = $('#write-comment-@item.Id');
                 if ($myPartialView.is(':empty')) {
                     $.ajax({
-                        url: '/Home/Comments/',
+                        url: '/Home/Comment/',
                         data: { id: @item.Id},
                         datatype: "html",
                         type: "GET",
