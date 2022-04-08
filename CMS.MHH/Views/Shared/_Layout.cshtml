@@ -23,7 +23,7 @@
             </div>
             <div class="navbar-collapse collapse">
 
-                @if (User.IsInRole("Staff") || User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
+                @if (User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
                 {
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn1">
@@ -32,6 +32,23 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("List ideas", "Index", "Ideas")</li>
+                            <li>@Html.ActionLink("My idea", "MyIdeas", "Ideas")</li>
+                            <li>@Html.ActionLink("Create Idea", "List", "Submissions")</li>
+                            <li>@Html.ActionLink("Top 3 most viewed", "MostViewed", "Home")</li>
+                            <li>@Html.ActionLink("Top 3 most popular", "MostPopular", "Home")</li>
+                        </ul>
+
+                    </div>
+                }
+
+                @if (User.IsInRole("Staff"))
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn1">
+                            Ideas
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
                             <li>@Html.ActionLink("My idea", "MyIdeas", "Ideas")</li>
                             <li>@Html.ActionLink("Create Idea", "List", "Submissions")</li>
                             <li>@Html.ActionLink("Top 3 most viewed", "MostViewed", "Home")</li>
@@ -93,7 +110,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Files","Indexs","Files")</li>
+                            <li>@Html.ActionLink("Files", "Indexs", "Files")</li>
                             <li>@Html.ActionLink("Export Idea", "Export_Idea", "Files")</li>
                         </ul>
 
@@ -127,16 +144,27 @@
                 }
 
                 @Html.Partial("_LoginPartial")
+
+
             </div>
         </div>
     </div>
+        
     <div class="container body-content">
+        @if (HttpContext.Current.Request.Url.AbsolutePath.ToString() != "/" && HttpContext.Current.Request.Url.AbsolutePath.ToString() != "/Home/Index" && HttpContext.Current.Request.Url.AbsolutePath.ToString() != "/Account/Login")
+        {
+            <button id="backbtn">
+                @Html.ActionLink("Back to index", "Index", "Home")
+            </button>
+        }
         @RenderBody()
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+
 </body>
 </html>
 <style>
@@ -196,4 +224,24 @@
         background-size: cover;
     }
 
+    #backbtn{
+        border-radius: 5px;        
+        right: 15%;
+        bottom: 30px;
+        float:right;
+        position: fixed;
+        border: 0.5px solid black;
+    }
+
+    #backbtn:hover{
+        background-color: lightgray;
+    }
+
+    #backbtn a {
+        color: black;
+    }
+
+    #backbtn a:hover{
+        text-decoration: none;
+    }
 </style>
