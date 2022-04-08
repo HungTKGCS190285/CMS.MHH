@@ -120,7 +120,8 @@
                 <li>
                     @if (cm.CommentAnony == true)
                     {
-                        <span>Anonymous</span> <p>@cm.Comment at @cm.CommentDate</p>
+                        <p><strong>Anonymous</strong>: @cm.Comment</p>
+                        <i>@cm.CommentDate</i>
                     }
                     else
                     {
