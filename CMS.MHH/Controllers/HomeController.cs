@@ -148,7 +148,7 @@ namespace CMS.MHH.Controllers
 
             var model = new IdeaVM()
             {
-                Id =  idea.Id,
+                Id = idea.Id,
                 Content = idea.Content,
                 Author = idea.Author_Email,
                 CategoryName = idea.Cate.Category_Name,
@@ -160,13 +160,13 @@ namespace CMS.MHH.Controllers
                 DocumentName = idea.DocumentName,
                 LastModify = idea.LastModify,
 
-                comments = idea.Comments.Select(r => new CommentVM()
-                { 
+                comments = idea.Comments.OrderByDescending(r => r.Date).Select(r => new CommentVM()
+                {
                     Comment = r.Text,
                     CommentAuthor = r.Author.Email,
                     CommentAnony = r.IsAnonymous,
                     CommentDate = r.Date
-                }),              
+                }),
                 
             };
             return View(model);
@@ -277,6 +277,7 @@ namespace CMS.MHH.Controllers
                     a.AuthorName = a.Author.Email;
                 }
             }
+            com_anony = com_anony.OrderByDescending(x => x.Date);
             return this.PartialView("_AllComments", com_anony);
         }
 
