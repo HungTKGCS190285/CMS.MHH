@@ -37,7 +37,7 @@ namespace CMS.MHH.Models
 
         public virtual Submission Submission { get; set; }
 
-        [Display(Name = "Is Anonymous")]
+        [Display(Name = "Anonymous")]
         public bool IsAnonymous { get; set; }
 
         [Required(ErrorMessage = "Content is required")]

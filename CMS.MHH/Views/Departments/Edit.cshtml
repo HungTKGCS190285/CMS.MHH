@@ -5,21 +5,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Department</h4>
-        <hr />
+    <div class="form-horizontal" id="depedit">
+        <h3>Edit department</h3>
+        <br/>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-10" id="textbox">
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
@@ -27,12 +25,42 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" id="save" />
             </div>
+        </div> <hr/>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<style>
+    #depedit {
+        width: 50%;
+        border: 0.5px solid white;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        margin: 5% 25%;
+        padding-left: 5%;   
+        padding-right: 5%;
+        padding-bottom: 1%;
+    }
+
+    h3 {
+        color: cornflowerblue;
+    }
+
+    #textbox {
+        margin-left: 10px;
+        width: 60%;
+    }
+
+    #save {
+        transition: background-color 0.5s, top 0.5s, box-shadow 0.5s, border-color 0.5s;
+    }
+
+        #save:hover {
+            outline: none;
+        }
+</style>

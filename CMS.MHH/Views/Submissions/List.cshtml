@@ -17,8 +17,8 @@
 }
 @foreach (var item in Model)
 {
-    <div class="col-md-4 col-sm-5 col-xs-8" style="background-color:lavender;margin: 10px">
-        <div class="event-box" style="margin:3px;">
+    <div class="col-md-6" id="sub">
+        <div class="event-box">
             <h2 class="card-title">Submissions</h2>
             <div class="card-body">
                 <h4 class="card-title">
@@ -44,5 +44,19 @@
     </div>
 }
 <style>
+    .event-box {
+        margin: 30px 20px 30px 20px;
+    }
 
+    #sub {
+        width: 35%;
+        border: 0.5px solid white;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        margin-left: 120px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+    }
 </style>
