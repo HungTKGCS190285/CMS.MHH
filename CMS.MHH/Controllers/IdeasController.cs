@@ -28,13 +28,22 @@ namespace CMS.MHH.Controllers
         public ActionResult MyIdeas(int page =1, int pageSize = 5)
         {
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-            var myidea = db.Ideas.Where(x => x.Author.Id == user.Id);
+            var myidea = db.Ideas.Where(x => x.Author.Id == user.Id).ToList();
             if (myidea == null)
             {
                 return RedirectToAction("Fail", "Home");
             }
             else
-                return View(myidea.OrderByDescending(x => x.Date).ToPagedList(page, pageSize)); 
+            {
+                foreach (var a in myidea)
+                { 
+                    var cate = db.Categories.Find(a.CateId);
+                    a.CateName = cate.Category_Name;
+                }
+            }
+            var li_idea = myidea.OrderByDescending(x => x.Date).ToPagedList(page, pageSize);
+
+            return View(li_idea); 
         }
 
         public ActionResult Term_Condition()
