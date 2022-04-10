@@ -332,6 +332,8 @@
     <Content Include="Views\Statistics\Number_idea_chart.cshtml" />
     <Content Include="Views\Statistics\Number_contributor_chart.cshtml" />
     <Content Include="Views\Home\_Comments.cshtml" />
+    <Content Include="Views\Files\Download_DocbySubmission.cshtml" />
+    <Content Include="Views\Submissions\List_Idea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

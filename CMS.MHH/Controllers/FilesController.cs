@@ -32,7 +32,52 @@ namespace CMS.MHH.Controllers
             }
             return View(files.ToList());
         }
-        
+
+        public ActionResult Download_DocbySubmission()
+            {
+            var submit = db.Submissions.ToList();
+            List<Export_IdeaVM> export_idea = new List<Export_IdeaVM>();
+            foreach (var idea in submit)
+            {
+                export_idea.Add(new Export_IdeaVM()
+                {
+                    SubmissionId = idea.Id,
+                    SubmissionName = idea.Name,
+                    Content = "The Document of submission " + idea.Name + " is available to download!"
+                });
+            }
+            return View(export_idea.ToList());
+        }
+
+        public ActionResult Download_Doc(int id)
+        {
+            var ideas = db.Ideas.Where(x => x.SubmissionId == id);
+            using (ZipFile filezip = new ZipFile())
+            {
+                filezip.AlternateEncodingUsage = ZipOption.AsNecessary;
+                filezip.AddDirectoryByName(Server.MapPath("Files"));
+                foreach (var idea in ideas)
+                {
+                    if (idea.DocumentName != null)
+                    {
+                        var file_paths = Directory.GetFiles(Server.MapPath("/Files"))
+                                                  .Select(f => Path.GetFileName(f))
+                                                  .Where(f => f.StartsWith(idea.DocumentName)).FirstOrDefault();
+
+                        var path = Server.MapPath("~/Files/"+file_paths);
+                        filezip.AddFile(path, "Files");
+                    }
+                }
+                string namezip = String.Format("Zip_{0}.zip", DateTime.Now.ToString("yyyy-MMM-dd-HHmmss0"));
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    filezip.Save(memoryStream);
+                    return File(memoryStream.ToArray(), "application/zip", namezip);
+                }
+            }           
+        }
+
         [HttpPost]
         public ActionResult CreateZipFile(List<FileVM> files)
         {
@@ -48,6 +93,7 @@ namespace CMS.MHH.Controllers
                     }
                 }
                 string namezip = String.Format("Zip_{0}.zip", DateTime.Now.ToString("yyyy-MMM-dd-HHmmss0"));
+
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
                     filezip.Save(memoryStream);

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CMS.MHH.Models;
+using PagedList;
 
 namespace CMS.MHH.Controllers
 {
@@ -23,6 +24,27 @@ namespace CMS.MHH.Controllers
         public ActionResult List()
         {
             return View(db.Submissions.ToList());
+        }
+
+        public ActionResult List_Idea(int id, int page = 1, int pageSize = 5)
+        {
+            var ideas = db.Ideas.Where(x => x.SubmissionId == id).ToList();
+            foreach (var a in ideas)
+            {
+                if (a.IsAnonymous == true)
+                {
+                    a.Author_Email = "Anonymous";
+                }
+                else
+                {
+                    a.Author_Email = a.Author.Email;
+                }
+                var cate = db.Categories.Find(a.CateId);
+                a.CateName = cate.Category_Name;
+            }
+            var li_idea = ideas.OrderByDescending(x => x.Date).ToPagedList(page, pageSize);
+
+            return View(li_idea);
         }
 
         // GET: Submissions/Details/5

@@ -37,8 +37,12 @@
                     @Html.Label("Final Clousure date:")
                     @Html.DisplayFor(modelItem => item.Final_closure_date)
                 </p>
-                @Html.ActionLink("Submit new idea", "Create", "Ideas", new { id = item.Id }, null)
-
+                <p>
+                    @Html.ActionLink("Submit new idea", "Create", "Ideas", new { id = item.Id }, null)
+                </p>
+                <p>
+                    @Html.ActionLink("List idea", "List_Idea", "Submissions", new { id = item.Id }, null)
+                </p>
             </div>
         </div>
     </div>
