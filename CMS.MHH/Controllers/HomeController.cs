@@ -307,49 +307,60 @@ namespace CMS.MHH.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Comment(Comment comment)
         {
-            try
+            var idea = db.Ideas.Where(x => x.Id == comment.IdeasId).FirstOrDefault();
+            var submit = db.Submissions.Find(idea.SubmissionId);
+            if (DateTime.Now > submit.Closure_date)
             {
-                comment.Date = DateTime.Now;
-                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-                comment.AuthorId = user.Id;
-                db.Comments.Add(comment);
-                db.SaveChanges();
-
-
-                MailMessage mail = new MailMessage();
-
-                SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
-                smtpServer.Credentials = new System.Net.NetworkCredential("donotreply458@gmail.com", "<3333333");
-                smtpServer.Port = 587;
-                smtpServer.EnableSsl = true;
-
-                mail.From = new MailAddress("donotreply458@gmail.com");
-
-                var ideaID = comment.IdeasId;
-                var emailIdea = db.Ideas.Where(x => x.Id == ideaID).FirstOrDefault();
-                var email = emailIdea.Author.Email;
-
-                mail.To.Add(email);
-                mail.Subject = "Notification about new comment";
-                mail.Body = "A new comment has been post in your idea report";
-
-                smtpServer.Send(mail);
+                TempData["message"] = "The submission is out of closure date, please submit other submission";
                 return RedirectToAction("Index", "Home");
             }
-            catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+            else
             {
-                Exception raise = dbEx;
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                try
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        string message = string.Format("{0}:{1}",
-                            validationErrors.Entry.Entity.ToString(),
-                            validationError.ErrorMessage);
-                        raise = new InvalidOperationException(message, raise);
-                    }
+                    comment.Date = DateTime.Now;
+                    ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                    comment.AuthorId = user.Id;
+                    db.Comments.Add(comment);
+                    db.SaveChanges();
+
+
+                    MailMessage mail = new MailMessage();
+
+                    SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+                    smtpServer.Credentials = new System.Net.NetworkCredential("donotreply458@gmail.com", "<3333333");
+                    smtpServer.Port = 587;
+                    smtpServer.EnableSsl = true;
+
+                    mail.From = new MailAddress("donotreply458@gmail.com");
+
+                    var ideaID = comment.IdeasId;
+                    var emailIdea = db.Ideas.Where(x => x.Id == ideaID).FirstOrDefault();
+                    var email = emailIdea.Author.Email;
+
+                    mail.To.Add(email);
+                    mail.Subject = "Notification about new comment";
+                    mail.Body = "A new comment has been post in your idea report";
+
+                    smtpServer.Send(mail);
+                    return RedirectToAction("Index", "Home");
                 }
-                throw raise;
+                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    Exception raise = dbEx;
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            string message = string.Format("{0}:{1}",
+                                validationErrors.Entry.Entity.ToString(),
+                                validationError.ErrorMessage);
+                            raise = new InvalidOperationException(message, raise);
+                        }
+                    }
+                    throw raise;
+                }
+
             }
         }
 
