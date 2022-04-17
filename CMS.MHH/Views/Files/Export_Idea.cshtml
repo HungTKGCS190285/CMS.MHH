@@ -1,0 +1,44 @@
+﻿@using CMS.MHH.ViewModel
+@model List<Export_IdeaVM>
+@{
+    ViewBag.Title = "Files";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>Content</th>
+        <th></th>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Content</td>
+            <td>@Html.ActionLink("Export", "Export", new { Id= item.SubmissionId})</td>
+        </tr>
+    }
+</table>
+<style>
+    .table {
+        width: 70%;
+        overflow: hidden;
+        border-collapse: collapse;
+        border-radius: 10px;
+        margin: 50px auto auto auto;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+        text-align: center;
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+        font-size: 14px;
+    }
+</style>
+
+
+

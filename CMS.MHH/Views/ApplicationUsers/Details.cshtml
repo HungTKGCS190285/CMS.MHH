@@ -1,0 +1,81 @@
+﻿@model CMS.MHH.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <div class="container" id="alldetail">
+        <div class="panel-heading" id="title">
+            <h4>User Detail</h4>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal" id="detail">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Department.Name):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Department.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PhoneNumber):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserName):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.UserName)
+                </dd>
+            </dl>
+        </div>
+        <div class="panel-footer" id="back">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>
+<style>
+    #alldetail {
+        width: 40%;
+        border: 0.5px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 20px 20px 20px 20px;
+        margin: auto;
+        margin-top: 70px;
+    }
+
+    #title {
+        border: 0.5px;
+        border-radius: 10px 10px 0 0;
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+    #back {
+        border: 0.5px;
+        border-radius: 0 0 10px 10px;
+        background-color: white;
+    }
+
+    #detail {
+        padding-left: 10px; 
+    }
+</style>

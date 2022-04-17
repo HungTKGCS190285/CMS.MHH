@@ -1,0 +1,54 @@
+﻿@model CMS.MHH.ViewModel.StatisticsVM
+@{
+    ViewBag.Title = "Statistic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Exceptions Report</h2>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th></th>
+
+    </tr>
+    <tr>
+        <td>o   Number of ideas without comments</td>
+        <td>@Html.DisplayFor(m => m.idea_no_comment)</td>
+    </tr>
+    <tr>
+        <td>o   Number of anonymous ideas </td>
+        <td>@Html.DisplayFor(m => m.idea_anonymous)</td>
+    </tr>
+    <tr>
+        <td>o   Number of anonymous comments </td>
+        <td>@Html.DisplayFor(m => m.comment_anonymous)</td>
+    </tr>
+</table>
+<style>
+    h2 {
+        color: cornflowerblue;
+    }
+
+    .table {
+        width: 70%;
+        overflow: hidden;
+        border-collapse: collapse;
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+        text-align: center;
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+        font-size: 14px;
+    }
+</style>
+

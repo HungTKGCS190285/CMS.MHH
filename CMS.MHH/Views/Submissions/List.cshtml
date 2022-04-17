@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CMS.MHH.Models.Submission>
+
+@{
+    ViewBag.Title = "Submit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+@section scripts {
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+}
+
+@if (TempData["message"] != null)
+{
+    <script>alert('@TempData["message"]');</script>
+}
+@foreach (var item in Model)
+{
+    <div class="col-md-6" id="sub">
+        <div class="event-box">
+            <h2 class="card-title">Submissions</h2>
+            <div class="card-body">
+                <h4 class="card-title">
+                    @Html.Label("Title: ")
+                    @Html.DisplayFor(modelItem => item.Name)
+                </h4>
+                <p class="card-text">
+                    @Html.Label("Description: ")
+                    @Html.DisplayFor(modelItem => item.Description)
+                </p>
+                <p class="card-text">
+                    @Html.Label("Closure date: ")
+                    @Html.DisplayFor(modelItem => item.Closure_date)
+                </p>
+                <p class="card-text">
+                    @Html.Label("Final Clousure date:")
+                    @Html.DisplayFor(modelItem => item.Final_closure_date)
+                </p>
+                <p>
+                    @Html.ActionLink("Submit new idea", "Create", "Ideas", new { id = item.Id }, null)
+                </p>
+                <p>
+                    @Html.ActionLink("List idea", "List_Idea", "Submissions", new { id = item.Id }, null)
+                </p>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .event-box {
+        margin: 30px 20px 30px 20px;
+    }
+
+    #sub {
+        width: 35%;
+        border: 0.5px solid white;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        margin-left: 120px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+    }
+</style>

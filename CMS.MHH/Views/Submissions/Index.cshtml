@@ -1,0 +1,117 @@
+﻿    @model IEnumerable<CMS.MHH.Models.Submission>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Closure_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Final_closure_date)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Closure_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Final_closure_date)
+        </td>
+        <td id="action">
+            <a class="fa fa-pencil" href="/Submissions/Edit/?id=@item.Id" id="edit"></a>
+            <a class="fa fa-info-circle" href="/Submissions/Details/?id=@item.Id" id="details"></a>
+            <a class="fa fa-trash" href="/Submissions/Delete/?id=@item.Id" id="delete"></a>
+        </td>
+    </tr>
+}
+</table>
+<style>
+    h2 {
+        color: cornflowerblue;
+    }
+
+    .table {
+        overflow: hidden;
+        border-collapse: collapse;
+        border-radius: 10px;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+        text-align: center; 
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+        font-size: 13px;
+    }
+
+    #edit, #details, #delete {
+        font-size: 18px;
+        margin: 5px;
+    }
+
+        #edit:link, #edit:visited {
+            text-decoration: none;
+        }
+
+        #edit:hover, #edit:active {
+            text-decoration: none;
+        }
+
+        #details:link, #details:visited {
+            text-decoration: none;
+        }
+
+        #details:hover, #details:active {
+            text-decoration: none;
+        }
+
+        #delete:link, #delete:visited {
+            text-decoration: none;
+        }
+
+        #delete:hover, #delete:active {
+            text-decoration: none;
+        }
+    #edit {
+        color: orange;
+    }
+
+    #details {
+        color: #12F906;
+    }
+
+    #delete {
+        color: red;
+    }
+</style>

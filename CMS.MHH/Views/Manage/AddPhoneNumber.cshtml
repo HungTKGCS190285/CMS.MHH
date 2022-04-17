@@ -1,15 +1,13 @@
 ﻿@model CMS.MHH.Models.AddPhoneNumberViewModel
 @{
-    ViewBag.Title = "Phone Number";
+    ViewBag.Title = "Add phone number";
 }
 
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("AddPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "add" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Add a phone number</h4>
-    <hr />
+    <h3>@ViewBag.Title</h3>
+    <br/>
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(m => m.Number, new { @class = "col-md-2 control-label" })
@@ -19,11 +17,29 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Submit" />
+            <input type="submit" class="btn btn-default" value="Submit" id="submit" />
         </div>
     </div>
 }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+<style>
+    #add {
+        width: 50%;
+        border: 0.5px solid white;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        margin-top: 5%;
+        margin-left: 23%;
+        padding-left: 5%;
+    }
+    h3 {
+        color: cornflowerblue;
+    }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    #submit {
+        transition: background-color 0.4s, border-color 0.4s, top 0.4s, box-shadow 0.4s;
+    }
+</style>

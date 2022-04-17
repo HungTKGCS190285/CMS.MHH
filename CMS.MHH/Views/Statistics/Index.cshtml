@@ -1,0 +1,70 @@
+﻿@model CMS.MHH.ViewModel.StatisticsVM
+@{
+    ViewBag.Title = "Statistic";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Statistics</h2>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>IT</th>
+        <th>HR</th>
+        <th>QA</th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>Number of ideas made by each Department</td>
+        <td>@Html.DisplayFor(m => m.num_idea_IT)</td>
+        <td>@Html.DisplayFor(m => m.num_idea_HR)</td>
+        <td>@Html.DisplayFor(m => m.num_idea_QA)</td>
+        <td>
+            @Html.ActionLink("View chart", "Number_idea_chart", "Statistics")
+        </td>
+    </tr>
+    <tr>
+        <td>Percentage of ideas made by each Department</td>
+        <td>@Html.DisplayFor(m => m.per_idea_IT)%</td>
+        <td>@Html.DisplayFor(m => m.per_idea_HR)%</td>
+        <td>@Html.DisplayFor(m => m.per_idea_QA)%</td>
+        <td>
+            @Html.ActionLink("View chart", "Pie_Chart_idea", "Statistics")
+        </td>
+    </tr>
+    <tr>
+        <td> 	Number of contributors within each Department.</td>
+        <td>@Html.DisplayFor(m => m.num_contri_IT)</td>
+        <td>@Html.DisplayFor(m => m.num_contri_HR)</td>
+        <td>@Html.DisplayFor(m => m.num_contri_QA)</td>
+        <td>
+            @Html.ActionLink("View chart", "Number_contributor_chart", "Statistics")
+        </td>
+    </tr>
+</table>
+<style>
+    h2 {
+        color: cornflowerblue;
+    }
+
+    .table {
+        width: 70%;
+        overflow: hidden;
+        border-collapse: collapse;
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+        text-align: center;
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+        font-size: 14px;
+    }
+</style>

@@ -1,0 +1,113 @@
+﻿@model IEnumerable<CMS.MHH.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><strong>Index</strong></h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            <h4><strong>@Html.DisplayNameFor(model => model.Category_Name)</strong></h4>
+        </th>
+        <th>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td id="categoryname">
+                @Html.DisplayFor(modelItem => item.Category_Name)
+            </td>
+            <td id="action">
+                <a class="fa fa-pencil" href="/Categories/Edit/?id=@item.Id" id="edit"></a>
+                <a class="fa fa-info-circle" href="/Categories/Details/?id=@item.Id" id="details"></a>
+                <a class="fa fa-trash"href="/Categories/Delete/?id=@item.Id" id="delete"></a>
+            </td>
+        </tr>
+    }
+
+</table>
+<style>
+    h2 {
+        color: cornflowerblue;
+    }
+
+    .table {
+        overflow: hidden;
+        border-collapse: collapse;
+        border-radius: 10px;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+        font-size: 15px;
+    }
+
+    #edit, #details, #delete {
+        font-size:18px;
+        margin: 5px;
+    }
+        
+        #edit:link, #edit:visited {
+            text-decoration: none;
+        }
+
+        #edit:hover, #edit:active {
+            text-decoration: none;
+        }
+
+        #details:link, #details:visited {
+            text-decoration: none;
+        }
+
+        #details:hover, #details:active {
+            text-decoration: none;
+        }
+
+        #delete:link, #delete:visited {
+            text-decoration: none;
+        }
+
+        #delete:hover, #delete:active {
+            text-decoration: none;
+        }
+
+    #categoryname {
+        color: darkblue;
+    }
+
+    #action {
+        text-align: right;
+    }
+
+    #edit {
+        color: orange;
+    }
+
+    #details {
+        color: #12F906;
+    }
+
+    #delete {
+        color:red;
+    }
+
+</style>
+
+

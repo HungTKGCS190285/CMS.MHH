@@ -1,0 +1,81 @@
+﻿@using CMS.MHH.ViewModel
+@model List<FileVM>
+@{
+    ViewBag.Title = "Files";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Files</h2>
+
+<body>
+    @using (Html.BeginForm("CreateZipFile", "Files", new { FormMethod.Post }))
+    {
+        @Html.AntiForgeryToken()
+    <div class="container" id="files">
+        @Html.ActionLink("Download files by Submission", "Download_DocbySubmission", "Files")
+
+        <h3>File Name</h3> <br />
+
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+
+            @Html.CheckBoxFor(m => m[i].IsChosen)
+            @Html.HiddenFor(m => m[i].FileName)
+            @Html.HiddenFor(m => m[i].FilePath)
+            @Html.DisplayFor(m => m[i].FileName)
+            <hr />
+        }
+        <label>Check All</label>
+        <input type="checkbox" id="checkAll" value="CheckAll" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-default" type="submit" id="downloadbutton">Download</button>
+            </div>
+        </div>
+    </div>
+    }
+</body>
+<style>
+    h2 {
+        color: cornflowerblue;
+    }
+
+    h3 {
+        color: cornflowerblue;
+    }
+
+    #files {
+        width: 70%;
+        border: 0.5px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 20px 20px 20px 20px;
+        margin: auto;
+        margin-top: 70px;
+        padding: 2% 7%
+    }
+
+    input {
+        margin-right: 100px;
+    }
+
+    button {
+        transition: all ease;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.4s, border-color 0.4s, top 0.4s, box-shadow 0.4s;
+    }
+
+        #downloadbutton:focus {
+            outline: none;
+            box-shadow: none;
+        }
+</style>
+
+<script>
+    $("#checkAll").click(function () {
+        $('input:checkbox').not(this).prop('checked', this.checked);
+    });
+</script>
+

@@ -1,0 +1,281 @@
+﻿@model CMS.MHH.ViewModel.IdeaVM
+@using Microsoft.AspNet.Identity;
+
+
+@{
+    ViewBag.Title = "View Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+<div class="container" id="alldetail">
+    <div class="panel-heading" id="title">
+        <h3>@Html.DisplayFor(m => m.Title)</h3>
+    </div>
+    <div class="panel-body" id="detail">
+        <div>
+            Description: @Html.DisplayFor(m => m.Description)
+        </div>
+        <div>
+            Content: @Html.DisplayFor(m => m.Content)
+        </div>
+        <div>
+            Author:  @Html.DisplayFor(m => m.Author)
+        </div>
+        <div>
+            Category: @Html.DisplayFor(m => m.CategoryName)
+        </div>
+        <div>
+            Date created: @Html.DisplayFor(m => m.Date)
+        </div>
+        <div>
+            Last modified: @Html.DisplayFor(m => m.LastModify)
+        </div>
+        <div>
+            Document:  @if (Model.DocumentName != null)
+            {
+                @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
+            }
+        </div>
+        <div>
+            View: @Html.DisplayFor(m => m.View)
+        </div>
+
+        @{int i = 0;}
+        @foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserReacted) // fetch all users who reacted this idea.
+        {
+            // check the current user had reacted to this Idea
+            if (user.AuthorId == User.Identity.GetUserId())
+            {
+                i++;
+                ViewBag.userid = user.AuthorId;
+                ViewBag.userlike = user.IsLike;
+            }
+        }
+
+        @if (i == 1 && ViewBag.userlike == true) //if user had reacted and they liked
+        {
+            //disable like button
+            <button class="btn btn-info btn-xs like-button"
+                    disabled data-status="1"
+                    id="Like">
+                <i class="fa fa-thumbs-up"></i>
+                <span id="likecount">@ViewBag.like</span>
+            </button>
+            <button class="btn btn-info btn-xs like-button"
+                    data-status="2"
+                    id="Dislike">
+                <i class="fa fa-thumbs-up"></i>
+                <span id="dislikecount">@ViewBag.Dislike</span>
+            </button>
+        }
+        else if (i == 1 && ViewBag.userlike == false) //if user disliked
+        {
+            <button class="btn btn-info btn-xs like-button"
+                    data-status="1"
+                    id="Like">
+                <span class="fa fa-thumbs-up"></span>
+                <span id="likecount"> @ViewBag.like </span>
+            </button>
+            //disble dislike button
+            <button class="btn btn-info btn-xs like-button"
+                    disabled data - status="2"
+                    id="Dislike">
+                <span class="fa fa-thumbs-down"></span>
+                <span id="dislikecount">@ViewBag.Dislike</span>
+            </button>
+        }
+        else //they hadn't reacted, like and dislike are enabled
+        {
+            <button class="btn btn-default btn-xs like-button"
+                    data-status="1"
+                    id="Like">
+                <span class="fa fa-thumbs-up"></span>
+                <span id="likecount">@ViewBag.like</span>
+            </button>
+            <button class="btn btn-default btn-xs like-button"
+                    data-status="2"
+                    id="Dislike">
+                <span class="fa fa-thumbs-down"></span>
+                <span id="dislikecount">@ViewBag.Dislike</span>
+            </button>
+        }
+
+        <button id='cmt_@Model.Id' class="btn btn-primary" style="border: 0.5px solid gray; border-radius: 7px; transition: background-color 0.4s, border-color 0.4s, top 0.4s, box-shadow 0.4s">
+            Comment
+        </button>
+    </div>
+
+    <div id="write-comment-@Model.Id">
+    </div>
+
+    <div class="panel-footer" id="commentdetail">
+        <p>Comments</p>
+        @foreach (var cm in Model.comments)
+        {
+
+            <ul>
+                <li>
+                    @if (cm.CommentAnony == true)
+                    {
+                        <p><strong>Anonymous</strong>: @cm.Comment</p>
+                        <i>@cm.CommentDate</i>
+                    }
+                    else
+                    {
+                        <p><strong>@cm.CommentAuthor </strong>: @cm.Comment</p>
+                        <i> @cm.CommentDate</i>
+                    }
+                </li>
+            </ul>
+        }
+    </div>
+
+
+</div>
+<script>
+    $(document).ready(function ()
+    {
+        //Execute like activity using ajax
+        $(document).on("click", "#Like", function ()
+        {
+            var link = "/Home/Like/?id=" + @Model.Id + "&status=" + $(this).data("status"); //create the link to transfer data
+            $.ajax(
+                {
+                    type: "GET",
+                    url: link,
+                    success: function (data) { //if execute success, recieve new data
+                        var counters = data.split('/'); // split the array when face with "/" character because the Like function return string value like as (idea.ThumbsUp + "/" + idea.ThumbsDown)
+                        $("#likecount").text(counters[0]); // use idea.ThumbsUp value(first array)
+                        $("#dislikecount").text(counters[1]); // use idea.ThumbsDown value(second array)
+                        $("#Like").attr('disabled', 'disabled'); //disable like button
+                        $("#Dislike").attr('disabled', false); //enable dislike button
+                    }
+                }
+            );
+        });
+
+        $(document).on("click", "#Dislike", function ()
+        {
+            var link = "/Home/Like/?id=" + @Model.Id + "&status=" + $(this).data("status");
+            $.ajax(
+                {
+                    type: "GET",
+                    url: link,
+                    success: function (data) {
+                        var counters = data.split('/');
+                        $("#likecount").text(counters[0]);
+                        $("#dislikecount").text(counters[1]);
+                        $("#Dislike").attr('disabled', 'disabled');
+                        $("#Like").attr('disabled', false);
+                    }
+                }
+            );
+        });
+
+        $('#cmt_@Model.Id').click(function () {
+        var $myPartialView = $('#write-comment-@Model.Id');
+        if ($myPartialView.is(':empty')) {
+            $.ajax({
+                url: '/Home/Comments/',
+                data: { id: @Model.Id},
+                datatype: "html",
+                type: "GET",
+                cache: false,
+                success: function (result) {
+                    $myPartialView.html(result);
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText;
+                    alert('error - ' + errorMessage);
+                }
+            });
+        }
+        else {
+            $myPartialView.empty();
+        }
+            return false;
+        });
+
+    });
+
+     @*$(document).ready(function () {
+        $('#cmt_@Model.Id').click(function () {
+        var $myPartialView = $('#write-comment-@Model.Id');
+        if ($myPartialView.is(':empty')) {
+            $.ajax({
+                url: '/Home/Comments/',
+                data: { id: @Model.Id},
+                datatype: "html",
+                type: "GET",
+                cache: false,
+                success: function (result) {
+                    $myPartialView.html(result);
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText;
+                    alert('error - ' + errorMessage);
+                }
+            });
+        }
+        else {
+            $myPartialView.empty();
+        }
+            return false;
+        });
+    });*@
+
+</script>
+
+<style>
+    ul {
+        border: 1px solid grey; 
+        border-radius:10px;
+    }
+
+    i {
+        font-size: 10px;
+    }
+
+    #alldetail {
+        width: 70%;
+        border: 0.5px ;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 20px 20px 20px 20px;
+        margin: auto;
+        margin-top: 70px;
+    }
+
+    #title {
+        border: 0.5px;
+        border-radius: 10px 10px 0 0;
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+    #commentdetail {
+        border: 0.5px;
+        border-radius: 0 0 10px 10px;
+       background-color: white;
+    }
+
+    .like-button {
+        width: 50px;
+        height: 30px;
+        font-size: 15px;
+        background-color: cornflowerblue;
+        color: white;
+        transition: background-color 0.4s, top 0.4s, box-shadow 0.4s;
+    }
+        #Like:hover, #Dislike:hover {
+            color: cornflowerblue;
+            background-color: white;
+        }
+        #Like:focus, #Dislike:focus {
+            outline: none;
+        }
+</style>

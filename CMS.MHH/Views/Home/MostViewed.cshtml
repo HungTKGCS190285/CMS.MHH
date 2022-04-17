@@ -1,0 +1,108 @@
+﻿@*@model IEnumerable<EX.Models.Idea>*@
+@using PagedList.Mvc
+@using PagedList
+@model  PagedList.IPagedList<CMS.MHH.Models.Idea>
+
+
+@{
+    ViewBag.Title = "Most Viewed Ideas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h3 style="margin-left: 3%; color: steelblue; margin-top: 10px"><b>Top 3 Most Viewed Ideas</b></h3>
+
+@foreach (var item in Model)
+{
+    <div class="container" style="margin-bottom: 20px; width:95%; border: 0.5px solid white; border-radius:10px; background-color:white; box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2); clear:both">
+        <div class=”row”>
+            <div>
+                <div>
+                    <div style="float:right; font-size:20px; margin-right: 10px">
+                        <span class="glyphicon glyphicon-eye-open"></span> @Html.DisplayFor(modelItem => item.View)
+                    </div>
+
+                    <div style="text-align: left">
+                        <h3 style="color:darkblue">@Html.DisplayFor(modelItem => item.CateName): @Html.ActionLink(item.Title, "ViewDetail", "Home", new { id = item.Id }, null)</h3>
+                    </div>
+                    <div style="font-size:12px; margin-top:-5px; padding-bottom:10px">
+                        Posted at <b>@Html.DisplayFor(modelItem => item.Date)</b> by <b>@Html.DisplayFor(modelItem => item.Author_Email)</b>
+                    </div>
+
+                    <div style="padding: 10px 5px; border: 0.5px solid gray; border-radius: 7px; background-color: #f0f0f0 ">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </div>
+
+                    <div style="padding: 5px 0; text-align:right">
+                        <button id='myBtn_@item.Id' class="btn btn-default" style="border: 0.5px solid gray; border-radius: 7px">View all comments</button>
+
+                        <button id='cmt_@item.Id' class="btn btn-primary" style="border: 0.5px solid gray; border-radius: 7px">Comment</button>
+                    </div>
+
+                    <script>
+                            $(document).ready(function () {
+                                $('#myBtn_@item.Id').click(function () {
+                                var $myPartialView = $('#comment-details-@item.Id');
+                                if ($myPartialView.is(':empty')) {
+                                    $.ajax({
+                                        url: '/Home/CommentDetail/',
+                                        data: { id: @item.Id},
+                                        datatype: "html",
+                                        type: "GET",
+                                        cache: false,
+                                        success: function (result) {
+                                            $myPartialView.html(result);
+                                        },
+                                        error: function (xhr, status, error) {
+                                            var errorMessage = xhr.status + ': ' + xhr.statusText;
+                                            alert('error - ' + errorMessage);
+                                        }
+                                    });
+                                }
+                                else {
+                                    $myPartialView.empty();
+                                }
+                                    return false;
+                                });
+
+                                $('#cmt_@item.Id').click(function () {
+                                var $myPartialView = $('#write-comment-@item.Id');
+                                if ($myPartialView.is(':empty')) {
+                                    $.ajax({
+                                        url: '/Home/Comments/',
+                                        data: { id: @item.Id},
+                                        datatype: "html",
+                                        type: "GET",
+                                        cache: false,
+                                        success: function (result) {
+                                            $myPartialView.html(result);
+                                        },
+                                        error: function (xhr, status, error) {
+                                            var errorMessage = xhr.status + ': ' + xhr.statusText;
+                                            alert('error - ' + errorMessage);
+                                        }
+                                    });
+                                }
+                                else {
+                                    $myPartialView.empty();
+                                }
+                                    return false;
+                                });
+                            });
+
+                    </script>
+
+                    <div id="write-comment-@item.Id">
+                    </div>
+
+                    <div id="comment-details-@item.Id">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

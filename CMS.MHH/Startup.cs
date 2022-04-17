@@ -10,5 +10,6 @@ namespace CMS.MHH
         {
             ConfigureAuth(app);
         }
+
     }
 }

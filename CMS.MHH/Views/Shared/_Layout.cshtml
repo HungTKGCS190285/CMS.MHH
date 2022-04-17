@@ -3,42 +3,230 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My Team Application</title>
     @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
     @Scripts.Render("~/bundles/modernizr")
-
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:cornflowerblue">
+        <div class="container" style="width:90%">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Team Application", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", id = "homebtn" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+
+                @if (User.IsInRole("Staff") || User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn1">
+                            Ideas
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            @if (User.IsInRole("QA Manager") || User.IsInRole("QA_C"))
+                            {
+                            <li>@Html.ActionLink("List ideas", "Index", "Ideas")</li>
+                            }
+                            <li>@Html.ActionLink("My idea", "MyIdeas", "Ideas")</li>
+                            <li>@Html.ActionLink("Create Idea", "List", "Submissions")</li>
+                            <li>@Html.ActionLink("Top 3 most viewed", "MostViewed", "Home")</li>
+                            <li>@Html.ActionLink("Top 3 most popular", "MostPopular", "Home")</li>
+                        </ul>
+                    </div>
+                }
+
+                @if ((User.IsInRole("Admin")))
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn1">
+                            User
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List user", "Index", "ApplicationUsers")</li>
+                            <li>@Html.ActionLink("Register new user", "Create", "ApplicationUsers")</li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn1">
+                            Role
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List Roles", "Index", "Roles")</li>
+                            <li>@Html.ActionLink("Create new Roles", "Create", "Roles")</li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
+                            Department
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List Department", "Index", "Departments")</li>
+                            <li>@Html.ActionLink("Create new department", "Create", "Departments")</li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
+                            Submission
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List Submissions", "Index", "Submissions")</li>
+                            <li>@Html.ActionLink("Register new submission", "Create", "Submissions")</li>
+                        </ul>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
+                            Files & Data
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Files", "Indexs", "Files")</li>
+                            <li>@Html.ActionLink("Export Idea", "Export_Idea", "Files")</li>
+                        </ul>
+
+                    </div>
+                }
+
+                @if ((User.IsInRole("QA Manager")))
+                {
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
+                            Categories
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("List Categories", "Index", "Categories")</li>
+                            <li>@Html.ActionLink("Create new category", "Create", "Categories")</li>
+                        </ul>
+                    </div>
+
+
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="dropdownbtn2">
+                            Statistics
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
+                            <li>@Html.ActionLink("Exceptions", "Exceptions", "Statistics")</li>
+                        </ul>
+                    </div>
+                }
+
                 @Html.Partial("_LoginPartial")
+
+
             </div>
         </div>
     </div>
+        
     <div class="container body-content">
+        @if (HttpContext.Current.Request.Url.AbsolutePath.ToString() != "/" && HttpContext.Current.Request.Url.AbsolutePath.ToString() != "/Home/Index" && HttpContext.Current.Request.Url.AbsolutePath.ToString() != "/Account/Login")
+        {
+            <button id="backbtn">
+                @Html.ActionLink("Back to index", "Index", "Home")
+            </button>
+        }
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+
 </body>
 </html>
+<style>
+    #dropdownbtn1 {
+        background-color: cornflowerblue;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        height: 30px;
+        margin-top: 10px;
+        padding-top: 4px;
+        margin-left: 10px;
+        width: 80px;
+    }
+
+    #dropdownbtn2{
+        background-color: cornflowerblue;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        height: 30px;
+        margin-top: 10px;
+        padding-top: 4px;
+        margin-left: 10px;
+        width: 120px;
+    }
+
+    #dropdownbtn1:focus, #dropdownbtn2:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    #homebtn {
+        margin-left: auto;
+        font-weight: bold;
+        color: white;
+    }
+
+    #homebtn:hover {
+        text-decoration: none;
+    }
+
+    body {
+        background-image: url(../../Image/background.jpg);
+        margin: 0;
+        background-size: cover;
+    }
+
+    #backbtn{
+        border-radius: 5px;        
+        right: 15%;
+        bottom: 30px;
+        float:right;
+        position: fixed;
+        border: 0.5px solid black;
+    }
+
+    #backbtn:hover{
+        background-color: lightgray;
+    }
+
+    #backbtn a {
+        color: black;
+    }
+
+    #backbtn a:hover{
+        text-decoration: none;
+    }
+</style>

@@ -1,0 +1,133 @@
+﻿@model CMS.MHH.Models.Idea
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <div class="container" id="detail">
+        <div class="panel-heading" id="title">
+            <h3>@Html.DisplayFor(model => model.Title)</h3>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Author.Email):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Author.Email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Cate.Category_Name):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Cate.Category_Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Submission.Name):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Submission.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.IsAnonymous):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IsAnonymous)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Content):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Content)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Date):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Date)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.DocumentName):
+                </dt>
+
+                <dd>
+                    @if (Model.DocumentName != null)
+                    {
+                        @Html.ActionLink(Model.DocumentName, "Download", "Ideas", new { id = Model.Id }, null)
+                    }
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.View):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.View)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ThumbsUp):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ThumbsUp)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ThumbsDown):
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ThumbsDown)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="panel-footer" id="back">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>
+<style>
+   #detail {
+        width: 40%;
+        border: 0.5px solid white;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 20px 20px 20px 20px;
+        margin: 40px auto auto auto;
+    }
+
+    #title {
+        border-radius: 10px 10px 0 0;
+        background-color: cornflowerblue;
+        color: white;
+    }
+
+   #back {
+       background-color: white;
+   }
+</style>

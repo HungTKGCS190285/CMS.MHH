@@ -1,0 +1,46 @@
+﻿@model CMS.MHH.Models.Comment
+
+@using (Html.BeginForm("Comments", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdeasId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control", @placeholder = "Write your comment here... " } })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Anonymous</b>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.IsAnonymous)
+                    @Html.ValidationMessageFor(model => model.IsAnonymous, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Comment" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .checkbox {
+        margin-left: 3%;
+    }
+</style>
+@section scripts {
+    @Scripts.Render("~/bundles/ajax")
+}
+

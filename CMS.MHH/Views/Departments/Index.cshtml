@@ -1,0 +1,96 @@
+﻿@model IEnumerable<CMS.MHH.Models.Department>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Department</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td id="department">
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td id="action">
+            <a class="fa fa-pencil" href="/Departments/Edit/?id=@item.Id" id="edit"></a>
+            <a class="fa fa-trash" href="/Departments/Delete/?id=@item.Id" id="delete"></a>
+        </td>
+    </tr>
+}
+</table>
+
+<style>
+    h2 {
+        color: cornflowerblue;
+    }
+
+    .table {
+        width: 50%;
+        overflow: hidden;
+        border-collapse: collapse;
+        border-radius: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    th {
+        text-align: center;
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background-color: white;
+        font-size: 14px;
+    }
+
+    #department {
+        padding-left: 20px;
+    }
+
+    #action {
+        text-align: right;
+    }
+
+    #edit, #delete {
+        font-size: 18px;
+        margin: 5px;
+    }
+
+        #edit:link, #edit:visited {
+            text-decoration: none;
+        }
+
+        #edit:hover, #edit:active {
+            text-decoration: none;
+        }
+
+        #delete:link, #delete:visited {
+            text-decoration: none;
+        }
+
+        #delete:hover, #delete:active {
+            text-decoration: none;
+        }
+
+    #edit {
+        color: orange;
+    }
+
+    #delete {
+        color: red;
+    }
+</style>
