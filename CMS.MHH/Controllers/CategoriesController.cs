@@ -124,10 +124,19 @@ namespace CMS.MHH.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var check_categories = db.Ideas.Where(x => x.CateId == id).ToList();
+            if (check_categories.Count() != 0)
+            {
+                TempData["message"] = "The category is used in some ideas, please check Again";
+                return RedirectToAction("Index", "Categories");
+            }
+            else
+            {
+                Category category = db.Categories.Find(id);
+                db.Categories.Remove(category);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

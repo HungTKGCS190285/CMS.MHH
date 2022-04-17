@@ -6,6 +6,10 @@
 }
 
 <h2><strong>Index</strong></h2>
+@if (TempData["message"] != null)
+{
+    <script>alert('@TempData["message"]');</script>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -28,7 +32,7 @@
             <td id="action">
                 <a class="fa fa-pencil" href="/Categories/Edit/?id=@item.Id" id="edit"></a>
                 <a class="fa fa-info-circle" href="/Categories/Details/?id=@item.Id" id="details"></a>
-                <a class="fa fa-trash"href="/Categories/Delete/?id=@item.Id" id="delete"></a>
+                <a class="fa fa-trash" href="/Categories/Delete/?id=@item.Id" id="delete"></a>
             </td>
         </tr>
     }
@@ -60,10 +64,10 @@
     }
 
     #edit, #details, #delete {
-        font-size:18px;
+        font-size: 18px;
         margin: 5px;
     }
-        
+
         #edit:link, #edit:visited {
             text-decoration: none;
         }
@@ -105,9 +109,8 @@
     }
 
     #delete {
-        color:red;
+        color: red;
     }
-
 </style>
 
 
