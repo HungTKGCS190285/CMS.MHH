@@ -6,76 +6,74 @@
 }
 
 
-<h2>Create</h2>
-
 
 @using (Html.BeginForm("Create", "Ideas", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="container" id="create">
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => Model.SubmissionId)
+        <div class="form-horizontal">
+            <h3>Create</h3>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => Model.SubmissionId)
 
-        <div class="form-group">
-            @Html.Label("Title: ", new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title)
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Title: ", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title)
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.Label("Desciption: ", new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(m => m.Description)
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Desciption: ", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(m => m.Description)
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.Label("Category: ", new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DropDownList("CateId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CateId, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.Label("Category: ", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CateId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CateId, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsAnonymous, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IsAnonymous)
-                    @Html.ValidationMessageFor(model => model.IsAnonymous, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsAnonymous, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsAnonymous)
+                        @Html.ValidationMessageFor(model => model.IsAnonymous, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(m => m.Content)
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DocumentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <input type="file" id="file" name="file" />
+            </div>
+
+            <div class="form-group">
+                <input type="checkbox" id="term">
+                <label class="control-label col-md-2">I agree @Html.ActionLink("Term and Condition", "Term_Condition", "Ideas")</label>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="sub" value="Create" class="btn btn-default" />
                 </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(m => m.Content)
-                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DocumentName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <input type="file" id="file" name="file" />
-        </div>
-
-         <div class="form-group">
-            <input type="checkbox" id="term">
-            <label class = "control-label col-md-2">I agree @Html.ActionLink("Term and Condition", "Term_Condition", "Ideas")</label>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="sub" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
     </div>
 }
 <script type="text/javascript">
@@ -102,14 +100,14 @@
         border-radius: 10px;
         background-color: white;
         box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
-        padding-left: 200px;
-        margin: auto;
+        padding-left: 15%;
+        margin: 50px 200px;
     }
 
     textarea {
         resize: none;
-        width: 300px;
-        height: 80px;
+        width: 70%;
+        height: 20%;
     }
 </style>
 

@@ -6,12 +6,9 @@
 }
 <script src="~/Scripts/jquery-1.11.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 @section scripts {
     @Scripts.Render("~/bundles/bootstrap-datetimepicker")
-}
-@section styles {
-    @Styles.Render("~/Content/bootstrap-datetimepicker")
 }
 
 @if (TempData["message"] != null)
@@ -20,8 +17,8 @@
 }
 @foreach (var item in Model)
 {
-    <div class="col-md-4 col-sm-5 col-xs-8" style="background-color:lavender;margin: 10px">
-        <div class="event-box" style="margin:3px;">
+    <div class="col-md-6" id="sub">
+        <div class="event-box">
             <h2 class="card-title">Submissions</h2>
             <div class="card-body">
                 <h4 class="card-title">
@@ -40,9 +37,30 @@
                     @Html.Label("Final Clousure date:")
                     @Html.DisplayFor(modelItem => item.Final_closure_date)
                 </p>
-                @Html.ActionLink("Submit new idea", "Create", "Ideas", new { id = item.Id }, null)
-
+                <p>
+                    @Html.ActionLink("Submit new idea", "Create", "Ideas", new { id = item.Id }, null)
+                </p>
+                <p>
+                    @Html.ActionLink("List idea", "List_Idea", "Submissions", new { id = item.Id }, null)
+                </p>
             </div>
         </div>
     </div>
 }
+<style>
+    .event-box {
+        margin: 30px 20px 30px 20px;
+    }
+
+    #sub {
+        width: 35%;
+        border: 0.5px solid white;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+        margin-left: 120px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+    }
+</style>

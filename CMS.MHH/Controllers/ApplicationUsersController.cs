@@ -88,8 +88,9 @@ namespace CMS.MHH.Controllers
         // GET: ApplicationUsers/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name");
-            ViewBag.Name = new SelectList(db.Roles.ToList(), "Name", "Name");
+
+            ViewBag.DepartmentId = new SelectList(db.Departments, "Id", "Name"); //Add the select list for available departments with the pair "key-value"
+            ViewBag.Name = new SelectList(db.Roles.ToList(), "Name", "Name"); //Add the select list for available roles with the pair "key-value"
             return View();
         }
 
@@ -103,6 +104,7 @@ namespace CMS.MHH.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //assign the new user to the appointed role
                     await UserManager.AddToRoleAsync(user.Id, model.Name);
                     return RedirectToAction("Index", "ApplicationUsers");
                 }
@@ -135,7 +137,7 @@ namespace CMS.MHH.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                try // Copy, remove, and add rules
                 {
                     applicationUser.UserName = applicationUser.Email;
                     

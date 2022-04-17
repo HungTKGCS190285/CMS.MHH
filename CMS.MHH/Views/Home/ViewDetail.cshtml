@@ -46,6 +46,7 @@
         @{int i = 0;}
         @foreach (CMS.MHH.Models.Reaction user in ViewBag.AllUserReacted) // fetch all users who reacted this idea.
         {
+            // check the current user had reacted to this Idea
             if (user.AuthorId == User.Identity.GetUserId())
             {
                 i++;
@@ -54,52 +55,62 @@
             }
         }
 
-        @if (i == 1 && ViewBag.userlike == true)
+        @if (i == 1 && ViewBag.userlike == true) //if user had reacted and they liked
         {
+            //disable like button
             <button class="btn btn-info btn-xs like-button"
                     disabled data-status="1"
                     id="Like">
-                <i class="bi bi-hand-thumbs-up-fill"></i>
+                <i class="fa fa-thumbs-up"></i>
                 <span id="likecount">@ViewBag.like</span>
             </button>
             <button class="btn btn-info btn-xs like-button"
                     data-status="2"
                     id="Dislike">
-                <i class="bi bi-hand-thumbs-down-fill"></i>
+                <i class="fa fa-thumbs-up"></i>
                 <span id="dislikecount">@ViewBag.Dislike</span>
             </button>
         }
-        else if (i == 1 && ViewBag.userlike == false)
+        else if (i == 1 && ViewBag.userlike == false) //if user disliked
         {
             <button class="btn btn-info btn-xs like-button"
                     data-status="1"
                     id="Like">
-                <span class="bi bi-hand-thumbs-up-fill"></span>
+                <span class="fa fa-thumbs-up"></span>
                 <span id="likecount"> @ViewBag.like </span>
             </button>
+            //disble dislike button
             <button class="btn btn-info btn-xs like-button"
                     disabled data - status="2"
                     id="Dislike">
-                <span class="bi bi-hand-thumbs-down-fill"></span>
+                <span class="fa fa-thumbs-down"></span>
                 <span id="dislikecount">@ViewBag.Dislike</span>
             </button>
         }
-        else
+        else //they hadn't reacted, like and dislike are enabled
         {
             <button class="btn btn-default btn-xs like-button"
                     data-status="1"
                     id="Like">
-                <span class="bi bi-hand-thumbs-up-fill"></span>
+                <span class="fa fa-thumbs-up"></span>
                 <span id="likecount">@ViewBag.like</span>
             </button>
             <button class="btn btn-default btn-xs like-button"
                     data-status="2"
                     id="Dislike">
-                <span class="bi bi-hand-thumbs-down-fill"></span>
+                <span class="fa fa-thumbs-down"></span>
                 <span id="dislikecount">@ViewBag.Dislike</span>
             </button>
         }
+
+        <button id='cmt_@Model.Id' class="btn btn-primary" style="border: 0.5px solid gray; border-radius: 7px; transition: background-color 0.4s, border-color 0.4s, top 0.4s, box-shadow 0.4s">
+            Comment
+        </button>
     </div>
+
+    <div id="write-comment-@Model.Id">
+    </div>
+
     <div class="panel-footer" id="commentdetail">
         <p>Comments</p>
         @foreach (var cm in Model.comments)
@@ -109,34 +120,38 @@
                 <li>
                     @if (cm.CommentAnony == true)
                     {
-                        <span>Anonymous</span> <p>@cm.Comment at @cm.CommentDate</p>
+                        <p><strong>Anonymous</strong>: @cm.Comment</p>
+                        <i>@cm.CommentDate</i>
                     }
                     else
                     {
-                        <p>@cm.CommentAuthor: @cm.Comment</p>
+                        <p><strong>@cm.CommentAuthor </strong>: @cm.Comment</p>
                         <i> @cm.CommentDate</i>
                     }
                 </li>
             </ul>
         }
     </div>
+
+
 </div>
 <script>
     $(document).ready(function ()
     {
+        //Execute like activity using ajax
         $(document).on("click", "#Like", function ()
         {
-            var link = "/Home/Like/?id=" + @Model.Id + "&status=" + $(this).data("status");
+            var link = "/Home/Like/?id=" + @Model.Id + "&status=" + $(this).data("status"); //create the link to transfer data
             $.ajax(
                 {
                     type: "GET",
                     url: link,
-                    success: function (data) {
-                        var counters = data.split('/');
-                        $("#likecount").text(counters[0]);
-                        $("#dislikecount").text(counters[1]);
-                        $("#Like").attr('disabled', 'disabled');
-                        $("#Dislike").attr('disabled', false);
+                    success: function (data) { //if execute success, recieve new data
+                        var counters = data.split('/'); // split the array when face with "/" character because the Like function return string value like as (idea.ThumbsUp + "/" + idea.ThumbsDown)
+                        $("#likecount").text(counters[0]); // use idea.ThumbsUp value(first array)
+                        $("#dislikecount").text(counters[1]); // use idea.ThumbsDown value(second array)
+                        $("#Like").attr('disabled', 'disabled'); //disable like button
+                        $("#Dislike").attr('disabled', false); //enable dislike button
                     }
                 }
             );
@@ -159,7 +174,59 @@
                 }
             );
         });
+
+        $('#cmt_@Model.Id').click(function () {
+        var $myPartialView = $('#write-comment-@Model.Id');
+        if ($myPartialView.is(':empty')) {
+            $.ajax({
+                url: '/Home/Comments/',
+                data: { id: @Model.Id},
+                datatype: "html",
+                type: "GET",
+                cache: false,
+                success: function (result) {
+                    $myPartialView.html(result);
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText;
+                    alert('error - ' + errorMessage);
+                }
+            });
+        }
+        else {
+            $myPartialView.empty();
+        }
+            return false;
+        });
+
     });
+
+     @*$(document).ready(function () {
+        $('#cmt_@Model.Id').click(function () {
+        var $myPartialView = $('#write-comment-@Model.Id');
+        if ($myPartialView.is(':empty')) {
+            $.ajax({
+                url: '/Home/Comments/',
+                data: { id: @Model.Id},
+                datatype: "html",
+                type: "GET",
+                cache: false,
+                success: function (result) {
+                    $myPartialView.html(result);
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText;
+                    alert('error - ' + errorMessage);
+                }
+            });
+        }
+        else {
+            $myPartialView.empty();
+        }
+            return false;
+        });
+    });*@
+
 </script>
 
 <style>
@@ -173,7 +240,7 @@
     }
 
     #alldetail {
-        width: 40%;
+        width: 70%;
         border: 0.5px ;
         border-radius: 10px;
         background-color: white;

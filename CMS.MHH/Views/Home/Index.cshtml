@@ -14,8 +14,6 @@
 {
     <script>alert('@TempData["message"]');</script>
 }
-
-
 <div class="visible-md visible-lg" style="float:left; margin: 30px 0 0 0; width: 20%">
     <div class="leftcol">
         <h4>Most Viewed Idea</h4>
@@ -162,7 +160,7 @@
                 var $myPartialView = $('#write-comment-@item.Id');
                 if ($myPartialView.is(':empty')) {
                     $.ajax({
-                        url: '/Home/Comments/',
+                        url: '/Home/Comment/',
                         data: { id: @item.Id},
                         datatype: "html",
                         type: "GET",

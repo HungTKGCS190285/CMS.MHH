@@ -10,12 +10,12 @@
         <th>Content</th>
         <th></th>
     </tr>
-    @foreach(var item in Model)
+    @foreach (var item in Model)
     {
-        <tr>
-            <td>@item.Content</td>
-            <td>@Html.ActionLink("Export", "Export", new { Id= item.SubmissionId})</td>
-        </tr>
+    <tr>
+        <td>@item.Content</td>
+        <td>@Html.ActionLink("Download", "Download_Doc", new { Id = item.SubmissionId })</td>
+    </tr>
     }
 </table>
 <style>

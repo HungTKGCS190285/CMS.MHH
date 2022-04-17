@@ -19,6 +19,11 @@ namespace CMS.MHH.Models
             // Add custom user claims here
             return userIdentity;
         }
+        [Display(Name = "Name")]
+        public override string UserName { get; set; }
+
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; } 
         public int DepartmentId { get; set; }
         public string Name { get; set; }
         public virtual Department Department { get; set; }
